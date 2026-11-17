@@ -1,9 +1,38 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
+export const viewport: Viewport = {
+  themeColor: "#09090b",
+  width: "device-width",
+  initialScale: 1,
+};
+
 export const metadata: Metadata = {
-  title: "Davin Gabriel Jonathan | Full-Stack Web Developer",
-  description: "Portfolio of Davin Gabriel Jonathan - Full-Stack Web Developer & Tech Lead",
+  title: "Davin Gabriel Jonathan | Full-Stack Web Developer & Tech Lead",
+  description:
+    "Portofolio resmi Davin Gabriel Jonathan — Mahasiswa S1 Sistem Informasi Universitas Sriwijaya & Lulusan SMK RPL dengan 4+ tahun pengalaman di pengembangan web end-to-end, Backend Architecture, Tech Lead SI FEST 2026, dan Backend GDGoC 2026.",
+  keywords: [
+    "Davin Gabriel Jonathan",
+    "Full-Stack Web Developer",
+    "Backend Developer",
+    "Tech Lead SI FEST 2026",
+    "Universitas Sriwijaya",
+    "Sistem Informasi UNSRI",
+    "GDGoC UNSRI",
+    "Node.js",
+    "Express.js",
+    "Laravel",
+    "Next.js",
+    "Palembang Web Developer",
+  ],
+  authors: [{ name: "Davin Gabriel Jonathan", url: "https://github.com/Davin164" }],
+  openGraph: {
+    title: "Davin Gabriel Jonathan — Full-Stack Web Developer & Tech Lead",
+    description:
+      "4+ Tahun membangun sistem web end-to-end: Ticketing SI FEST 2026, Payment Gateway, High-Concurrency Backend (GDGoC), Dockerized API & SIEM Wazuh.",
+    type: "website",
+    locale: "id_ID",
+  },
 };
 
 export default function RootLayout({
@@ -12,8 +41,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id">
-      <body className="antialiased">{children}</body>
+    <html lang="id" data-theme="dark" suppressHydrationWarning>
+      <body className="bg-architectural-grid min-h-screen font-sans antialiased selection:bg-cyan-500/30 selection:text-cyan-200">
+        {children}
+      </body>
     </html>
   );
 }
