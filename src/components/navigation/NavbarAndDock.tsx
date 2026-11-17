@@ -1,17 +1,18 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { motion } from "framer-motion";
 import {
   Home,
   User,
   FolderGit2,
   Briefcase,
   Cpu,
-  Mail,
+  Phone,
   Search,
   Sun,
   Moon,
-  Terminal,
+  Layers,
 } from "lucide-react";
 
 interface NavbarAndDockProps {
@@ -24,10 +25,11 @@ interface NavbarAndDockProps {
 const NAV_ITEMS = [
   { id: "hero", label: "Home", icon: Home },
   { id: "about", label: "About", icon: User },
-  { id: "projects", label: "Proyek", icon: FolderGit2 },
-  { id: "experience", label: "Karir", icon: Briefcase },
+  { id: "services", label: "Services", icon: Layers },
+  { id: "projects", label: "Projects", icon: FolderGit2 },
+  { id: "experience", label: "Experience", icon: Briefcase },
   { id: "skills", label: "Skills", icon: Cpu },
-  { id: "contact", label: "Kontak", icon: Mail },
+  { id: "contact", label: "Contact", icon: Phone },
 ];
 
 export default function NavbarAndDock({
@@ -36,29 +38,6 @@ export default function NavbarAndDock({
   onOpenCommandPalette,
   activeSection,
 }: NavbarAndDockProps) {
-  const [timeString, setTimeString] = useState<string>("WIB • UTC+7");
-
-  useEffect(() => {
-    const updateClock = () => {
-      try {
-        const now = new Date();
-        const formatter = new Intl.DateTimeFormat("id-ID", {
-          timeZone: "Asia/Jakarta",
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit",
-          hour12: false,
-        });
-        setTimeString(`${formatter.format(now)} WIB`);
-      } catch {
-        setTimeString("WIB • UTC+7");
-      }
-    };
-    updateClock();
-    const interval = setInterval(updateClock, 1000);
-    return () => clearInterval(interval);
-  }, []);
-
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
@@ -68,105 +47,119 @@ export default function NavbarAndDock({
 
   return (
     <>
-      {/* Top Status & Quick Action Bar */}
-      <header className="sticky top-0 z-40 w-full border-b border-[var(--border-subtle)] bg-[var(--bg-primary)]/80 backdrop-blur-md">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
-          {/* Brand Logo */}
+      {/* Top Floating Header (Inspired by ello-rabyndra, khalifaalhasan & atalaa-df) */}
+      <header className="sticky top-0 z-40 w-full pt-4 pb-2">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 sm:px-6">
+          {/* Left Terminal Brand (Inspired by khalifaalhasan.my.id) */}
           <button
             onClick={() => scrollToSection("hero")}
             className="group flex items-center gap-2.5 text-left focus:outline-none"
           >
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-cyan-500/30 bg-gradient-to-br from-cyan-500/20 to-emerald-500/20 text-cyan-400 shadow-sm transition-transform group-hover:scale-105">
-              <Terminal className="h-4 w-4" />
+            <div className="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--border-subtle)] bg-[var(--bg-card)] font-mono text-xs font-bold text-[var(--text-primary)] shadow-sm transition-transform group-hover:scale-105">
+              &gt;_
             </div>
-            <div>
-              <div className="flex items-center gap-1.5">
-                <span className="text-sm font-bold tracking-tight text-[var(--text-primary)]">
-                  Davin G.J.
-                </span>
-                <span className="rounded-md bg-cyan-500/15 px-1.5 py-0.5 font-mono text-[10px] font-semibold text-cyan-400">
-                  4Y EXP
-                </span>
-              </div>
-              <p className="text-[11px] text-[var(--text-muted)]">
-                Palembang • <span className="font-mono">{timeString}</span>
-              </p>
-            </div>
+            <span className="text-sm font-bold tracking-tight text-[var(--text-primary)] sm:text-base">
+              davingabriel.
+            </span>
           </button>
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden items-center gap-1 lg:flex">
+          {/* Center Floating Pill Navbar (Signature of all 3 reference sites) */}
+          <nav
+            aria-label="Primary Navigation"
+            className="hidden items-center gap-1 rounded-full border border-[var(--border-subtle)] bg-[var(--bg-card)]/85 px-4 py-2 shadow-[0_12px_40px_rgba(0,0,0,0.55)] backdrop-blur-xl lg:flex"
+          >
             {NAV_ITEMS.map((item) => {
+              const Icon = item.icon;
               const isActive = activeSection === item.id;
               return (
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-colors ${
+                  className={`relative flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-medium transition-colors ${
                     isActive
-                      ? "bg-cyan-500/15 text-cyan-400"
-                      : "text-[var(--text-secondary)] hover:bg-white/5 hover:text-[var(--text-primary)]"
+                      ? "text-[var(--text-primary)] font-semibold"
+                      : "text-[var(--text-muted)] hover:text-[var(--text-secondary)]"
                   }`}
                 >
-                  {item.label}
+                  <Icon className="h-3.5 w-3.5 opacity-80" />
+                  <span>{item.label}</span>
+                  {isActive && (
+                    <motion.span
+                      layoutId="desktopActiveUnderline"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      className="absolute right-3 -bottom-1 left-3 h-[2px] rounded-full bg-[var(--text-primary)]"
+                    />
+                  )}
                 </button>
               );
             })}
           </nav>
 
-          {/* Right Controls: Command Palette + Theme Toggle */}
+          {/* Right Controls: Search (Ctrl+K), Theme Toggle & "Let's Talk" Pill */}
           <div className="flex items-center gap-2">
             <button
               onClick={onOpenCommandPalette}
               aria-label="Open Command Palette"
-              className="flex items-center gap-2 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)] px-3 py-1.5 text-xs text-[var(--text-secondary)] transition-colors hover:border-cyan-500/40 hover:text-[var(--text-primary)]"
+              title="Command Palette (Ctrl + K)"
+              className="flex h-9 items-center gap-1.5 rounded-full border border-[var(--border-subtle)] bg-[var(--bg-card)] px-3 text-xs text-[var(--text-secondary)] transition-colors hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
             >
-              <Search className="h-3.5 w-3.5 text-cyan-400" />
-              <span className="hidden sm:inline">Menu Cepat</span>
-              <kbd className="rounded border border-[var(--border-subtle)] bg-[var(--bg-primary)] px-1.5 py-0.5 font-mono text-[10px] text-[var(--text-muted)]">
-                Ctrl K
+              <Search className="h-3.5 w-3.5" />
+              <kbd className="hidden font-mono text-[10px] text-[var(--text-muted)] sm:inline">
+                ⌘K
               </kbd>
             </button>
 
             <button
               onClick={onToggleTheme}
               aria-label="Toggle color theme"
-              className="flex h-8 w-8 items-center justify-center rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)] text-[var(--text-secondary)] transition-colors hover:border-cyan-500/40 hover:text-cyan-400"
-              title={theme === "dark" ? "Ganti ke Light Mode" : "Ganti ke Dark Mode"}
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--border-subtle)] bg-[var(--bg-card)] text-[var(--text-secondary)] transition-colors hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
             >
               {theme === "dark" ? (
-                <Sun className="h-4 w-4 text-amber-400" />
+                <Moon className="h-3.5 w-3.5" />
               ) : (
-                <Moon className="h-4 w-4 text-cyan-600" />
+                <Sun className="h-3.5 w-3.5" />
               )}
+            </button>
+
+            <button
+              onClick={() => scrollToSection("contact")}
+              className="rounded-full border border-[var(--border-subtle)] bg-[var(--bg-card)] px-4 py-2 text-xs font-semibold text-[var(--text-primary)] transition-all hover:border-[var(--border-strong)] hover:bg-[var(--bg-card-hover)] active:scale-95"
+            >
+              Let&apos;s Talk
             </button>
           </div>
         </div>
       </header>
 
-      {/* Mobile & Tablet Thumb-Friendly Floating Bottom Dock */}
+      {/* Mobile & Tablet Floating Pill Dock */}
       <div className="fixed bottom-4 left-1/2 z-40 -translate-x-1/2 px-3 lg:hidden">
         <nav
-          aria-label="Mobile Bottom Navigation"
-          className="flex items-center gap-1 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-elevated)]/95 p-1.5 shadow-2xl shadow-black/50 backdrop-blur-xl"
+          aria-label="Mobile Bottom Pill Navigation"
+          className="flex items-center gap-1 rounded-full border border-[var(--border-subtle)] bg-[var(--bg-elevated)]/95 px-3 py-2 shadow-2xl shadow-black/70 backdrop-blur-xl"
         >
-          {NAV_ITEMS.map((item) => {
+          {NAV_ITEMS.filter((i) => i.id !== "services").map((item) => {
             const Icon = item.icon;
             const isActive = activeSection === item.id;
             return (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className={`flex flex-col items-center justify-center rounded-xl px-2.5 py-1.5 transition-all ${
+                className={`relative flex flex-col items-center justify-center px-2.5 py-1 transition-all ${
                   isActive
-                    ? "bg-gradient-to-b from-cyan-500/25 to-emerald-500/15 text-cyan-400 shadow-inner"
-                    : "text-[var(--text-secondary)] active:scale-95"
+                    ? "text-[var(--text-primary)] font-semibold"
+                    : "text-[var(--text-muted)] active:scale-95"
                 }`}
               >
                 <Icon className="h-4 w-4" />
-                <span className="mt-0.5 text-[10px] font-medium leading-none">
+                <span className="mt-0.5 text-[10px] leading-none">
                   {item.label}
                 </span>
+                {isActive && (
+                  <motion.span
+                    layoutId="mobileActiveUnderline"
+                    className="absolute right-2 -bottom-1 left-2 h-[2px] rounded-full bg-[var(--text-primary)]"
+                  />
+                )}
               </button>
             );
           })}
