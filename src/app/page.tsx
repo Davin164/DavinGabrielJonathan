@@ -41,7 +41,6 @@ export default function HomePage() {
     const sectionIds = [
       "hero",
       "about",
-      "services",
       "projects",
       "experience",
       "skills",

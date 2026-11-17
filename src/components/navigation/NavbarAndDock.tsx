@@ -12,7 +12,6 @@ import {
   Search,
   Sun,
   Moon,
-  Layers,
 } from "lucide-react";
 
 interface NavbarAndDockProps {
@@ -25,7 +24,6 @@ interface NavbarAndDockProps {
 const NAV_ITEMS = [
   { id: "hero", label: "Home", icon: Home },
   { id: "about", label: "About", icon: User },
-  { id: "services", label: "Services", icon: Layers },
   { id: "projects", label: "Projects", icon: FolderGit2 },
   { id: "experience", label: "Experience", icon: Briefcase },
   { id: "skills", label: "Skills", icon: Cpu },

@@ -16,8 +16,9 @@ import { GlowingShape } from "@/components/ui/GlowingShapes";
 const ROLES = [
   "Full-Stack Web Developer",
   "Backend · Tech Lead · Security",
-  "Information Systems @ UNSRI",
-  "GDGoC 2026 Backend Member",
+  "Information Systems | UNSRI",
+  "Network & CyberSecurity enthusiast",
+  "UI/UX Design",
 ];
 
 export default function HeroSection() {

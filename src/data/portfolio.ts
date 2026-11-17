@@ -57,11 +57,12 @@ export const PORTFOLIO_DATA = {
       id: "sifest-2026",
       title: "SI FEST 2026: Main Web, Admin Panel & Ticket Scanner",
       subtitle: "End-to-End Event Ticketing, Competition Platform & Real-Time QR Validation",
-      role: "Tech Lead & Lead Backend Developer",
+      role: "Tech Lead & Backend Developer",
       period: "2026",
       category: "featured",
       status: "Production",
-      badge: "98% Backend Built Solo • Tech Lead",
+      badge: "Website",
+      image: "/projects/sifest-2026.svg",
       summary:
         "Platform ekosistem acara tahunan SI FEST 2026 yang dikembangkan secara end-to-end mulai dari perancangan UI/UX, frontend interaktif, arsitektur backend, integrasi payment gateway, hingga deployment ke produksi VPS.",
       highlights: [
@@ -124,13 +125,14 @@ export const PORTFOLIO_DATA = {
     },
     {
       id: "domus-fox",
-      title: "Platform Penerbitan Buku Domus Fox",
+      title: "Website Penerbitan Buku Domus Fox",
       subtitle: "Publishing Landing Page, Manuscript Submission & Editorial Admin Panel",
       role: "Backend Developer",
-      period: "2026 (Proyek Berjalan)",
+      period: "2026",
       category: "featured",
       status: "Ongoing",
-      badge: "Production Client Project",
+      badge: "2026 - Ongoing",
+      image: "/projects/domus-fox.svg",
       summary:
         "Platform digital untuk penerbit buku Domus Fox yang memfasilitasi penulis dalam mengajukan naskah buku secara online sekaligus menyediakan Admin Panel bagi tim redaksi untuk mengelola alur penerbitan.",
       highlights: [
@@ -177,13 +179,14 @@ export const PORTFOLIO_DATA = {
     },
     {
       id: "gatekeeper-logic",
-      title: "The Gatekeeper Logic: Anti-Overselling Ticket Engine",
+      title: "The Gatekeeper Logic: Platform Tiket Event Online",
       subtitle: "High-Concurrency Event Ticketing dengan Pessimistic Locking & ACID",
-      role: "Backend Developer (GDGoC 2026)",
+      role: "Backend Developer",
       period: "2026",
       category: "backend",
       status: "Completed",
-      badge: "GDGoC 2026 Backend Challenge",
+      badge: "Backend",
+      image: "/projects/gatekeeper-logic.svg",
       summary:
         "Platform pemesanan tiket event online yang dirancang khusus untuk menangani lonjakan permintaan bersamaan (concurrent requests / flash sale) tanpa risiko overselling kuota tiket.",
       highlights: [
@@ -230,13 +233,14 @@ export const PORTFOLIO_DATA = {
     },
     {
       id: "docker-crud-api",
-      title: "Containerized Product CRUD REST API",
+      title: "REST API CRUD Produk dengan Docker",
       subtitle: "Multi-Container MVC REST API dengan Node.js, PostgreSQL & Docker Compose",
-      role: "Backend Developer (GDGoC 2026)",
+      role: "Backend Developer",
       period: "2026",
       category: "backend",
       status: "Completed",
-      badge: "GDGoC 2026 Backend Test",
+      badge: "Backend",
+      image: "/projects/docker-crud-api.svg",
       summary:
         "Layanan REST API manajemen produk berarsitektur MVC yang di-containerize sepenuhnya menggunakan Docker dan Docker Compose untuk menjamin konsistensi environment.",
       highlights: [
@@ -279,11 +283,12 @@ export const PORTFOLIO_DATA = {
       id: "wazuh-siem-nac",
       title: "SIEM Threat Monitoring System (Wazuh)",
       subtitle: "Real-Time Blue Team Security Monitoring terhadap Serangan Red Team",
-      role: "Blue Team Security Engineer",
+      role: "Blue Team Security",
       period: "2025",
       category: "featured",
       status: "Award Winner",
-      badge: "🏆 Best Project Q1 NAC",
+      badge: "Best Project Q1 NAC",
+      image: "/projects/wazuh-siem.svg",
       summary:
         "Proyek kolaborasi keamanan siber di Network Administrator Club (NAC) untuk mendeteksi, menganalisis, dan memonitor serangan Red Team secara real-time menggunakan platform SIEM Wazuh.",
       highlights: [
@@ -298,13 +303,14 @@ export const PORTFOLIO_DATA = {
     },
     {
       id: "school-cms-api",
-      title: "REST API CMS Sekolah (Manajemen Data Siswa)",
-      subtitle: "Proyek Akhir Magang Industri PT Gamelab Indonesia",
+      title: "REST API CMS Sekolah Sederhana",
+      subtitle: "Proyek Akhir Magang PT Gamelab Indonesia",
       role: "Backend Developer Intern",
-      period: "Apr – Jun 2024",
+      period: "2024",
       category: "backend",
       status: "Completed",
-      badge: "Internship Project • PT Gamelab Indonesia",
+      badge: "Backend",
+      image: "/projects/school-cms.svg",
       summary:
         "REST API Content Management System (CMS) sekolah untuk mengelola data akademik siswa secara terstruktur berdasarkan jurusan dan angkatan.",
       highlights: [
@@ -319,13 +325,14 @@ export const PORTFOLIO_DATA = {
     },
     {
       id: "bookshelf-api",
-      title: "Bookshelf RESTful API",
+      title: "Bookshelf API",
       subtitle: "Submission Akhir Bootcamp Backend JavaScript Dicoding",
       role: "Backend Developer",
       period: "2024",
       category: "backend",
       status: "Completed",
-      badge: "Dicoding Graduate • Airbnb Style Guide",
+      badge: "Backend",
+      image: "/projects/bookshelf-api.svg",
       summary:
         "REST API pengelolaan katalog buku dengan fitur pencarian dan filter dinamis (status sedang dibaca, selesai dibaca, dan kueri nama).",
       highlights: [
@@ -340,13 +347,14 @@ export const PORTFOLIO_DATA = {
     },
     {
       id: "simak-himsi",
-      title: "Website SIMAK (Sistem Informasi Akademik Universitas)",
-      subtitle: "Prototipe Portal Akademik Terpadu — Project PTI #1 HIMSI",
-      role: "Web Developer (PTI HIMSI)",
+      title: "Website SIMAK Universitas",
+      subtitle: "Prototipe Portal Akademik — Project PTI #1 HIMSI",
+      role: "Web Developer",
       period: "2025",
       category: "fullstack",
       status: "Award Winner",
-      badge: "🏆 Best Team Project PTI #1 HIMSI",
+      badge: "Website",
+      image: "/projects/simak-himsi.svg",
       summary:
         "Pengembangan website Sistem Informasi Akademik (SIMAK) sederhana untuk universitas yang meraih predikat Best Team Project pada program kerja PTI #1 HIMSI.",
       highlights: [
@@ -360,13 +368,14 @@ export const PORTFOLIO_DATA = {
     },
     {
       id: "laravel-library-finance",
-      title: "Sistem Perpustakaan Digital & Pengelolaan Keuangan Pribadi",
-      subtitle: "Dua Aplikasi Full-Stack Berbasis Laravel, Bootstrap & MySQL",
-      role: "Full-Stack Web Developer",
-      period: "2023 – 2024",
+      title: "Website Perpustakaan & Pengelolaan Keuangan",
+      subtitle: "Aplikasi Full-Stack Berbasis Laravel, Bootstrap & MySQL",
+      role: "Full-Stack Developer",
+      period: "2024",
       category: "fullstack",
       status: "Completed",
-      badge: "Laravel Full-Stack Suite",
+      badge: "Website",
+      image: "/projects/laravel-suite.svg",
       summary:
         "Rangkaian aplikasi web full-stack menggunakan ekosistem Laravel dan MySQL untuk manajemen sirkulasi perpustakaan serta pencatatan arus kas keuangan pribadi.",
       highlights: [
@@ -381,13 +390,14 @@ export const PORTFOLIO_DATA = {
     },
     {
       id: "education-mentorship",
-      title: "Konten Edukasi Java Basic & Mentorship Web Dev TID",
-      subtitle: "Berbagi Ilmu untuk Rekan Mahasiswa Sistem Informasi & Tim Engineering",
-      role: "Technical Mentor & Content Creator",
-      period: "2025 – 2026",
+      title: "Video Pembelajaran Java Basic & Mentoring TID",
+      subtitle: "Konten Edukasi Mahasiswa SI UNSRI & Bimbingan Tim Web",
+      role: "Mentor & Creator",
+      period: "2026",
       category: "education",
       status: "Completed",
-      badge: "Mentorship & Knowledge Sharing",
+      badge: "Education",
+      image: "/projects/java-education.svg",
       summary:
         "Inisiatif berbagi pengetahuan pemrograman melalui kurikulum mentoring Web Development (UI/UX, Frontend, Backend) serta seri video pembelajaran Java Basic.",
       highlights: [
@@ -437,7 +447,7 @@ export const PORTFOLIO_DATA = {
       organization: "Network Administrator Club (NAC)",
       period: "2025 – Sekarang",
       type: "Cyber Security & IT",
-      badge: "🏆 Best Project Q1 (Wazuh SIEM)",
+      badge: "Best Project Q1 (Wazuh SIEM)",
       location: "Fasilkom UNSRI",
       highlights: [
         "Berperan di divisi Medinfo–Multimedia sekaligus terjun di tim teknis keamanan siber selama 2 kuarter: Q1 sebagai Blue Team dan Q2 sebagai Red Team.",
@@ -451,7 +461,7 @@ export const PORTFOLIO_DATA = {
       organization: "HIMSI Fasilkom UNSRI",
       period: "2025 – Sekarang",
       type: "Engineering & Community",
-      badge: "🏆 Best Team Project PTI #1",
+      badge: "Best Team Project PTI #1",
       location: "Fasilkom UNSRI",
       highlights: [
         "Meraih penghargaan Best Team Project pada Project PTI #1 melalui pengembangan prototipe website SIMAK (Sistem Informasi Akademik) untuk universitas.",

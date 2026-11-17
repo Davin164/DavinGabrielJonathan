@@ -14,6 +14,7 @@ export interface ProjectItem {
   category: "featured" | "backend" | "fullstack" | "education";
   status: "Production" | "Ongoing" | "Completed" | "Award Winner";
   badge?: string;
+  image?: string;
   summary: string;
   highlights: string[];
   techStack: string[];
