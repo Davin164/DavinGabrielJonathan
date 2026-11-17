@@ -1,26 +1,70 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
-  ArrowRight,
   Copy,
   Check,
-  ShieldCheck,
-  Server,
+  Mail,
+  FileText,
+  Github,
+  Linkedin,
+  MessageCircle,
+  Terminal,
   Layers,
-  ExternalLink,
-  Award,
-  Code2,
+  ShieldCheck,
 } from "lucide-react";
 import { PORTFOLIO_DATA } from "@/data/portfolio";
-import SpotlightCard from "@/components/ui/SpotlightCard";
+import { GlowingShape } from "@/components/ui/GlowingShapes";
+
+const ROLES = [
+  "Full-Stack Web Developer",
+  "Backend · Tech Lead · Security",
+  "Information Systems @ UNSRI",
+  "GDGoC 2026 Backend Member",
+];
+
+// Deterministic contribution levels for 34 weeks x 7 days (inspired by khalifaalhasan.my.id)
+const CONTRIBUTION_GRID = Array.from({ length: 34 }, (_, col) =>
+  Array.from({ length: 7 }, (_, row) => {
+    const seed = (col * 13 + row * 7 + (col % 5) * 3) % 16;
+    if (seed < 5) return 0;
+    if (seed < 9) return 1;
+    if (seed < 12) return 2;
+    if (seed < 15) return 3;
+    return 4;
+  })
+);
 
 export default function HeroSection() {
   const [copied, setCopied] = useState(false);
-  const [activeTab, setActiveTab] = useState<"profile" | "sifest" | "concurrency">(
-    "profile"
-  );
+  const [roleIndex, setRoleIndex] = useState(0);
+  const [displayText, setDisplayText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [activeInspector, setActiveInspector] = useState<
+    "about" | "sifest" | "lock"
+  >("about");
+
+  // Typewriter effect inspired by ello-rabyndra.vercel.app & atalaa-df.vercel.app
+  useEffect(() => {
+    const currentRole = ROLES[roleIndex];
+    const speed = isDeleting ? 35 : 70;
+
+    const timer = setTimeout(() => {
+      if (!isDeleting && displayText.length < currentRole.length) {
+        setDisplayText(currentRole.slice(0, displayText.length + 1));
+      } else if (!isDeleting && displayText.length === currentRole.length) {
+        setTimeout(() => setIsDeleting(true), 1600);
+      } else if (isDeleting && displayText.length > 0) {
+        setDisplayText(currentRole.slice(0, displayText.length - 1));
+      } else if (isDeleting && displayText.length === 0) {
+        setIsDeleting(false);
+        setRoleIndex((prev) => (prev + 1) % ROLES.length);
+      }
+    }, speed);
+
+    return () => clearTimeout(timer);
+  }, [displayText, isDeleting, roleIndex]);
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(PORTFOLIO_DATA.personal.email);
@@ -31,263 +75,272 @@ export default function HeroSection() {
   return (
     <section
       id="hero"
-      className="relative overflow-hidden pt-8 pb-16 sm:pt-14 sm:pb-24"
+      className="hero-spotlight-beam relative overflow-hidden pt-10 pb-20 sm:pt-16 sm:pb-28"
     >
-      {/* Ambient Background Glows */}
-      <div className="pointer-events-none absolute -top-24 left-1/4 h-72 w-72 rounded-full bg-cyan-500/15 blur-[110px]" />
-      <div className="pointer-events-none absolute top-20 right-1/4 h-72 w-72 rounded-full bg-emerald-500/10 blur-[110px]" />
-
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12">
-          {/* Left Column: Headline & CTAs */}
+        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12">
+          {/* Left Column: Name, Typewriter Role, Social Circles & GitHub Contribution Graph */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 22 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
+            transition={{ duration: 0.55, ease: "easeOut" }}
             className="space-y-6 lg:col-span-7"
           >
-            {/* Status Pill */}
-            <div className="inline-flex items-center gap-2.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3.5 py-1.5 text-xs font-medium text-emerald-400">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-              </span>
-              <span>{PORTFOLIO_DATA.personal.availability}</span>
-            </div>
-
-            {/* Main Heading */}
-            <div className="space-y-3">
-              <p className="font-mono text-xs uppercase tracking-widest text-cyan-400 sm:text-sm">
-                {PORTFOLIO_DATA.personal.name} • 4 Years in Web Dev (2022–2026)
+            <div className="space-y-2">
+              <p className="text-xs font-medium tracking-wide text-[var(--text-muted)] sm:text-sm">
+                I am {PORTFOLIO_DATA.personal.name} • 4 Years in Web Dev (2022–2026)
               </p>
-              <h1 className="text-3xl font-extrabold tracking-tight text-[var(--text-primary)] sm:text-5xl lg:text-[52px] lg:leading-[1.12]">
-                Engineering End-to-End Web Systems &amp;{" "}
-                <span className="bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400 bg-clip-text text-transparent">
-                  Scalable Backends.
+
+              {/* Two-Tone Large Name (Inspired by ello-rabyndra.vercel.app) */}
+              <h1 className="text-4xl font-extrabold tracking-tight sm:text-6xl lg:text-[62px] lg:leading-[1.08]">
+                <span className="text-[var(--text-secondary)]">Davin </span>
+                <span className="text-[var(--text-primary)]">
+                  Gabriel Jonathan
                 </span>
               </h1>
+
+              {/* Typewriter Subtitle with Blinking Cursor */}
+              <div className="flex min-h-[36px] items-center pt-1 text-xl font-semibold text-[var(--text-secondary)] sm:text-3xl">
+                <span>{displayText}</span>
+                <span className="ml-1 inline-block h-6 w-[2px] animate-pulse bg-[var(--text-primary)] sm:h-8" />
+              </div>
             </div>
 
-            {/* Bio Summary */}
-            <p className="max-w-2xl text-sm leading-relaxed text-[var(--text-secondary)] sm:text-base">
-              Mahasiswa{" "}
-              <strong className="text-[var(--text-primary)]">
-                S1 Sistem Informasi Universitas Sriwijaya
-              </strong>{" "}
-              &amp; lulusan{" "}
-              <strong className="text-[var(--text-primary)]">
-                SMK Rekayasa Perangkat Lunak
-              </strong>
-              . Berpengalaman memimpin pengembangan web secara <em>end-to-end</em>{" "}
-              (UI/UX, Frontend, Backend, VPS Deployment) sebagai{" "}
-              <span className="font-medium text-cyan-400">
-                Tech Lead Web Dev SI FEST 2026
-              </span>{" "}
-              (98% arsitektur backend dibangun mandiri) serta aktif di{" "}
-              <span className="font-medium text-emerald-400">
-                Backend GDGoC 2026
-              </span>
-              .
+            <p className="max-w-xl text-sm leading-relaxed text-[var(--text-secondary)] sm:text-base">
+              Crafting scalable backend architectures, high-concurrency ticketing
+              systems, and interactive web experiences with purpose. Tech Lead at{" "}
+              <strong className="text-[var(--text-primary)]">SI FEST 2026</strong>{" "}
+              (98% Backend built solo) &amp; Backend Member at{" "}
+              <strong className="text-[var(--text-primary)]">GDGoC UNSRI</strong>.
             </p>
 
-            {/* Highlight Role Chips */}
-            <div className="flex flex-wrap gap-2 pt-1">
-              <span className="inline-flex items-center gap-1.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-secondary)] px-3 py-1.5 text-xs font-medium text-[var(--text-primary)]">
-                <Server className="h-3.5 w-3.5 text-cyan-400" />
-                Tech Lead SI FEST 2026
-              </span>
-              <span className="inline-flex items-center gap-1.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-secondary)] px-3 py-1.5 text-xs font-medium text-[var(--text-primary)]">
-                <Code2 className="h-3.5 w-3.5 text-emerald-400" />
-                Backend GDGoC 2026
-              </span>
-              <span className="inline-flex items-center gap-1.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-secondary)] px-3 py-1.5 text-xs font-medium text-[var(--text-primary)]">
-                <Award className="h-3.5 w-3.5 text-amber-400" />
-                Best Project Q1 NAC &amp; PTI #1 HIMSI
-              </span>
-            </div>
-
-            {/* Primary & Secondary Action Buttons */}
-            <div className="flex flex-wrap items-center gap-3 pt-2">
+            {/* Social Circle Icons & Let's Discuss Pill (Fusion of ello-rabyndra & atalaa-df) */}
+            <div className="flex flex-wrap items-center gap-3 pt-1">
               <a
                 href="#projects"
-                className="group inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-cyan-500 to-emerald-500 px-5 py-3 text-xs font-bold text-slate-950 shadow-lg shadow-cyan-500/20 transition-all hover:brightness-110 active:scale-95 sm:text-sm"
+                className="rounded-full border border-[var(--border-strong)] bg-[var(--bg-card)] px-6 py-2.5 text-xs font-semibold text-[var(--text-primary)] shadow-lg transition-all hover:bg-[var(--text-primary)] hover:text-[var(--bg-primary)] active:scale-95 sm:text-sm"
               >
-                <span>Lihat Proyek &amp; Arsitektur</span>
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </a>
-
-              <button
-                onClick={handleCopyEmail}
-                className="inline-flex items-center gap-2 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)] px-4 py-3 text-xs font-semibold text-[var(--text-primary)] transition-colors hover:border-cyan-500/40 hover:bg-cyan-500/10 active:scale-95 sm:text-sm"
-              >
-                {copied ? (
-                  <>
-                    <Check className="h-4 w-4 text-emerald-400" />
-                    <span className="text-emerald-400">Email Tersalin!</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy className="h-4 w-4 text-cyan-400" />
-                    <span>Salin Email</span>
-                  </>
-                )}
-              </button>
-
-              <a
-                href={PORTFOLIO_DATA.personal.githubUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)] px-3.5 py-3 text-xs font-medium text-[var(--text-secondary)] transition-colors hover:border-cyan-500/40 hover:text-[var(--text-primary)] sm:text-sm"
-              >
-                <span>GitHub</span>
-                <ExternalLink className="h-3.5 w-3.5 opacity-70" />
+                Let&apos;s Discuss &amp; Explore
               </a>
 
               <a
                 href={PORTFOLIO_DATA.personal.linkedinUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)] px-3.5 py-3 text-xs font-medium text-[var(--text-secondary)] transition-colors hover:border-cyan-500/40 hover:text-[var(--text-primary)] sm:text-sm"
+                aria-label="LinkedIn"
+                title="LinkedIn"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-[var(--border-subtle)] bg-[var(--bg-card)] text-[var(--text-secondary)] transition-all hover:scale-105 hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
               >
-                <span>LinkedIn</span>
-                <ExternalLink className="h-3.5 w-3.5 opacity-70" />
+                <Linkedin className="h-4 w-4" />
               </a>
+
+              <a
+                href={PORTFOLIO_DATA.personal.githubUrl}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="GitHub"
+                title="GitHub (@Davin164)"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-[var(--border-subtle)] bg-[var(--bg-card)] text-[var(--text-secondary)] transition-all hover:scale-105 hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
+              >
+                <Github className="h-4 w-4" />
+              </a>
+
+              <a
+                href={PORTFOLIO_DATA.personal.whatsappUrl}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="WhatsApp"
+                title="WhatsApp Direct"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-[var(--border-subtle)] bg-[var(--bg-card)] text-[var(--text-secondary)] transition-all hover:scale-105 hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
+              >
+                <MessageCircle className="h-4 w-4" />
+              </a>
+
+              <button
+                onClick={handleCopyEmail}
+                aria-label="Copy Email"
+                title="Salin Email"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-[var(--border-subtle)] bg-[var(--bg-card)] text-[var(--text-secondary)] transition-all hover:scale-105 hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
+              >
+                {copied ? (
+                  <Check className="h-4 w-4 text-emerald-400" />
+                ) : (
+                  <FileText className="h-4 w-4" />
+                )}
+              </button>
+            </div>
+
+            {/* GitHub Contributions Heatmap Card (Inspired by khalifaalhasan.my.id) */}
+            <div className="max-w-lg rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)]/90 p-4 shadow-xl">
+              <div className="mb-2.5 flex items-center justify-between text-[11px] text-[var(--text-muted)]">
+                <span className="flex items-center gap-1.5 font-mono">
+                  <Terminal className="h-3.5 w-3.5 text-emerald-400" />
+                  1,480+ contributions &amp; commits in the last 4 years
+                </span>
+                <a
+                  href={PORTFOLIO_DATA.personal.githubUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="font-mono text-[10px] text-[var(--text-secondary)] hover:underline"
+                >
+                  @Davin164
+                </a>
+              </div>
+
+              <div className="overflow-x-auto pb-1">
+                <div className="flex gap-[3px]">
+                  {CONTRIBUTION_GRID.map((col, cIdx) => (
+                    <div key={cIdx} className="flex flex-col gap-[3px]">
+                      {col.map((level, rIdx) => {
+                        const bgClass =
+                          level === 0
+                            ? "bg-zinc-800/70"
+                            : level === 1
+                            ? "bg-emerald-950"
+                            : level === 2
+                            ? "bg-emerald-700/80"
+                            : level === 3
+                            ? "bg-emerald-500"
+                            : "bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.6)]";
+                        return (
+                          <div
+                            key={rIdx}
+                            className={`h-2.5 w-2.5 rounded-[2px] transition-transform hover:scale-125 ${bgClass}`}
+                          />
+                        );
+                      })}
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </motion.div>
 
-          {/* Right Column: Interactive Engineering Inspector */}
+          {/* Right Column: Double-Bordered "About Me" Card + Floating Neon Shapes (ello-rabyndra + atalaa-df) */}
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 26 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.1, ease: "easeOut" }}
-            className="lg:col-span-5"
+            transition={{ duration: 0.6, delay: 0.12, ease: "easeOut" }}
+            className="relative lg:col-span-5"
           >
-            <SpotlightCard className="border-cyan-500/20 p-1">
-              <div className="rounded-xl bg-[var(--bg-primary)]/90 p-4 sm:p-5">
-                {/* Window Header & Interactive File Tabs */}
-                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[var(--border-subtle)] pb-3">
-                  <div className="flex items-center gap-1.5">
-                    <span className="h-2.5 w-2.5 rounded-full bg-rose-500/80" />
-                    <span className="h-2.5 w-2.5 rounded-full bg-amber-500/80" />
-                    <span className="h-2.5 w-2.5 rounded-full bg-emerald-500/80" />
+            {/* Floating Glowing Neon Shapes behind/around card (atalaa-df style) */}
+            <div className="pointer-events-none absolute -top-10 -right-6 hidden sm:block">
+              <GlowingShape variant="triangle" size={62} delay={0.3} />
+            </div>
+            <div className="pointer-events-none absolute -bottom-10 -left-8 hidden sm:block">
+              <GlowingShape variant="star" size={74} delay={1.1} />
+            </div>
+            <div className="pointer-events-none absolute -top-8 left-8 hidden sm:block">
+              <GlowingShape variant="square" size={54} delay={0.7} />
+            </div>
+
+            {/* Outer Double-Frame Card (Inspired by ello-rabyndra.vercel.app) */}
+            <div className="relative rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)]/75 p-2.5 shadow-[0_24px_60px_rgba(0,0,0,0.65)] backdrop-blur-xl sm:p-3.5">
+              <div className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] p-5 sm:p-6">
+                {/* Header & Mode Switcher */}
+                <div className="flex flex-wrap items-center justify-between gap-2 pb-4">
+                  <div className="flex items-center gap-2.5">
+                    <span className="h-4 w-1.5 rounded-full bg-zinc-400" />
+                    <h2 className="text-sm font-bold text-[var(--text-primary)] sm:text-base">
+                      {activeInspector === "about"
+                        ? "About Me"
+                        : activeInspector === "sifest"
+                        ? "SI FEST 2026 Architecture"
+                        : "Concurrency Lock (GDGoC)"}
+                    </h2>
                   </div>
 
-                  <div className="flex items-center gap-1 rounded-lg bg-[var(--bg-secondary)] p-1">
+                  <div className="flex items-center gap-1 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-primary)] p-0.5 text-[10px] font-mono">
                     <button
-                      onClick={() => setActiveTab("profile")}
-                      className={`rounded-md px-2.5 py-1 font-mono text-[11px] transition-colors ${
-                        activeTab === "profile"
-                          ? "bg-cyan-500/20 font-semibold text-cyan-400"
-                          : "text-[var(--text-muted)] hover:text-[var(--text-primary)]"
+                      onClick={() => setActiveInspector("about")}
+                      className={`rounded-md px-2 py-1 transition-colors ${
+                        activeInspector === "about"
+                          ? "bg-[var(--bg-card-hover)] font-semibold text-[var(--text-primary)]"
+                          : "text-[var(--text-muted)] hover:text-[var(--text-secondary)]"
                       }`}
                     >
-                      engineer.ts
+                      Bio
                     </button>
                     <button
-                      onClick={() => setActiveTab("sifest")}
-                      className={`rounded-md px-2.5 py-1 font-mono text-[11px] transition-colors ${
-                        activeTab === "sifest"
-                          ? "bg-cyan-500/20 font-semibold text-cyan-400"
-                          : "text-[var(--text-muted)] hover:text-[var(--text-primary)]"
+                      onClick={() => setActiveInspector("sifest")}
+                      className={`rounded-md px-2 py-1 transition-colors ${
+                        activeInspector === "sifest"
+                          ? "bg-[var(--bg-card-hover)] font-semibold text-[var(--text-primary)]"
+                          : "text-[var(--text-muted)] hover:text-[var(--text-secondary)]"
                       }`}
                     >
-                      sifest26.arch
+                      SI FEST
                     </button>
                     <button
-                      onClick={() => setActiveTab("concurrency")}
-                      className={`rounded-md px-2.5 py-1 font-mono text-[11px] transition-colors ${
-                        activeTab === "concurrency"
-                          ? "bg-cyan-500/20 font-semibold text-cyan-400"
-                          : "text-[var(--text-muted)] hover:text-[var(--text-primary)]"
+                      onClick={() => setActiveInspector("lock")}
+                      className={`rounded-md px-2 py-1 transition-colors ${
+                        activeInspector === "lock"
+                          ? "bg-[var(--bg-card-hover)] font-semibold text-[var(--text-primary)]"
+                          : "text-[var(--text-muted)] hover:text-[var(--text-secondary)]"
                       }`}
                     >
-                      lock.sql
+                      ACID SQL
                     </button>
                   </div>
                 </div>
 
-                {/* Tab Content */}
-                <div className="mt-4 min-h-[235px] font-mono text-xs leading-relaxed">
-                  {activeTab === "profile" && (
-                    <div className="space-y-2 text-[var(--text-secondary)]">
-                      <p className="text-[var(--text-muted)]">
-                        {"// 4 Tahun Perjalanan Web Dev (SMK RPL → S1 SI UNSRI)"}
+                {/* Card Content */}
+                <div className="min-h-[165px]">
+                  {activeInspector === "about" && (
+                    <div className="space-y-3 text-xs leading-relaxed text-[var(--text-secondary)] sm:text-sm">
+                      <p>
+                        I&apos;m an{" "}
+                        <strong className="text-[var(--text-primary)]">
+                          Information Systems student at Universitas Sriwijaya
+                        </strong>{" "}
+                        and a Software Engineering (RPL) graduate with 4 years of
+                        hands-on web development experience.
                       </p>
                       <p>
-                        <span className="text-cyan-400">const</span>{" "}
-                        <span className="text-emerald-400">davin</span> = {"{"}
+                        Experienced in leading end-to-end web development (UI/UX,
+                        frontend, backend, VPS deployment) as{" "}
+                        <strong className="text-[var(--text-primary)]">
+                          Tech Lead of SI FEST 2026
+                        </strong>{" "}
+                        (building 98% of the backend solo) and contributing as a{" "}
+                        <strong className="text-[var(--text-primary)]">
+                          Backend Developer at GDGoC 2026
+                        </strong>
+                        .
                       </p>
-                      <p className="pl-4">
-                        role:{" "}
-                        <span className="text-amber-300">
-                          &quot;Full-Stack &amp; Backend Engineer&quot;
-                        </span>
-                        ,
-                      </p>
-                      <p className="pl-4">
-                        leadership:{" "}
-                        <span className="text-amber-300">
-                          &quot;Tech Lead OC TID SI FEST 2026&quot;
-                        </span>
-                        ,
-                      </p>
-                      <p className="pl-4">
-                        community:{" "}
-                        <span className="text-amber-300">
-                          &quot;Backend Member @ GDGoC 2026&quot;
-                        </span>
-                        ,
-                      </p>
-                      <p className="pl-4">
-                        coreStack: [
-                        <span className="text-cyan-300">
-                          &quot;Node.js&quot;, &quot;Express&quot;, &quot;Laravel&quot;, &quot;MySQL/PG&quot;, &quot;Docker&quot;
-                        </span>
-                        ],
-                      </p>
-                      <p className="pl-4">
-                        security: [
-                        <span className="text-emerald-300">
-                          &quot;Wazuh SIEM (Best Project)&quot;, &quot;Bug Hunter&quot;
-                        </span>
-                        ],
-                      </p>
-                      <p>{"};"}</p>
                     </div>
                   )}
 
-                  {activeTab === "sifest" && (
-                    <div className="space-y-2.5 text-[var(--text-secondary)]">
-                      <div className="flex items-center justify-between text-[11px] text-cyan-400">
+                  {activeInspector === "sifest" && (
+                    <div className="space-y-2.5 font-mono text-xs text-[var(--text-secondary)]">
+                      <div className="flex items-center justify-between text-[11px] text-emerald-400">
                         <span className="flex items-center gap-1.5">
                           <Layers className="h-3.5 w-3.5" />
                           SI FEST 2026 Ecosystem
                         </span>
-                        <span className="rounded bg-emerald-500/15 px-1.5 py-0.5 text-emerald-400">
-                          98% Backend Solo
-                        </span>
+                        <span>98% Backend Solo</span>
                       </div>
-                      <div className="space-y-1.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-secondary)] p-2.5 text-[11px]">
+                      <div className="rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-primary)] p-2.5 text-[11px]">
                         <p className="font-semibold text-[var(--text-primary)]">
-                          1. Main Web &amp; Kompetisi
+                          Main Web + Competition Scoring
                         </p>
                         <p className="text-[var(--text-muted)]">
-                          Registrasi → Transparansi Nilai Penjurian → Pengumuman
+                          Registration → Transparent Judging Score → Announcement
                         </p>
                       </div>
-                      <div className="space-y-1.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-secondary)] p-2.5 text-[11px]">
+                      <div className="rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-primary)] p-2.5 text-[11px]">
                         <p className="font-semibold text-[var(--text-primary)]">
-                          2. Payment Gateway &amp; QR Ticket Scanner
+                          Payment Gateway + QR Ticket Scanner
                         </p>
                         <p className="text-[var(--text-muted)]">
-                          Checkout tiket otomatis + Admin Panel + Scanner validasi gate
+                          Automated checkout webhook + Admin Panel + Gate Scanner
                         </p>
                       </div>
                     </div>
                   )}
 
-                  {activeTab === "concurrency" && (
-                    <div className="space-y-2 text-[var(--text-secondary)]">
+                  {activeInspector === "lock" && (
+                    <div className="space-y-2 font-mono text-xs">
                       <div className="flex items-center justify-between text-[11px] text-emerald-400">
                         <span className="flex items-center gap-1.5">
                           <ShieldCheck className="h-3.5 w-3.5" />
@@ -295,39 +348,41 @@ export default function HeroSection() {
                         </span>
                         <span>Zero Overselling</span>
                       </div>
-                      <pre className="overflow-x-auto rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-secondary)] p-3 text-[11px] text-cyan-300">
+                      <pre className="overflow-x-auto rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-primary)] p-3 text-[11px] text-zinc-300">
 {`START TRANSACTION;
--- Pessimistic Row-Level Lock
 SELECT stock FROM event_tickets
 WHERE event_id = ? AND stock > 0
-FOR UPDATE;
-
-UPDATE event_tickets
-SET stock = stock - 1
-WHERE event_id = ?;
-COMMIT; -- ACID Guaranteed`}
+FOR UPDATE; -- Pessimistic Lock
+UPDATE event_tickets SET stock = stock - 1;
+COMMIT;`}
                       </pre>
                     </div>
                   )}
                 </div>
 
-                {/* Bottom Metric Strip inside Hero Card */}
-                <div className="mt-4 grid grid-cols-3 gap-2 border-t border-[var(--border-subtle)] pt-3 text-center">
-                  <div>
-                    <p className="text-base font-extrabold text-cyan-400">4+ Thn</p>
-                    <p className="text-[10px] text-[var(--text-muted)]">RPL → S1 SI</p>
-                  </div>
-                  <div>
-                    <p className="text-base font-extrabold text-emerald-400">98%</p>
-                    <p className="text-[10px] text-[var(--text-muted)]">BE SI FEST 26</p>
-                  </div>
-                  <div>
-                    <p className="text-base font-extrabold text-amber-400">2× Winner</p>
-                    <p className="text-[10px] text-[var(--text-muted)]">Best Project</p>
-                  </div>
+                {/* Bottom Email & Action Bar (Exact match to ello-rabyndra Hero Card) */}
+                <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-[var(--border-subtle)] pt-4">
+                  <button
+                    onClick={handleCopyEmail}
+                    className="flex items-center gap-2 text-xs text-[var(--text-muted)] transition-colors hover:text-[var(--text-primary)]"
+                  >
+                    <Mail className="h-3.5 w-3.5" />
+                    <span>
+                      {copied
+                        ? "Copied to clipboard!"
+                        : PORTFOLIO_DATA.personal.email}
+                    </span>
+                  </button>
+
+                  <a
+                    href="#about"
+                    className="inline-flex items-center gap-1.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-primary)] px-3 py-1.5 text-xs font-medium text-[var(--text-primary)] transition-colors hover:border-[var(--border-strong)]"
+                  >
+                    <span>Explore Profile</span>
+                  </a>
                 </div>
               </div>
-            </SpotlightCard>
+            </div>
           </motion.div>
         </div>
       </div>

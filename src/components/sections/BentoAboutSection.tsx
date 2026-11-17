@@ -2,266 +2,305 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import {
-  Terminal,
-  ShieldAlert,
-  GraduationCap,
-  Award,
-  Server,
-  Users,
-  MapPin,
-  CheckCircle2,
-  Sparkles,
-} from "lucide-react";
-import { PORTFOLIO_DATA } from "@/data/portfolio";
+import { GlowingShape } from "@/components/ui/GlowingShapes";
 import SpotlightCard from "@/components/ui/SpotlightCard";
+
+const APPROACH_STEPS = [
+  {
+    num: "01",
+    text: "Analyze requirements, security & concurrency constraints",
+  },
+  {
+    num: "02",
+    text: "Design clean MVC & transactional backend architectures",
+  },
+  {
+    num: "03",
+    text: "Deploy resilient end-to-end systems to production VPS/Cloud",
+  },
+];
+
+const BIG_STATS = [
+  { value: "04+", label: "Years In Web Dev" },
+  { value: "98%", label: "SI FEST Backend Built" },
+  { value: "10+", label: "Projects Completed" },
+  { value: "02×", label: "Best Project Awards" },
+];
+
+const SERVICES = [
+  {
+    title: "Backend Development",
+    description:
+      "Robust architectures using Node.js, Express.js, Laravel, and Java for clean, consistent, and reliable API performance.",
+    pills: ["Clean MVC & REST API", "Payment Gateway"],
+  },
+  {
+    title: "Fullstack Web",
+    description:
+      "End-to-end web application development focusing on responsive UI, seamless backend integration, and smooth GSAP/Motion animations.",
+    pills: ["React / Next.js", "End-to-End Delivery"],
+  },
+  {
+    title: "System Architecture",
+    description:
+      "Designing ticketing platforms, competition scoring systems, and QR scanners capable of handling concurrent requests without overselling.",
+    pills: ["Pessimistic Locking", "ACID Transactions"],
+  },
+  {
+    title: "DevOps & Security",
+    description:
+      "Containerized services using Docker Compose, Linux VPS deployment, vulnerability bug hunting, and real-time SIEM monitoring with Wazuh.",
+    pills: ["Docker & VPS Host", "Wazuh SIEM"],
+  },
+];
+
+const CORE_TECH_PILLS = [
+  "JavaScript",
+  "TypeScript",
+  "Node.js",
+  "Express.js",
+  "Laravel",
+  "PHP",
+  "React / Next.js",
+  "Tailwind CSS",
+  "GSAP",
+  "PostgreSQL",
+  "MySQL",
+  "MongoDB",
+  "Docker",
+  "Wazuh SIEM",
+  "Figma",
+];
 
 export default function BentoAboutSection() {
   return (
-    <section id="about" className="py-16 sm:py-24">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        {/* Section Header */}
-        <div className="mb-10 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-          <div>
-            <p className="font-mono text-xs font-semibold uppercase tracking-widest text-cyan-400">
-              01 // ABOUT ME &amp; ENGINEERING DNA
-            </p>
-            <h2 className="mt-2 text-2xl font-bold tracking-tight text-[var(--text-primary)] sm:text-4xl">
-              4 Tahun Membangun dari Fundamental hingga Produksi
-            </h2>
-          </div>
-          <p className="max-w-md text-xs text-[var(--text-secondary)] sm:text-sm">
-            Kombinasi fondasi Rekayasa Perangkat Lunak (SMK RPL) dan S1 Sistem Informasi UNSRI dengan fokus pada arsitektur backend tangguh &amp; kepemimpinan tim.
-          </p>
-        </div>
+    <>
+      {/* SECTION 1: "wanna know about me?" + Glowing Geometric Shapes + About Me Card (Inspired by atalaa-df & khalifaalhasan) */}
+      <section id="about" className="relative overflow-hidden py-20 sm:py-28">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          {/* Interactive Geometric Header ("wanna know about me?" from atalaa-df.vercel.app) */}
+          <div className="relative mb-20 flex flex-col items-center justify-center py-8 text-center">
+            <div className="mb-8 flex flex-wrap items-center justify-center gap-8 sm:gap-14">
+              <GlowingShape variant="cross" size={64} delay={0.1} />
+              <GlowingShape variant="square" size={68} delay={0.4} />
+              <GlowingShape variant="star" size={72} delay={0.8} />
+              <GlowingShape variant="circle" size={68} delay={1.2} />
+              <GlowingShape variant="triangle" size={62} delay={1.5} />
+            </div>
 
-        {/* Bento Grid */}
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-12">
-          {/* Card 1: Main Story (Span 7 on Desktop) */}
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.45 }}
-            className="md:col-span-7"
-          >
-            <SpotlightCard className="h-full p-6 sm:p-7">
-              <div className="flex h-full flex-col justify-between space-y-5">
-                <div className="space-y-3">
-                  <div className="inline-flex items-center gap-2 rounded-lg bg-cyan-500/10 px-3 py-1 text-xs font-semibold text-cyan-400">
-                    <Terminal className="h-3.5 w-3.5" />
-                    <span>Perjalanan 2022 – 2026</span>
-                  </div>
-                  <h3 className="text-xl font-bold text-[var(--text-primary)] sm:text-2xl">
-                    Generalis End-to-End dengan Kekuatan Inti di Backend Architecture
-                  </h3>
-                  <p className="text-xs leading-relaxed text-[var(--text-secondary)] sm:text-sm">
-                    {PORTFOLIO_DATA.personal.bio}
-                  </p>
-                </div>
-
-                {/* Key Pillars */}
-                <div className="grid grid-cols-1 gap-2.5 pt-2 sm:grid-cols-2">
-                  {[
-                    "Tech Lead Web Dev SI FEST 2026 (98% Backend Solo)",
-                    "Integrasi Payment Gateway & Sistem Ticketing QR",
-                    "Anggota Backend GDGoC 2026 (Docker & Concurrency)",
-                    "Mentor Teknis untuk Staff & Freelancer Web Dev",
-                  ].map((item, i) => (
-                    <div
-                      key={i}
-                      className="flex items-start gap-2 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)]/60 p-2.5 text-xs text-[var(--text-primary)]"
-                    >
-                      <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-400" />
-                      <span>{item}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </SpotlightCard>
-          </motion.div>
-
-          {/* Card 2: Security & Awards (Span 5 on Desktop) */}
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.45, delay: 0.06 }}
-            className="md:col-span-5"
-          >
-            <SpotlightCard
-              spotlightColor="rgba(16, 185, 129, 0.14)"
-              className="h-full p-6 sm:p-7"
+            <motion.h2
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="text-3xl font-extrabold tracking-tight text-[var(--text-primary)] drop-shadow-[0_0_25px_rgba(255,255,255,0.2)] sm:text-5xl"
             >
-              <div className="flex h-full flex-col justify-between space-y-4">
-                <div className="space-y-3">
-                  <div className="inline-flex items-center gap-2 rounded-lg bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-400">
-                    <ShieldAlert className="h-3.5 w-3.5" />
-                    <span>Security-First &amp; Award Winner</span>
-                  </div>
-                  <h3 className="text-lg font-bold text-[var(--text-primary)] sm:text-xl">
-                    Blue/Red Team SIEM, Bug Hunting &amp; High-Integrity Systems
-                  </h3>
-                  <p className="text-xs leading-relaxed text-[var(--text-secondary)] sm:text-sm">
-                    Tidak hanya membangun fitur, tetapi juga memastikan sistem aman dari celah keamanan dan bebas dari <em>race condition</em> saat trafik tinggi.
+              wanna know about me?
+            </motion.h2>
+          </div>
+
+          {/* Side-by-Side Glowing Shapes Cluster + About Me Card & Tech Pills (Inspired by atalaa-df Screenshot 13) */}
+          <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12">
+            {/* Left Glowing Shapes Cluster */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.92 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.55 }}
+              className="relative flex items-center justify-center lg:col-span-5"
+            >
+              <div className="pointer-events-none absolute h-64 w-64 rounded-full bg-white/10 blur-[80px]" />
+              <div className="relative flex h-[280px] w-[280px] items-center justify-center sm:h-[340px] sm:w-[340px]">
+                <div className="absolute top-2 left-12">
+                  <GlowingShape variant="star" size={96} delay={0.2} />
+                </div>
+                <div className="absolute top-24 right-6">
+                  <GlowingShape variant="triangle" size={78} delay={0.9} />
+                </div>
+                <div className="absolute bottom-4 left-4">
+                  <GlowingShape variant="circle" size={130} delay={0.5} />
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Right About Me Box + Technologies I Use */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="space-y-8 lg:col-span-7"
+            >
+              <SpotlightCard className="p-6 sm:p-8">
+                <h3 className="text-2xl font-bold text-[var(--text-primary)] sm:text-3xl">
+                  About Me
+                </h3>
+                <div className="mt-4 space-y-4 text-xs leading-relaxed text-[var(--text-secondary)] sm:text-sm">
+                  <p>
+                    Saya adalah mahasiswa{" "}
+                    <strong className="text-[var(--text-primary)]">
+                      S1 Sistem Informasi Universitas Sriwijaya
+                    </strong>{" "}
+                    dan lulusan{" "}
+                    <strong className="text-[var(--text-primary)]">
+                      SMK Rekayasa Perangkat Lunak (SMK Bukit Asam, 2022–2025)
+                    </strong>{" "}
+                    yang mendalami pengembangan web selama 4 tahun terakhir — mulai
+                    dari perancangan skema database hingga deployment produksi.
+                  </p>
+                  <p>
+                    Sebagai{" "}
+                    <strong className="text-[var(--text-primary)]">
+                      Tech Lead Web Development SI FEST 2026
+                    </strong>
+                    , saya memimpin tim lintas bidang (UI/UX, Frontend, Backend,
+                    Deployment) dan mengerjakan langsung{" "}
+                    <strong className="text-[var(--text-primary)]">
+                      98% arsitektur backend
+                    </strong>{" "}
+                    (sistem ticketing, integrasi payment gateway, admin panel, dan
+                    QR ticket scanner), sekaligus membimbing staff serta freelancer.
+                  </p>
+                  <p>
+                    Saya juga aktif sebagai anggota{" "}
+                    <strong className="text-[var(--text-primary)]">
+                      Backend Development GDGoC UNSRI 2026
+                    </strong>
+                    , peraih{" "}
+                    <strong className="text-[var(--text-primary)]">
+                      Best Project Q1 NAC
+                    </strong>{" "}
+                    (implementasi SIEM Wazuh untuk monitoring serangan Red Team),
+                    dan{" "}
+                    <strong className="text-[var(--text-primary)]">
+                      Best Team Project PTI #1 HIMSI
+                    </strong>
+                    .
                   </p>
                 </div>
+              </SpotlightCard>
 
-                <div className="space-y-2.5">
-                  <div className="rounded-xl border border-amber-500/25 bg-amber-500/5 p-3">
-                    <div className="flex items-center gap-2 text-xs font-bold text-amber-400">
-                      <Award className="h-4 w-4" />
-                      <span>Best Project Quarter 1 — NAC UNSRI</span>
-                    </div>
-                    <p className="mt-1 text-[11px] text-[var(--text-secondary)]">
-                      Membangun sistem SIEM berbasis <strong>Wazuh</strong> (Blue Team) untuk memonitor serangan Red Team secara real-time.
-                    </p>
-                  </div>
-
-                  <div className="rounded-xl border border-cyan-500/25 bg-cyan-500/5 p-3">
-                    <div className="flex items-center gap-2 text-xs font-bold text-cyan-400">
-                      <Award className="h-4 w-4" />
-                      <span>Best Team Project — PTI #1 HIMSI</span>
-                    </div>
-                    <p className="mt-1 text-[11px] text-[var(--text-secondary)]">
-                      Merancang prototipe portal akademik <strong>Website SIMAK</strong> terpadu untuk universitas.
-                    </p>
-                  </div>
-
-                  <div className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)]/70 p-3">
-                    <p className="text-xs font-semibold text-[var(--text-primary)]">
-                      🛡️ Bug Hunter Website PPDB SMK Bukit Asam (2024)
-                    </p>
-                    <p className="mt-0.5 text-[11px] text-[var(--text-muted)]">
-                      Dipercaya mengaudit celah keamanan portal PPDB Yayasan Bukit Asam Foundation &amp; menyusun laporan remediasi.
-                    </p>
-                  </div>
+              {/* Technologies I Use (Pill Cloud from atalaa-df Screenshot 13) */}
+              <div>
+                <h4 className="mb-4 text-xl font-bold text-[var(--text-primary)] sm:text-2xl">
+                  Technologies I Use
+                </h4>
+                <div className="flex flex-wrap gap-2.5">
+                  {CORE_TECH_PILLS.map((tech) => (
+                    <span
+                      key={tech}
+                      className="rounded-full border border-[var(--border-subtle)] bg-[var(--bg-card)] px-4 py-2 text-xs font-medium text-[var(--text-primary)] shadow-sm transition-all hover:-translate-y-0.5 hover:border-[var(--border-strong)]"
+                    >
+                      {tech}
+                    </span>
+                  ))}
                 </div>
               </div>
-            </SpotlightCard>
-          </motion.div>
+            </motion.div>
+          </div>
 
-          {/* Card 3: Education Journey (Span 5 on Desktop) */}
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.45, delay: 0.12 }}
-            className="md:col-span-5"
-          >
-            <SpotlightCard className="h-full p-6">
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div className="inline-flex items-center gap-2 rounded-lg bg-cyan-500/10 px-3 py-1 text-xs font-semibold text-cyan-400">
-                    <GraduationCap className="h-3.5 w-3.5" />
-                    <span>Pendidikan Formal</span>
-                  </div>
-                  <span className="inline-flex items-center gap-1 text-[11px] text-[var(--text-muted)]">
-                    <MapPin className="h-3 w-3 text-cyan-400" />
-                    Sumatera Selatan
-                  </span>
-                </div>
+          {/* "My Approach" (01, 02, 03) + Big Stats Counter Row (Inspired by khalifaalhasan Screenshot 5) */}
+          <div className="mt-24 space-y-12">
+            <div className="text-center">
+              <h3 className="text-lg font-bold text-[var(--text-primary)] sm:text-xl">
+                My Approach
+              </h3>
+            </div>
 
-                <div className="space-y-3">
-                  {PORTFOLIO_DATA.education.map((edu, idx) => (
-                    <div
-                      key={idx}
-                      className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)]/60 p-3.5"
-                    >
-                      <div className="flex items-center justify-between gap-2">
-                        <h4 className="text-xs font-bold text-[var(--text-primary)] sm:text-sm">
-                          {edu.institution}
-                        </h4>
-                        <span className="shrink-0 rounded-md bg-cyan-500/15 px-2 py-0.5 font-mono text-[10px] font-semibold text-cyan-400">
-                          {edu.period}
-                        </span>
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+              {APPROACH_STEPS.map((step, i) => (
+                <motion.div
+                  key={step.num}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: i * 0.08 }}
+                >
+                  <SpotlightCard className="p-5">
+                    <div className="flex items-center gap-4">
+                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)] font-mono text-xs font-bold text-[var(--text-primary)]">
+                        {step.num}
                       </div>
-                      <p className="mt-0.5 text-xs font-medium text-emerald-400">
-                        {edu.degree}
-                      </p>
-                      <p className="mt-1.5 text-[11px] leading-relaxed text-[var(--text-secondary)]">
-                        {edu.highlights}
+                      <p className="text-xs font-medium leading-relaxed text-[var(--text-secondary)] sm:text-sm">
+                        {step.text}
                       </p>
                     </div>
-                  ))}
-                </div>
-              </div>
-            </SpotlightCard>
-          </motion.div>
+                  </SpotlightCard>
+                </motion.div>
+              ))}
+            </div>
 
-          {/* Card 4: Leadership, Mentorship & End-to-End Scope (Span 7 on Desktop) */}
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.45, delay: 0.16 }}
-            className="md:col-span-7"
-          >
-            <SpotlightCard className="h-full p-6">
-              <div className="flex h-full flex-col justify-between space-y-4">
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <div className="inline-flex items-center gap-2 rounded-lg bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-400">
-                    <Users className="h-3.5 w-3.5" />
-                    <span>Kepemimpinan Teknis &amp; Kapabilitas End-to-End</span>
-                  </div>
-                  <span className="font-mono text-[11px] text-[var(--text-muted)]">
-                    UI/UX → FE → BE → VPS Host
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-                  <div className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)]/60 p-3.5">
-                    <Server className="h-4 w-4 text-cyan-400" />
-                    <h4 className="mt-2 text-xs font-bold text-[var(--text-primary)]">
-                      Backend &amp; Payment
-                    </h4>
-                    <p className="mt-1 text-[11px] leading-relaxed text-[var(--text-secondary)]">
-                      REST API (Node/Express &amp; Laravel), Middleware Auth, Payment Gateway, &amp; Pessimistic Locking.
-                    </p>
-                  </div>
-
-                  <div className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)]/60 p-3.5">
-                    <Sparkles className="h-4 w-4 text-emerald-400" />
-                    <h4 className="mt-2 text-xs font-bold text-[var(--text-primary)]">
-                      Frontend &amp; Animasi
-                    </h4>
-                    <p className="mt-1 text-[11px] leading-relaxed text-[var(--text-secondary)]">
-                      Antarmuka responsif dengan Tailwind CSS, React/Next.js, Bootstrap, dan animasi interaktif GSAP.
-                    </p>
-                  </div>
-
-                  <div className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)]/60 p-3.5">
-                    <Users className="h-4 w-4 text-amber-400" />
-                    <h4 className="mt-2 text-xs font-bold text-[var(--text-primary)]">
-                      Tech Lead &amp; Mentor
-                    </h4>
-                    <p className="mt-1 text-[11px] leading-relaxed text-[var(--text-secondary)]">
-                      Membimbing staff &amp; freelancer TID, PO pengabdian IT, serta membuat seri video edukasi Java Basic.
-                    </p>
-                  </div>
-                </div>
-
-                {/* Bottom Metric Row */}
-                <div className="grid grid-cols-2 gap-3 pt-1 sm:grid-cols-4">
-                  {PORTFOLIO_DATA.metrics.map((m, idx) => (
-                    <div
-                      key={idx}
-                      className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-primary)]/60 px-3 py-2.5"
-                    >
-                      <p className="text-base font-extrabold text-cyan-400 sm:text-lg">
-                        {m.value}
-                      </p>
-                      <p className="text-[11px] font-semibold text-[var(--text-primary)]">
-                        {m.label}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </SpotlightCard>
-          </motion.div>
+            {/* Big Numbers Row */}
+            <div className="grid grid-cols-2 gap-6 pt-4 text-center sm:grid-cols-4">
+              {BIG_STATS.map((stat, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 14 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: idx * 0.06 }}
+                  className="space-y-1"
+                >
+                  <p className="text-3xl font-extrabold tracking-tight text-[var(--text-primary)] sm:text-5xl">
+                    {stat.value}
+                  </p>
+                  <p className="text-xs text-[var(--text-muted)]">
+                    {stat.label}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* SECTION 2: "Services" (Inspired by khalifaalhasan.my.id Screenshot 7) */}
+      <section id="services" className="py-16 sm:py-24">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <div className="mb-12 text-center">
+            <h2 className="text-3xl font-extrabold tracking-tight text-[var(--text-primary)] sm:text-5xl">
+              Services
+            </h2>
+            <p className="mt-2 text-xs text-[var(--text-muted)] sm:text-sm">
+              Designing Clean Scalable Resilient Systems
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {SERVICES.map((srv, idx) => (
+              <motion.div
+                key={srv.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: idx * 0.07 }}
+              >
+                <SpotlightCard className="flex h-full flex-col justify-between p-6">
+                  <div className="space-y-3">
+                    <h3 className="text-lg font-bold leading-snug text-[var(--text-primary)] sm:text-xl">
+                      {srv.title}
+                    </h3>
+                    <p className="text-xs leading-relaxed text-[var(--text-secondary)]">
+                      {srv.description}
+                    </p>
+                  </div>
+
+                  <div className="mt-8 space-y-2">
+                    {srv.pills.map((pill) => (
+                      <div
+                        key={pill}
+                        className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)] px-3.5 py-2.5 text-xs font-semibold text-[var(--text-primary)]"
+                      >
+                        {pill}
+                      </div>
+                    ))}
+                  </div>
+                </SpotlightCard>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
   );
 }
