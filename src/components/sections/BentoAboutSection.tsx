@@ -1,7 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { Mail, Layers, ShieldCheck } from "lucide-react";
+import { PORTFOLIO_DATA } from "@/data/portfolio";
 import { GlowingShape } from "@/components/ui/GlowingShapes";
 import SpotlightCard from "@/components/ui/SpotlightCard";
 
@@ -73,9 +75,20 @@ const CORE_TECH_PILLS = [
 ];
 
 export default function BentoAboutSection() {
+  const [activeInspector, setActiveInspector] = useState<
+    "about" | "sifest" | "lock"
+  >("about");
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText(PORTFOLIO_DATA.personal.email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2500);
+  };
+
   return (
     <>
-      {/* SECTION 1: "wanna know about me?" + Glowing Geometric Shapes + About Me Card (Inspired by atalaa-df & khalifaalhasan) */}
+      {/* SECTION 1: "wanna know about me?" + Glowing Geometric Shapes + Double-Framed About Me Card */}
       <section id="about" className="relative overflow-hidden py-20 sm:py-28">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           {/* Interactive Geometric Header ("wanna know about me?" from atalaa-df.vercel.app) */}
@@ -99,7 +112,7 @@ export default function BentoAboutSection() {
             </motion.h2>
           </div>
 
-          {/* Side-by-Side Glowing Shapes Cluster + About Me Card & Tech Pills (Inspired by atalaa-df Screenshot 13) */}
+          {/* Side-by-Side Glowing Shapes Cluster + Double-Bordered Interactive "About Me" Card (Moved down from Hero!) */}
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12">
             {/* Left Glowing Shapes Cluster */}
             <motion.div
@@ -123,7 +136,7 @@ export default function BentoAboutSection() {
               </div>
             </motion.div>
 
-            {/* Right About Me Box + Technologies I Use */}
+            {/* Right: Double-Bordered Interactive "About Me" Card + Technologies I Use */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -131,54 +144,158 @@ export default function BentoAboutSection() {
               transition={{ duration: 0.5 }}
               className="space-y-8 lg:col-span-7"
             >
-              <SpotlightCard className="p-6 sm:p-8">
-                <h3 className="text-2xl font-bold text-[var(--text-primary)] sm:text-3xl">
-                  About Me
-                </h3>
-                <div className="mt-4 space-y-4 text-xs leading-relaxed text-[var(--text-secondary)] sm:text-sm">
-                  <p>
-                    Saya adalah mahasiswa{" "}
-                    <strong className="text-[var(--text-primary)]">
-                      S1 Sistem Informasi Universitas Sriwijaya
-                    </strong>{" "}
-                    dan lulusan{" "}
-                    <strong className="text-[var(--text-primary)]">
-                      SMK Rekayasa Perangkat Lunak (SMK Bukit Asam, 2022–2025)
-                    </strong>{" "}
-                    yang mendalami pengembangan web selama 4 tahun terakhir — mulai
-                    dari perancangan skema database hingga deployment produksi.
-                  </p>
-                  <p>
-                    Sebagai{" "}
-                    <strong className="text-[var(--text-primary)]">
-                      Tech Lead Web Development SI FEST 2026
-                    </strong>
-                    , saya memimpin tim lintas bidang (UI/UX, Frontend, Backend,
-                    Deployment) dan mengerjakan langsung{" "}
-                    <strong className="text-[var(--text-primary)]">
-                      98% arsitektur backend
-                    </strong>{" "}
-                    (sistem ticketing, integrasi payment gateway, admin panel, dan
-                    QR ticket scanner), sekaligus membimbing staff serta freelancer.
-                  </p>
-                  <p>
-                    Saya juga aktif sebagai anggota{" "}
-                    <strong className="text-[var(--text-primary)]">
-                      Backend Development GDGoC UNSRI 2026
-                    </strong>
-                    , peraih{" "}
-                    <strong className="text-[var(--text-primary)]">
-                      Best Project Q1 NAC
-                    </strong>{" "}
-                    (implementasi SIEM Wazuh untuk monitoring serangan Red Team),
-                    dan{" "}
-                    <strong className="text-[var(--text-primary)]">
-                      Best Team Project PTI #1 HIMSI
-                    </strong>
-                    .
-                  </p>
+              {/* Double-Framed Interactive About Me Card (with Bio | SI FEST | ACID SQL tabs) */}
+              <div className="relative rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)]/75 p-2.5 shadow-[0_24px_60px_rgba(0,0,0,0.65)] backdrop-blur-xl sm:p-3.5">
+                <div className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] p-5 sm:p-7">
+                  {/* Header & Mode Switcher */}
+                  <div className="flex flex-wrap items-center justify-between gap-2 pb-4">
+                    <div className="flex items-center gap-2.5">
+                      <span className="h-4 w-1.5 rounded-full bg-zinc-400" />
+                      <h3 className="text-base font-bold text-[var(--text-primary)] sm:text-lg">
+                        {activeInspector === "about"
+                          ? "About Me"
+                          : activeInspector === "sifest"
+                          ? "SI FEST 2026 Architecture"
+                          : "Concurrency Lock (GDGoC)"}
+                      </h3>
+                    </div>
+
+                    <div className="flex items-center gap-1 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-primary)] p-0.5 font-mono text-[10px]">
+                      <button
+                        onClick={() => setActiveInspector("about")}
+                        className={`rounded-md px-2.5 py-1 transition-colors ${
+                          activeInspector === "about"
+                            ? "bg-[var(--bg-card-hover)] font-semibold text-[var(--text-primary)]"
+                            : "text-[var(--text-muted)] hover:text-[var(--text-secondary)]"
+                        }`}
+                      >
+                        Bio
+                      </button>
+                      <button
+                        onClick={() => setActiveInspector("sifest")}
+                        className={`rounded-md px-2.5 py-1 transition-colors ${
+                          activeInspector === "sifest"
+                            ? "bg-[var(--bg-card-hover)] font-semibold text-[var(--text-primary)]"
+                            : "text-[var(--text-muted)] hover:text-[var(--text-secondary)]"
+                        }`}
+                      >
+                        SI FEST
+                      </button>
+                      <button
+                        onClick={() => setActiveInspector("lock")}
+                        className={`rounded-md px-2.5 py-1 transition-colors ${
+                          activeInspector === "lock"
+                            ? "bg-[var(--bg-card-hover)] font-semibold text-[var(--text-primary)]"
+                            : "text-[var(--text-muted)] hover:text-[var(--text-secondary)]"
+                        }`}
+                      >
+                        ACID SQL
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Card Content */}
+                  <div className="min-h-[165px]">
+                    {activeInspector === "about" && (
+                      <div className="space-y-3 text-xs leading-relaxed text-[var(--text-secondary)] sm:text-sm">
+                        <p>
+                          I&apos;m an{" "}
+                          <strong className="text-[var(--text-primary)]">
+                            Information Systems student at Universitas Sriwijaya
+                          </strong>{" "}
+                          and a Software Engineering (RPL) graduate with 4 years
+                          of hands-on web development experience.
+                        </p>
+                        <p>
+                          Experienced in leading end-to-end web development
+                          (UI/UX, frontend, backend, VPS deployment) as{" "}
+                          <strong className="text-[var(--text-primary)]">
+                            Tech Lead of SI FEST 2026
+                          </strong>{" "}
+                          (building 98% of the backend solo) and contributing as
+                          a{" "}
+                          <strong className="text-[var(--text-primary)]">
+                            Backend Developer at GDGoC 2026
+                          </strong>
+                          .
+                        </p>
+                      </div>
+                    )}
+
+                    {activeInspector === "sifest" && (
+                      <div className="space-y-2.5 font-mono text-xs text-[var(--text-secondary)]">
+                        <div className="flex items-center justify-between text-[11px] text-emerald-400">
+                          <span className="flex items-center gap-1.5">
+                            <Layers className="h-3.5 w-3.5" />
+                            SI FEST 2026 Ecosystem
+                          </span>
+                          <span>98% Backend Solo</span>
+                        </div>
+                        <div className="rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-primary)] p-3 text-[11px]">
+                          <p className="font-semibold text-[var(--text-primary)]">
+                            Main Web + Competition Scoring
+                          </p>
+                          <p className="text-[var(--text-muted)]">
+                            Registration → Transparent Judging Score →
+                            Announcement
+                          </p>
+                        </div>
+                        <div className="rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-primary)] p-3 text-[11px]">
+                          <p className="font-semibold text-[var(--text-primary)]">
+                            Payment Gateway + QR Ticket Scanner
+                          </p>
+                          <p className="text-[var(--text-muted)]">
+                            Automated checkout webhook + Admin Panel + Gate
+                            Scanner
+                          </p>
+                        </div>
+                      </div>
+                    )}
+
+                    {activeInspector === "lock" && (
+                      <div className="space-y-2 font-mono text-xs">
+                        <div className="flex items-center justify-between text-[11px] text-emerald-400">
+                          <span className="flex items-center gap-1.5">
+                            <ShieldCheck className="h-3.5 w-3.5" />
+                            The Gatekeeper Logic (GDGoC 2026)
+                          </span>
+                          <span>Zero Overselling</span>
+                        </div>
+                        <pre className="overflow-x-auto rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-primary)] p-3 text-[11px] text-zinc-300">
+{`START TRANSACTION;
+SELECT stock FROM event_tickets
+WHERE event_id = ? AND stock > 0
+FOR UPDATE; -- Pessimistic Lock
+UPDATE event_tickets SET stock = stock - 1;
+COMMIT;`}
+                        </pre>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Bottom Email & Action Bar */}
+                  <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-[var(--border-subtle)] pt-4">
+                    <button
+                      onClick={handleCopyEmail}
+                      className="flex items-center gap-2 text-xs text-[var(--text-muted)] transition-colors hover:text-[var(--text-primary)]"
+                    >
+                      <Mail className="h-3.5 w-3.5" />
+                      <span>
+                        {copied
+                          ? "Copied to clipboard!"
+                          : PORTFOLIO_DATA.personal.email}
+                      </span>
+                    </button>
+
+                    <a
+                      href="#projects"
+                      className="inline-flex items-center gap-1.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-primary)] px-3 py-1.5 text-xs font-medium text-[var(--text-primary)] transition-colors hover:border-[var(--border-strong)]"
+                    >
+                      <span>View Projects</span>
+                    </a>
+                  </div>
                 </div>
-              </SpotlightCard>
+              </div>
 
               {/* Technologies I Use (Pill Cloud from atalaa-df Screenshot 13) */}
               <div>
