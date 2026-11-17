@@ -13,7 +13,7 @@ export default function SpotlightCard({
   children,
   className = "",
   onClick,
-  spotlightColor = "rgba(34, 211, 238, 0.13)",
+  spotlightColor = "rgba(255, 255, 255, 0.07)",
 }: SpotlightCardProps) {
   const divRef = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });

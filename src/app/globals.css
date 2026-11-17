@@ -2,39 +2,37 @@
 
 :root,
 [data-theme="dark"] {
-  --bg-primary: #09090b;
-  --bg-secondary: #111115;
-  --bg-card: rgba(20, 20, 25, 0.78);
-  --bg-card-hover: rgba(28, 28, 35, 0.92);
-  --bg-elevated: rgba(24, 24, 30, 0.92);
+  --bg-primary: #0f0f11;
+  --bg-secondary: #161619;
+  --bg-card: #18181c;
+  --bg-card-hover: #1f1f24;
+  --bg-elevated: #1b1b20;
   --text-primary: #f4f4f5;
   --text-secondary: #a1a1aa;
   --text-muted: #71717a;
   --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-strong: rgba(34, 211, 238, 0.35);
-  --accent-cyan: #22d3ee;
+  --border-strong: rgba(255, 255, 255, 0.22);
+  --accent-primary: #ffffff;
   --accent-emerald: #10b981;
-  --glow-primary: rgba(34, 211, 238, 0.14);
-  --glow-secondary: rgba(16, 185, 129, 0.12);
-  --grid-line: rgba(255, 255, 255, 0.03);
+  --glow-primary: rgba(255, 255, 255, 0.07);
+  --grid-line: rgba(255, 255, 255, 0.025);
 }
 
 [data-theme="light"] {
-  --bg-primary: #f8fafc;
-  --bg-secondary: #f1f5f9;
-  --bg-card: rgba(255, 255, 255, 0.88);
-  --bg-card-hover: rgba(255, 255, 255, 0.98);
-  --bg-elevated: rgba(255, 255, 255, 0.95);
-  --text-primary: #0f172a;
-  --text-secondary: #475569;
-  --text-muted: #64748b;
-  --border-subtle: rgba(15, 23, 42, 0.09);
-  --border-strong: rgba(8, 145, 178, 0.4);
-  --accent-cyan: #0891b2;
+  --bg-primary: #f4f4f5;
+  --bg-secondary: #e4e4e7;
+  --bg-card: #ffffff;
+  --bg-card-hover: #fafafa;
+  --bg-elevated: #ffffff;
+  --text-primary: #09090b;
+  --text-secondary: #52525b;
+  --text-muted: #71717a;
+  --border-subtle: rgba(9, 9, 11, 0.1);
+  --border-strong: rgba(9, 9, 11, 0.28);
+  --accent-primary: #18181b;
   --accent-emerald: #059669;
-  --glow-primary: rgba(8, 145, 178, 0.1);
-  --glow-secondary: rgba(5, 150, 105, 0.08);
-  --grid-line: rgba(15, 23, 42, 0.035);
+  --glow-primary: rgba(0, 0, 0, 0.06);
+  --grid-line: rgba(9, 9, 11, 0.035);
 }
 
 html {
@@ -52,20 +50,50 @@ body {
   transition: background-color 0.25s ease, color 0.25s ease;
 }
 
-/* Subtle architectural grid background */
+/* Subtle dot/grid texture */
 .bg-architectural-grid {
-  background-size: 40px 40px;
+  background-size: 36px 36px;
   background-image:
     linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
     linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
 }
 
-/* Bento card surface with adaptive hover */
+/* Diagonal spotlight beam inspired by khalifaalhasan.my.id */
+.hero-spotlight-beam {
+  background: radial-gradient(
+    ellipse 70% 55% at 25% 15%,
+    rgba(255, 255, 255, 0.075),
+    transparent 70%
+  );
+}
+
+/* Gradient heading text inspired by ello-rabyndra.vercel.app */
+.heading-gradient {
+  background: linear-gradient(90deg, #71717a 0%, #f4f4f5 45%, #ffffff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+[data-theme="light"] .heading-gradient {
+  background: linear-gradient(90deg, #71717a 0%, #18181b 50%, #09090b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Glowing wireframe neon shapes inspired by atalaa-df.vercel.app */
+.neon-shape-glow {
+  filter: drop-shadow(0 0 14px rgba(255, 255, 255, 0.55))
+    drop-shadow(0 0 32px rgba(255, 255, 255, 0.22));
+}
+
+[data-theme="light"] .neon-shape-glow {
+  filter: drop-shadow(0 0 10px rgba(24, 24, 27, 0.25));
+}
+
+/* Matte dark card surface */
 .bento-card {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   transition:
     border-color 0.25s ease,
     transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
@@ -77,8 +105,28 @@ body {
   .bento-card:hover {
     border-color: var(--border-strong);
     background: var(--bg-card-hover);
-    box-shadow: 0 16px 40px -16px var(--glow-primary);
+    box-shadow: 0 20px 45px -20px rgba(0, 0, 0, 0.7);
   }
+}
+
+/* Infinite marquee animation */
+@keyframes marquee-left {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee-left 28s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
 }
 
 /* Custom sleek scrollbar */
@@ -92,10 +140,10 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(113, 113, 122, 0.35);
+  background: rgba(161, 161, 170, 0.25);
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(34, 211, 238, 0.5);
+  background: rgba(244, 244, 245, 0.45);
 }
