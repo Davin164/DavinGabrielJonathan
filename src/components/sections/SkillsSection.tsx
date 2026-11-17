@@ -2,126 +2,148 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Server, Layout, Database, Sparkles, Wrench } from "lucide-react";
-import { PORTFOLIO_DATA } from "@/data/portfolio";
 import SpotlightCard from "@/components/ui/SpotlightCard";
 
-function getCategoryIcon(id: string) {
-  switch (id) {
-    case "backend":
-      return Server;
-    case "frontend":
-      return Layout;
-    default:
-      return Database;
-  }
-}
+const SKILL_PILL_COLUMNS = [
+  {
+    title: "Languages & Frameworks",
+    pills: [
+      "JavaScript",
+      "TypeScript",
+      "PHP",
+      "Java",
+      "Node.js",
+      "Express.js",
+      "Laravel",
+      "Next.js",
+      "React",
+      "Tailwind CSS",
+      "Bootstrap",
+      "GSAP",
+    ],
+  },
+  {
+    title: "Backend & Architecture",
+    pills: [
+      "REST API",
+      "MVC Architecture",
+      "Payment Gateway",
+      "Middleware Auth",
+      "Pessimistic Locking",
+      "ACID Transaction",
+      "Concurrency Control",
+      "QR Ticket Scanner",
+    ],
+  },
+  {
+    title: "Data & Databases",
+    pills: [
+      "PostgreSQL",
+      "MySQL",
+      "MongoDB",
+      "SQLite",
+      "Row-Level Locking",
+      "Schema Design",
+    ],
+  },
+  {
+    title: "DevOps, Security & Tools",
+    pills: [
+      "Docker",
+      "Docker Compose",
+      "Linux VPS Host",
+      "Wazuh SIEM",
+      "Blue / Red Team",
+      "Bug Hunting",
+      "Git & GitHub",
+      "Postman",
+      "Google Antigravity",
+      "VS Code",
+      "Figma",
+    ],
+  },
+];
+
+const MARQUEE_ITEMS = [
+  "Node.js",
+  "Express.js",
+  "Laravel",
+  "Next.js",
+  "TypeScript",
+  "PostgreSQL",
+  "MySQL",
+  "MongoDB",
+  "Docker Compose",
+  "Payment Gateway",
+  "Pessimistic Locking",
+  "Wazuh SIEM",
+  "Tailwind CSS",
+  "GSAP Animation",
+  "Google Antigravity",
+];
 
 export default function SkillsSection() {
   return (
-    <section id="skills" className="py-16 sm:py-24">
+    <section id="skills" className="py-20 sm:py-28">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        {/* Section Header */}
-        <div className="mb-10 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-          <div>
-            <p className="font-mono text-xs font-semibold uppercase tracking-widest text-cyan-400">
-              04 // ENGINEERING TOOLBOX &amp; TECHNICAL STACK
-            </p>
-            <h2 className="mt-2 text-2xl font-bold tracking-tight text-[var(--text-primary)] sm:text-4xl">
-              Keahlian Teknis Berdasarkan Implementasi Nyata
-            </h2>
-          </div>
-          <p className="max-w-md text-xs text-[var(--text-secondary)] sm:text-sm">
-            Setiap teknologi dipetakan langsung ke proyek nyata yang pernah dibangun, mulai dari REST API &amp; Payment Gateway hingga SIEM Wazuh.
+        {/* Centered Heading (Exact match to khalifaalhasan.my.id Screenshot 8) */}
+        <div className="mb-12 text-center">
+          <motion.h2
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.45 }}
+            className="text-3xl font-extrabold tracking-tight text-[var(--text-primary)] sm:text-5xl"
+          >
+            Skills
+          </motion.h2>
+          <p className="mt-2 text-xs text-[var(--text-muted)] sm:text-sm">
+            Crafting Scalable Infrastructure And Clean Code
           </p>
         </div>
 
-        {/* 3 Pillar Columns */}
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
-          {PORTFOLIO_DATA.skillCategories.map((category, idx) => {
-            const Icon = getCategoryIcon(category.id);
-            return (
-              <motion.div
-                key={category.id}
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.4, delay: idx * 0.07 }}
-              >
-                <SpotlightCard className="h-full p-5 sm:p-6">
-                  <div className="flex h-full flex-col justify-between space-y-5">
-                    <div>
-                      <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-cyan-500/30 bg-cyan-500/10 text-cyan-400">
-                        <Icon className="h-5 w-5" />
-                      </div>
-                      <h3 className="mt-3 text-lg font-bold text-[var(--text-primary)]">
-                        {category.title}
-                      </h3>
-                      <p className="mt-1 text-xs leading-relaxed text-[var(--text-secondary)]">
-                        {category.subtitle}
-                      </p>
-                    </div>
+        {/* 4 Dark Pillar Cards with Pill Badges (Exact match to khalifaalhasan Screenshot 8) */}
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {SKILL_PILL_COLUMNS.map((col, idx) => (
+            <motion.div
+              key={col.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: idx * 0.06 }}
+            >
+              <SpotlightCard className="h-full p-6">
+                <h3 className="text-base font-bold leading-snug text-[var(--text-primary)] sm:text-lg">
+                  {col.title}
+                </h3>
 
-                    <div className="space-y-2.5">
-                      {category.skills.map((skill) => (
-                        <div
-                          key={skill.name}
-                          className={`rounded-xl border p-3 transition-colors ${
-                            skill.highlight
-                              ? "border-cyan-500/25 bg-[var(--bg-secondary)]/90"
-                              : "border-[var(--border-subtle)] bg-[var(--bg-secondary)]/50"
-                          }`}
-                        >
-                          <div className="flex items-center justify-between gap-2">
-                            <span className="flex items-center gap-1.5 text-xs font-bold text-[var(--text-primary)]">
-                              {skill.highlight && (
-                                <Sparkles className="h-3 w-3 text-cyan-400" />
-                              )}
-                              {skill.name}
-                            </span>
-                            <span className="rounded bg-emerald-500/15 px-2 py-0.5 font-mono text-[10px] font-semibold text-emerald-400">
-                              {skill.level}
-                            </span>
-                          </div>
-                          <p className="mt-1 text-[11px] text-[var(--text-muted)]">
-                            Implementasi: <span className="text-[var(--text-secondary)]">{skill.usedIn}</span>
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </SpotlightCard>
-              </motion.div>
-            );
-          })}
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {col.pills.map((pill) => (
+                    <span
+                      key={pill}
+                      className="rounded-full border border-[var(--border-subtle)] bg-[var(--bg-secondary)] px-3 py-1.5 text-xs font-medium text-[var(--text-secondary)] transition-colors hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
+                    >
+                      {pill}
+                    </span>
+                  ))}
+                </div>
+              </SpotlightCard>
+            </motion.div>
+          ))}
         </div>
 
-        {/* Supporting Workflow Strip */}
-        <div className="mt-6 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)]/60 p-4 sm:p-5">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <div className="flex items-center gap-2 text-xs font-semibold text-[var(--text-primary)]">
-              <Wrench className="h-4 w-4 text-cyan-400" />
-              <span>Daily Engineering Environment &amp; Tools:</span>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {[
-                "Git & GitHub",
-                "Docker & Docker Compose",
-                "Postman API Testing",
-                "Linux VPS Hosting",
-                "Wazuh SIEM",
-                "VS Code & Antigravity",
-                "Figma UI/UX",
-                "ESLint (Airbnb Style)",
-              ].map((tool) => (
-                <span
-                  key={tool}
-                  className="rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-primary)] px-2.5 py-1 font-mono text-[11px] text-[var(--text-secondary)]"
-                >
-                  {tool}
-                </span>
-              ))}
-            </div>
+        {/* Infinite Tech Stack Marquee Ticker */}
+        <div className="relative mt-10 overflow-hidden rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] py-4">
+          <div className="animate-marquee flex items-center gap-4">
+            {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, i) => (
+              <span
+                key={i}
+                className="inline-flex items-center gap-2 rounded-full border border-[var(--border-subtle)] bg-[var(--bg-secondary)] px-4 py-1.5 font-mono text-xs text-[var(--text-secondary)]"
+              >
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                {item}
+              </span>
+            ))}
           </div>
         </div>
       </div>

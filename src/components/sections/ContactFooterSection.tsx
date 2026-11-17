@@ -7,12 +7,13 @@ import {
   Check,
   MessageSquare,
   ExternalLink,
-  MapPin,
-  Terminal,
+  Linkedin,
+  Github,
   ArrowUpRight,
 } from "lucide-react";
 import { PORTFOLIO_DATA } from "@/data/portfolio";
 import SpotlightCard from "@/components/ui/SpotlightCard";
+import { GlowingShape } from "@/components/ui/GlowingShapes";
 
 export default function ContactFooterSection() {
   const [copied, setCopied] = useState(false);
@@ -24,36 +25,45 @@ export default function ContactFooterSection() {
   };
 
   return (
-    <footer id="contact" className="pt-16 pb-28 sm:pt-24 sm:pb-16">
+    <footer
+      id="contact"
+      className="relative overflow-hidden pt-16 pb-28 sm:pt-24 sm:pb-16"
+    >
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <SpotlightCard className="border-cyan-500/25 p-6 sm:p-10">
+        <SpotlightCard className="relative p-7 sm:p-12">
+          {/* Decorative glowing neon shapes inside footer */}
+          <div className="pointer-events-none absolute -top-6 right-8 hidden opacity-60 lg:block">
+            <GlowingShape variant="star" size={76} delay={0.4} />
+          </div>
+
           <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-12">
             {/* Left CTA Text */}
             <div className="space-y-4 lg:col-span-7">
-              <p className="font-mono text-xs font-semibold uppercase tracking-widest text-cyan-400">
-                05 // READY TO COLLABORATE
+              <p className="font-mono text-xs uppercase tracking-widest text-[var(--text-muted)]">
+                LET&apos;S BUILD SOMETHING GREAT
               </p>
-              <h2 className="text-2xl font-extrabold tracking-tight text-[var(--text-primary)] sm:text-4xl">
-                Butuh Backend / Full-Stack Developer atau Tech Lead untuk Proyek Lu?
+              <h2 className="heading-gradient text-3xl font-extrabold tracking-tight sm:text-5xl">
+                Ready to collaborate on your next project?
               </h2>
               <p className="max-w-xl text-xs leading-relaxed text-[var(--text-secondary)] sm:text-sm">
-                Terbuka untuk peluang kerja Full-Stack / Backend Web Developer, kolaborasi proyek berskala besar, maupun kontribusi sebagai Core Team Web Development.
+                Open for Full-Stack / Backend Web Developer roles, Tech Lead
+                opportunities, and Core Team Web Development collaborations.
               </p>
 
               <div className="flex flex-wrap items-center gap-3 pt-2">
                 <button
                   onClick={handleCopyEmail}
-                  className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-cyan-500 to-emerald-500 px-5 py-3 text-xs font-bold text-slate-950 shadow-lg shadow-cyan-500/20 transition-all hover:brightness-110 active:scale-95 sm:text-sm"
+                  className="inline-flex items-center gap-2 rounded-full bg-[var(--text-primary)] px-6 py-3 text-xs font-bold text-[var(--bg-primary)] shadow-lg transition-all hover:opacity-90 active:scale-95 sm:text-sm"
                 >
                   {copied ? (
                     <>
-                      <Check className="h-4 w-4" />
-                      <span>Email Tersalin ({PORTFOLIO_DATA.personal.email})</span>
+                      <Check className="h-4 w-4 text-emerald-500" />
+                      <span>Copied: {PORTFOLIO_DATA.personal.email}</span>
                     </>
                   ) : (
                     <>
                       <Copy className="h-4 w-4" />
-                      <span>Salin Email: {PORTFOLIO_DATA.personal.email}</span>
+                      <span>Copy Email</span>
                     </>
                   )}
                 </button>
@@ -62,9 +72,9 @@ export default function ContactFooterSection() {
                   href={PORTFOLIO_DATA.personal.whatsappUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-2 rounded-xl border border-emerald-500/35 bg-emerald-500/10 px-4 py-3 text-xs font-semibold text-emerald-400 transition-colors hover:bg-emerald-500/20 sm:text-sm"
+                  className="inline-flex items-center gap-2 rounded-full border border-[var(--border-subtle)] bg-[var(--bg-secondary)] px-5 py-3 text-xs font-semibold text-[var(--text-primary)] transition-colors hover:border-[var(--border-strong)] sm:text-sm"
                 >
-                  <MessageSquare className="h-4 w-4" />
+                  <MessageSquare className="h-4 w-4 text-emerald-400" />
                   <span>WhatsApp ({PORTFOLIO_DATA.personal.phone})</span>
                 </a>
               </div>
@@ -74,66 +84,66 @@ export default function ContactFooterSection() {
             <div className="space-y-3 lg:col-span-5">
               <a
                 href={`mailto:${PORTFOLIO_DATA.personal.email}`}
-                className="flex items-center justify-between rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)]/80 p-4 transition-colors hover:border-cyan-500/40"
+                className="flex items-center justify-between rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)] p-4 transition-colors hover:border-[var(--border-strong)]"
               >
                 <div className="flex items-center gap-3">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-cyan-500/15 text-cyan-400">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--border-subtle)] bg-[var(--bg-card)] text-[var(--text-primary)]">
                     <Mail className="h-4 w-4" />
                   </div>
                   <div>
                     <p className="text-xs font-bold text-[var(--text-primary)]">
-                      Kirim Email Langsung
+                      Email Direct
                     </p>
                     <p className="font-mono text-[11px] text-[var(--text-muted)]">
                       {PORTFOLIO_DATA.personal.email}
                     </p>
                   </div>
                 </div>
-                <ArrowUpRight className="h-4 w-4 text-cyan-400" />
+                <ArrowUpRight className="h-4 w-4 text-[var(--text-secondary)]" />
               </a>
 
               <a
                 href={PORTFOLIO_DATA.personal.githubUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center justify-between rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)]/80 p-4 transition-colors hover:border-cyan-500/40"
+                className="flex items-center justify-between rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)] p-4 transition-colors hover:border-[var(--border-strong)]"
               >
                 <div className="flex items-center gap-3">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-cyan-500/15 text-cyan-400">
-                    <Terminal className="h-4 w-4" />
+                  <div className="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--border-subtle)] bg-[var(--bg-card)] text-[var(--text-primary)]">
+                    <Github className="h-4 w-4" />
                   </div>
                   <div>
                     <p className="text-xs font-bold text-[var(--text-primary)]">
-                      GitHub Repository &amp; Open Source
+                      GitHub Profile
                     </p>
                     <p className="font-mono text-[11px] text-[var(--text-muted)]">
                       github.com/{PORTFOLIO_DATA.personal.githubUsername}
                     </p>
                   </div>
                 </div>
-                <ExternalLink className="h-4 w-4 text-cyan-400" />
+                <ExternalLink className="h-4 w-4 text-[var(--text-secondary)]" />
               </a>
 
               <a
                 href={PORTFOLIO_DATA.personal.linkedinUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center justify-between rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)]/80 p-4 transition-colors hover:border-cyan-500/40"
+                className="flex items-center justify-between rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)] p-4 transition-colors hover:border-[var(--border-strong)]"
               >
                 <div className="flex items-center gap-3">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-500/15 text-emerald-400">
-                    <MapPin className="h-4 w-4" />
+                  <div className="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--border-subtle)] bg-[var(--bg-card)] text-[var(--text-primary)]">
+                    <Linkedin className="h-4 w-4" />
                   </div>
                   <div>
                     <p className="text-xs font-bold text-[var(--text-primary)]">
-                      LinkedIn Professional Network
+                      LinkedIn
                     </p>
                     <p className="font-mono text-[11px] text-[var(--text-muted)]">
                       linkedin.com/in/{PORTFOLIO_DATA.personal.linkedinHandle}
                     </p>
                   </div>
                 </div>
-                <ExternalLink className="h-4 w-4 text-emerald-400" />
+                <ExternalLink className="h-4 w-4 text-[var(--text-secondary)]" />
               </a>
             </div>
           </div>
@@ -146,7 +156,7 @@ export default function ContactFooterSection() {
             <strong className="text-[var(--text-primary)]">
               {PORTFOLIO_DATA.personal.name}
             </strong>
-            . Dibangun dengan Next.js, TypeScript, Tailwind CSS &amp; Framer Motion.
+            . Crafted with Next.js, TypeScript, Tailwind CSS &amp; Framer Motion.
           </p>
           <p className="font-mono text-[11px]">
             Palembang, Sumatera Selatan • Hosted on Vercel
