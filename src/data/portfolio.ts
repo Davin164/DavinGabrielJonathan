@@ -9,7 +9,7 @@ import {
 export const PORTFOLIO_DATA = {
   personal: {
     name: "Davin Gabriel Jonathan",
-    shortName: "Davin G.J.",
+    shortName: "Davin",
     handle: "@Davin164",
     role: "Full-Stack Web Developer",
     focus: "Backend Architecture • Tech Lead • Full-Stack Engineering",
