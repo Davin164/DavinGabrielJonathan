@@ -24,7 +24,6 @@ const APPROACH_STEPS = [
 
 const BIG_STATS = [
   { value: "04+", label: "Years In Web Dev" },
-  { value: "98%", label: "SI FEST Backend Built" },
   { value: "10+", label: "Projects Completed" },
   { value: "02×", label: "Best Project Awards" },
 ];
@@ -111,7 +110,7 @@ export default function BentoAboutSection() {
                     <strong className="text-[var(--text-primary)]">
                       Information Systems student at Universitas Sriwijaya
                     </strong>{" "}
-                    and a Software Engineering (RPL) graduate with 4 years of
+                    and a Software Engineering (RPL) student at Bukit Asam Vocational High School. Graduate with 4 years of
                     hands-on web development experience.
                   </p>
                   <p>
@@ -121,18 +120,18 @@ export default function BentoAboutSection() {
                       Tech Lead of SI FEST 2026
                     </strong>{" "}
                     (building 98% of the backend solo, including ticketing,
-                    payment gateway integration, admin panel, and QR ticket
+                    payment gateway integration, admin panel, email ticket and QR ticket
                     scanner) and contributing as a{" "}
                     <strong className="text-[var(--text-primary)]">
-                      Backend Developer at GDGoC 2026
+                      Member Backend Developer at GDGoC 2026
                     </strong>
                     .
                   </p>
                   <p>
                     Passionate about backend architecture, network &amp;
-                    cybersecurity (Blue/Red Team SIEM with Wazuh —{" "}
+                    cybersecurity (Blue/Red Team SIEM with Wazuh {" "}
                     <strong className="text-[var(--text-primary)]">
-                      Best Project Q1 NAC
+                      Best Project Q1 at NAC
                     </strong>
                     ), and mentoring fellow developers.
                   </p>
@@ -196,7 +195,7 @@ export default function BentoAboutSection() {
           </div>
 
           {/* Big Numbers Row */}
-          <div className="grid grid-cols-2 gap-6 pt-4 text-center sm:grid-cols-4">
+          <div className="grid grid-cols-3 gap-6 pt-4 text-center">
             {BIG_STATS.map((stat, idx) => (
               <motion.div
                 key={idx}
