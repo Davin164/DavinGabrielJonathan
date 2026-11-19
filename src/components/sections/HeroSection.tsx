@@ -92,15 +92,6 @@ export default function HeroSection() {
             <p className="max-w-xl text-sm leading-relaxed text-[var(--text-secondary)] sm:text-base">
               I don&apos;t just build features — I own outcomes. From database
               locking &amp; payment gateways to shipped end-to-end web products.
-              Tech Lead at{" "}
-              <strong className="text-[var(--text-primary)]">
-                SI FEST 2026
-              </strong>{" "}
-              (98% Backend built solo) &amp; Backend Member at{" "}
-              <strong className="text-[var(--text-primary)]">
-                GDGoC UNSRI
-              </strong>
-              .
             </p>
 
             {/* Social Circle Icons & Let's Discuss Pill */}
