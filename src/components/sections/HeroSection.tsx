@@ -165,7 +165,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 26 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.12, ease: "easeOut" }}
-            className="relative flex justify-center lg:col-span-5 lg:justify-end"
+            className="relative flex justify-center lg:col-span-5"
           >
             {/* Subtle Floating Neon Shapes around Portrait */}
             <div className="pointer-events-none absolute -top-8 -right-4 hidden sm:block">
@@ -176,13 +176,13 @@ export default function HeroSection() {
             </div>
 
             {/* Portrait Container */}
-            <div className="group relative w-full max-w-[360px] overflow-hidden rounded-3xl border border-[var(--border-subtle)] bg-[var(--bg-card)] p-2.5 shadow-[0_24px_60px_rgba(0,0,0,0.75)] transition-all hover:border-[var(--border-strong)]">
-              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-gradient-to-b from-zinc-800 via-zinc-900 to-zinc-950">
+            <div className="group relative w-full max-w-[380px] overflow-hidden rounded-3xl border border-[var(--border-subtle)] bg-[var(--bg-card)] p-2.5 shadow-[0_24px_60px_rgba(0,0,0,0.75)] transition-all hover:border-[var(--border-strong)]">
+              <div className="relative aspect-[956/989] w-full overflow-hidden rounded-2xl bg-gradient-to-b from-zinc-800 via-zinc-900 to-zinc-950">
                 {!imgError ? (
                   /* Loads /profile.jpg from public/profile.jpg */
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
-                    src="/profile.jpg"
+                    src="/profile.jpg?v=2"
                     alt={PORTFOLIO_DATA.personal.name}
                     onError={() => setImgError(true)}
                     className="h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
