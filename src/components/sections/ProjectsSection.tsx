@@ -1,23 +1,16 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
-import {
-  AnimatePresence,
-  motion,
-  useMotionValue,
-  useSpring,
-  useTransform,
-} from "framer-motion";
+import React, { useState, useEffect } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   Video,
   Github,
   Clock,
-  ChevronLeft,
-  ChevronRight,
   Check,
-  Sparkles,
-  Layers,
   Terminal,
+  Sparkles,
+  ChevronRight,
+  FolderGit2,
 } from "lucide-react";
 import { PORTFOLIO_DATA } from "@/data/portfolio";
 import { ProjectItem } from "@/types/portfolio";
@@ -28,77 +21,92 @@ interface ProjectsSectionProps {
 }
 
 const CATEGORIES = [
-  { id: "all", label: "All Projects" },
+  { id: "all", label: "All Projects (10)" },
   { id: "featured", label: "Featured" },
   { id: "backend", label: "Backend & API" },
   { id: "fullstack", label: "Full-Stack" },
   { id: "education", label: "Education" },
 ] as const;
 
-// Custom dynamic aura & accent per project for the 3D Stage
-const PROJECT_AURAS: Record<
+const FOLDER_THEMES: Record<
   string,
-  { glow: string; accentText: string; accentBorder: string; pillBg: string }
+  {
+    accent: string;
+    tabBorder: string;
+    glow: string;
+    dot: string;
+    badgeBg: string;
+  }
 > = {
   "sifest-2026": {
-    glow: "from-sky-500/25 via-indigo-500/15 to-transparent",
-    accentText: "text-sky-400",
-    accentBorder: "border-sky-500/40",
-    pillBg: "bg-sky-500/10 text-sky-300 border-sky-500/30",
+    accent: "#38bdf8",
+    tabBorder: "border-sky-500/40",
+    glow: "from-sky-500/20 via-indigo-500/10 to-transparent",
+    dot: "bg-sky-400 shadow-[0_0_10px_#38bdf8]",
+    badgeBg: "border-sky-500/30 bg-sky-500/10 text-sky-300",
   },
   "domus-fox": {
-    glow: "from-emerald-500/25 via-teal-500/15 to-transparent",
-    accentText: "text-emerald-400",
-    accentBorder: "border-emerald-500/40",
-    pillBg: "bg-emerald-500/10 text-emerald-300 border-emerald-500/30",
+    accent: "#10b981",
+    tabBorder: "border-emerald-500/40",
+    glow: "from-emerald-500/20 via-teal-500/10 to-transparent",
+    dot: "bg-emerald-400 shadow-[0_0_10px_#10b981]",
+    badgeBg: "border-emerald-500/30 bg-emerald-500/10 text-emerald-300",
   },
   "gatekeeper-logic": {
-    glow: "from-teal-500/25 via-emerald-500/15 to-transparent",
-    accentText: "text-teal-400",
-    accentBorder: "border-teal-500/40",
-    pillBg: "bg-teal-500/10 text-teal-300 border-teal-500/30",
+    accent: "#2dd4bf",
+    tabBorder: "border-teal-500/40",
+    glow: "from-teal-500/20 via-emerald-500/10 to-transparent",
+    dot: "bg-teal-400 shadow-[0_0_10px_#2dd4bf]",
+    badgeBg: "border-teal-500/30 bg-teal-500/10 text-teal-300",
   },
   "docker-crud-api": {
-    glow: "from-blue-500/25 via-cyan-500/15 to-transparent",
-    accentText: "text-blue-400",
-    accentBorder: "border-blue-500/40",
-    pillBg: "bg-blue-500/10 text-blue-300 border-blue-500/30",
+    accent: "#60a5fa",
+    tabBorder: "border-blue-500/40",
+    glow: "from-blue-500/20 via-sky-500/10 to-transparent",
+    dot: "bg-blue-400 shadow-[0_0_10px_#60a5fa]",
+    badgeBg: "border-blue-500/30 bg-blue-500/10 text-blue-300",
   },
   "wazuh-siem-nac": {
-    glow: "from-amber-500/25 via-orange-500/15 to-transparent",
-    accentText: "text-amber-400",
-    accentBorder: "border-amber-500/40",
-    pillBg: "bg-amber-500/10 text-amber-300 border-amber-500/30",
+    accent: "#fbbf24",
+    tabBorder: "border-amber-500/40",
+    glow: "from-amber-500/20 via-orange-500/10 to-transparent",
+    dot: "bg-amber-400 shadow-[0_0_10px_#fbbf24]",
+    badgeBg: "border-amber-500/30 bg-amber-500/10 text-amber-300",
   },
   "school-cms-api": {
-    glow: "from-purple-500/25 via-fuchsia-500/15 to-transparent",
-    accentText: "text-purple-400",
-    accentBorder: "border-purple-500/40",
-    pillBg: "bg-purple-500/10 text-purple-300 border-purple-500/30",
+    accent: "#c084fc",
+    tabBorder: "border-purple-500/40",
+    glow: "from-purple-500/20 via-fuchsia-500/10 to-transparent",
+    dot: "bg-purple-400 shadow-[0_0_10px_#c084fc]",
+    badgeBg: "border-purple-500/30 bg-purple-500/10 text-purple-300",
   },
   "bookshelf-api": {
-    glow: "from-cyan-500/25 via-sky-500/15 to-transparent",
-    accentText: "text-cyan-400",
-    accentBorder: "border-cyan-500/40",
-    pillBg: "bg-cyan-500/10 text-cyan-300 border-cyan-500/30",
+    accent: "#22d3ee",
+    tabBorder: "border-cyan-500/40",
+    glow: "from-cyan-500/20 via-sky-500/10 to-transparent",
+    dot: "bg-cyan-400 shadow-[0_0_10px_#22d3ee]",
+    badgeBg: "border-cyan-500/30 bg-cyan-500/10 text-cyan-300",
   },
   "simak-himsi": {
-    glow: "from-indigo-500/25 via-blue-500/15 to-transparent",
-    accentText: "text-indigo-400",
-    accentBorder: "border-indigo-500/40",
-    pillBg: "bg-indigo-500/10 text-indigo-300 border-indigo-500/30",
+    accent: "#818cf8",
+    tabBorder: "border-indigo-500/40",
+    glow: "from-indigo-500/20 via-blue-500/10 to-transparent",
+    dot: "bg-indigo-400 shadow-[0_0_10px_#818cf8]",
+    badgeBg: "border-indigo-500/30 bg-indigo-500/10 text-indigo-300",
   },
   "laravel-library-finance": {
-    glow: "from-rose-500/25 via-pink-500/15 to-transparent",
-    accentText: "text-rose-400",
-    accentBorder: "border-rose-500/40",
-    pillBg: "bg-rose-500/10 text-rose-300 border-rose-500/30",
+    accent: "#fb7185",
+    tabBorder: "border-rose-500/40",
+    glow: "from-rose-500/20 via-pink-500/10 to-transparent",
+    dot: "bg-rose-400 shadow-[0_0_10px_#fb7185]",
+    badgeBg: "border-rose-500/30 bg-rose-500/10 text-rose-300",
   },
   "education-mentorship": {
+    accent: "#e4e4e7",
+    tabBorder: "border-zinc-400/40",
     glow: "from-zinc-400/20 via-zinc-500/10 to-transparent",
-    accentText: "text-zinc-200",
-    accentBorder: "border-zinc-400/40",
-    pillBg: "bg-white/10 text-zinc-200 border-white/20",
+    dot: "bg-zinc-200 shadow-[0_0_10px_#ffffff]",
+    badgeBg: "border-white/25 bg-white/10 text-zinc-200",
   },
 };
 
@@ -106,9 +114,33 @@ export default function ProjectsSection({
   selectedProject,
 }: ProjectsSectionProps) {
   const [activeCategory, setActiveCategory] = useState<string>("all");
-  const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [deckPage, setDeckPage] = useState<0 | 1>(0);
+  const [activeId, setActiveId] = useState<string>("sifest-2026");
 
-  // Sync when a project is chosen via Ctrl+K Command Palette
+  const filteredProjects =
+    activeCategory === "all"
+      ? PORTFOLIO_DATA.projects
+      : PORTFOLIO_DATA.projects.filter((p) => p.category === activeCategory);
+
+  // When viewing "all" (10 projects), split into two 5-card Expanding Folder Decks so the panels expand super wide!
+  const hasTwoDecks = activeCategory === "all" && filteredProjects.length > 5;
+  const visibleProjects = hasTwoDecks
+    ? deckPage === 0
+      ? filteredProjects.slice(0, 5)
+      : filteredProjects.slice(5, 10)
+    : filteredProjects;
+
+  // Ensure activeId is always one of the currently visible projects
+  useEffect(() => {
+    if (
+      visibleProjects.length > 0 &&
+      !visibleProjects.some((p) => p.id === activeId)
+    ) {
+      setActiveId(visibleProjects[0].id);
+    }
+  }, [activeCategory, deckPage, visibleProjects, activeId]);
+
+  // Sync if selected via Ctrl+K Command Palette
   useEffect(() => {
     if (!selectedProject) return;
     setActiveCategory("all");
@@ -116,72 +148,18 @@ export default function ProjectsSection({
       (p) => p.id === selectedProject.id
     );
     if (idx !== -1) {
-      setActiveIndex(idx);
+      setDeckPage(idx >= 5 ? 1 : 0);
+      setActiveId(selectedProject.id);
       document
         .getElementById("projects")
         ?.scrollIntoView({ behavior: "smooth" });
     }
   }, [selectedProject]);
 
-  const filteredProjects =
-    activeCategory === "all"
-      ? PORTFOLIO_DATA.projects
-      : PORTFOLIO_DATA.projects.filter((p) => p.category === activeCategory);
-
-  // Reset active index when switching category
-  useEffect(() => {
-    setActiveIndex(0);
-  }, [activeCategory]);
-
-  const safeIndex =
-    activeIndex >= filteredProjects.length ? 0 : Math.max(0, activeIndex);
-  const activeProject = filteredProjects[safeIndex] || PORTFOLIO_DATA.projects[0];
-  const aura = PROJECT_AURAS[activeProject.id] || PROJECT_AURAS["sifest-2026"];
-
-  // 3D Tilt Motion Values for the Interactive Stage (Desktop Pointer)
-  const stageRef = useRef<HTMLDivElement>(null);
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [7, -7]), {
-    stiffness: 220,
-    damping: 24,
-  });
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-7, 7]), {
-    stiffness: 220,
-    damping: 24,
-  });
-
-  const handleStageMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!stageRef.current) return;
-    const rect = stageRef.current.getBoundingClientRect();
-    const xPct = (e.clientX - rect.left) / rect.width - 0.5;
-    const yPct = (e.clientY - rect.top) / rect.height - 0.5;
-    mouseX.set(xPct);
-    mouseY.set(yPct);
-  };
-
-  const handleStageMouseLeave = () => {
-    mouseX.set(0);
-    mouseY.set(0);
-  };
-
-  const goPrev = () => {
-    setActiveIndex((prev) =>
-      prev <= 0 ? filteredProjects.length - 1 : prev - 1
-    );
-  };
-
-  const goNext = () => {
-    setActiveIndex((prev) =>
-      prev >= filteredProjects.length - 1 ? 0 : prev + 1
-    );
-  };
-
   return (
     <section id="projects" className="relative overflow-hidden py-20 sm:py-28">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        {/* Top Heading & Category Filter */}
+        {/* Section Heading & Filters */}
         <div className="mb-10 flex flex-col items-center text-center">
           <motion.h2
             initial={{ opacity: 0, y: 16 }}
@@ -193,18 +171,21 @@ export default function ProjectsSection({
             Projects I worked on
           </motion.h2>
           <p className="mt-2.5 max-w-lg text-xs text-[var(--text-muted)] sm:text-sm">
-            Interactive 3D Project Deck — Pilih dari daftar di kiri atau geser
-            kartu untuk menjelajahi setiap sistem.
+            Arahkan kursor atau klik tab folder untuk membuka detail proyek
+            secara interaktif.
           </p>
 
-          {/* Category Filter Pills */}
+          {/* Category Filter Tabs */}
           <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
             {CATEGORIES.map((cat) => {
               const active = activeCategory === cat.id;
               return (
                 <button
                   key={cat.id}
-                  onClick={() => setActiveCategory(cat.id)}
+                  onClick={() => {
+                    setActiveCategory(cat.id);
+                    setDeckPage(0);
+                  }}
                   className={`rounded-full px-4 py-1.5 text-xs font-semibold transition-all ${
                     active
                       ? "bg-[var(--text-primary)] text-[var(--bg-primary)] shadow-md"
@@ -216,322 +197,502 @@ export default function ProjectsSection({
               );
             })}
           </div>
-        </div>
 
-        {/* Mobile Quick Horizontal Filmstrip Scrubber (Thumb-Friendly di HP!) */}
-        <div className="mb-5 flex items-center gap-2 overflow-x-auto pb-2 lg:hidden">
-          {filteredProjects.map((proj, idx) => {
-            const isSelected = idx === safeIndex;
-            const num = String(idx + 1).padStart(2, "0");
-            return (
+          {/* Deck Switcher when viewing All Projects (Deck 01-05 vs Deck 06-10) */}
+          {hasTwoDecks && (
+            <div className="mt-4 inline-flex items-center gap-1 rounded-full border border-[var(--border-subtle)] bg-[var(--bg-card)] p-1">
               <button
-                key={proj.id}
-                onClick={() => setActiveIndex(idx)}
-                className={`flex shrink-0 items-center gap-2 rounded-full border px-3.5 py-2 text-xs font-semibold transition-all ${
-                  isSelected
-                    ? "border-white bg-white text-zinc-950 shadow-lg"
-                    : "border-[var(--border-subtle)] bg-[var(--bg-card)] text-[var(--text-secondary)]"
+                onClick={() => setDeckPage(0)}
+                className={`flex items-center gap-1.5 rounded-full px-4 py-1.5 font-mono text-xs font-semibold transition-all ${
+                  deckPage === 0
+                    ? "bg-white text-zinc-950 shadow"
+                    : "text-[var(--text-muted)] hover:text-[var(--text-primary)]"
                 }`}
               >
-                <span className="font-mono text-[10px] opacity-70">{num}</span>
-                <span className="max-w-[140px] truncate">{proj.title}</span>
+                <FolderGit2 className="h-3.5 w-3.5" />
+                <span>Folder Deck 01 – 05 (Flagship &amp; Core)</span>
               </button>
+              <button
+                onClick={() => setDeckPage(1)}
+                className={`flex items-center gap-1.5 rounded-full px-4 py-1.5 font-mono text-xs font-semibold transition-all ${
+                  deckPage === 1
+                    ? "bg-white text-zinc-950 shadow"
+                    : "text-[var(--text-muted)] hover:text-[var(--text-primary)]"
+                }`}
+              >
+                <FolderGit2 className="h-3.5 w-3.5" />
+                <span>Folder Deck 06 – 10 (API &amp; Web Suite)</span>
+              </button>
+            </div>
+          )}
+        </div>
+
+        {/* =====================================================================
+            DESKTOP & TABLET (lg+): EXPANDING GALLERY PANELS WITH FOLDER NOTCH SHAPE
+           ===================================================================== */}
+        <div className="hidden h-[540px] w-full items-stretch gap-3 lg:flex">
+          {visibleProjects.map((project, idx) => {
+            const globalIndex =
+              hasTwoDecks && deckPage === 1 ? idx + 6 : idx + 1;
+            const numStr = String(globalIndex).padStart(2, "0");
+            const isExpanded = project.id === activeId;
+            const theme =
+              FOLDER_THEMES[project.id] || FOLDER_THEMES["sifest-2026"];
+
+            return (
+              <div
+                key={project.id}
+                onMouseEnter={() => setActiveId(project.id)}
+                onClick={() => setActiveId(project.id)}
+                style={{
+                  flex: isExpanded ? "5.2 1 0%" : "0.85 1 0%",
+                }}
+                className="group relative flex h-full cursor-pointer flex-col transition-[flex] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+              >
+                {/* 1. TOP FOLDER NOTCH TAB (Signature Folder / HUD Silhouette!) */}
+                <div className="flex items-end">
+                  <div
+                    className={`relative flex h-9 items-center gap-2 rounded-t-2xl border-t border-l px-4 transition-colors duration-300 ${
+                      isExpanded
+                        ? `${theme.tabBorder} bg-[#1a1a20] text-white`
+                        : "border-[var(--border-subtle)] bg-[#141418] text-[var(--text-muted)] group-hover:text-[var(--text-secondary)]"
+                    }`}
+                  >
+                    <span className={`h-2 w-2 rounded-full ${theme.dot}`} />
+                    <span className="font-mono text-xs font-extrabold tracking-wider">
+                      /{numStr}
+                    </span>
+                    {isExpanded && (
+                      <span className="ml-1 truncate font-mono text-[11px] uppercase tracking-widest text-zinc-400">
+                        • {project.badge || project.category}
+                      </span>
+                    )}
+
+                    {/* Angled 45-degree Chamfered Folder Tab Slant on the Right of the Notch */}
+                    <svg
+                      viewBox="0 0 24 36"
+                      className="absolute -right-[23px] bottom-0 h-9 w-6 overflow-visible"
+                      fill="none"
+                    >
+                      <path
+                        d="M0 0 L24 36 L0 36 Z"
+                        fill={isExpanded ? "#1a1a20" : "#141418"}
+                      />
+                      <path
+                        d="M0 0 L24 36"
+                        stroke={
+                          isExpanded
+                            ? theme.accent
+                            : "rgba(255, 255, 255, 0.08)"
+                        }
+                        strokeOpacity={isExpanded ? "0.45" : "1"}
+                        strokeWidth="1.2"
+                      />
+                    </svg>
+                  </div>
+
+                  {/* Top Shoulder Line extending from the Folder Notch */}
+                  <div
+                    className={`ml-[23px] h-[1px] flex-1 transition-colors duration-300 ${
+                      isExpanded ? "bg-white/20" : "bg-[var(--border-subtle)]"
+                    }`}
+                  />
+                </div>
+
+                {/* 2. FOLDER BODY CONTAINER (With Chamfered Bottom-Right HUD Corner) */}
+                <div
+                  className={`relative flex flex-1 overflow-hidden rounded-tr-2xl rounded-b-2xl border-r border-b border-l transition-all duration-500 ${
+                    isExpanded
+                      ? `${theme.tabBorder} bg-[#18181d] shadow-[0_25px_70px_rgba(0,0,0,0.85)]`
+                      : "border-[var(--border-subtle)] bg-[#131317]/90 hover:bg-[#17171c]"
+                  }`}
+                >
+                  {/* Ambient Color Glow inside Expanded Folder */}
+                  <div
+                    className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${theme.glow} transition-opacity duration-500 ${
+                      isExpanded ? "opacity-100" : "opacity-0"
+                    }`}
+                  />
+
+                  {/* Futuristic HUD Corner Brackets */}
+                  {isExpanded && (
+                    <>
+                      <span
+                        style={{ borderColor: theme.accent }}
+                        className="pointer-events-none absolute top-3 right-3 h-3.5 w-3.5 border-t-2 border-r-2 opacity-60"
+                      />
+                      <span
+                        style={{ borderColor: theme.accent }}
+                        className="pointer-events-none absolute bottom-3 left-3 h-3.5 w-3.5 border-b-2 border-l-2 opacity-60"
+                      />
+                    </>
+                  )}
+
+                  {/* COLLAPSED VERTICAL BLADE VIEW */}
+                  {!isExpanded && (
+                    <div className="relative z-10 flex h-full w-full flex-col items-center justify-between py-6">
+                      <span className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 font-mono text-[10px] text-zinc-400">
+                        {project.period}
+                      </span>
+
+                      {/* Vertical Rotated Dossier Title */}
+                      <div className="flex flex-1 items-center justify-center overflow-hidden py-4">
+                        <p
+                          style={{
+                            writingMode: "vertical-rl",
+                            transform: "rotate(180deg)",
+                          }}
+                          className="max-h-[300px] truncate text-sm font-bold tracking-wide text-zinc-300 transition-colors group-hover:text-white"
+                        >
+                          {project.title}
+                        </p>
+                      </div>
+
+                      <div className="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/5 text-zinc-400 transition-transform group-hover:scale-110 group-hover:border-white/25 group-hover:text-white">
+                        <ChevronRight className="h-4 w-4" />
+                      </div>
+                    </div>
+                  )}
+
+                  {/* EXPANDED DOSSIER SHOWCASE VIEW */}
+                  <AnimatePresence mode="wait">
+                    {isExpanded && (
+                      <motion.div
+                        key={project.id}
+                        initial={{ opacity: 0, x: 14 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.32, delay: 0.08 }}
+                        className="relative z-10 grid h-full w-full grid-cols-12 items-center gap-6 p-6 xl:p-7"
+                      >
+                        {/* Left Visual Mockup Window (5 cols) */}
+                        <div className="col-span-5 flex flex-col justify-center">
+                          {project.status === "Ongoing" ? (
+                            <div className="relative flex aspect-[4/3] w-full flex-col items-center justify-center overflow-hidden rounded-2xl border border-emerald-500/30 bg-[#111513] p-5 text-center shadow-2xl">
+                              <div className="mb-2 inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-[10px] font-semibold text-emerald-400">
+                                <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
+                                <span>2026 - Ongoing</span>
+                                <Clock className="h-3 w-3" />
+                              </div>
+                              <p className="mt-1 text-xl font-black tracking-widest text-white">
+                                ON PROGRESS......
+                              </p>
+                              <p className="mt-1.5 text-[11px] leading-relaxed text-zinc-400">
+                                Pengembangan backend landing page &amp; admin
+                                panel penerbitan buku Domus Fox sedang berjalan.
+                              </p>
+                            </div>
+                          ) : (
+                            <div className="relative overflow-hidden rounded-2xl border border-white/15 bg-[#0c0c10] p-2 shadow-2xl">
+                              <div className="aspect-[16/11] w-full overflow-hidden rounded-xl bg-zinc-950">
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img
+                                  src={
+                                    project.image || "/projects/sifest-2026.svg"
+                                  }
+                                  alt={project.title}
+                                  className="h-full w-full object-cover object-center transition-transform duration-700 hover:scale-105"
+                                />
+                              </div>
+                              <div className="mt-2 flex items-center justify-between px-1.5 py-0.5 font-mono text-[10px] text-zinc-400">
+                                <span className="flex items-center gap-1.5 truncate">
+                                  <Terminal className="h-3 w-3 text-emerald-400" />
+                                  {project.role}
+                                </span>
+                                <span>{project.period}</span>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Right Dossier Details (7 cols) */}
+                        <div className="col-span-7 flex h-full flex-col justify-between py-1">
+                          <div className="space-y-3">
+                            <div className="flex flex-wrap items-center gap-2">
+                              <span
+                                className={`rounded-full border px-3 py-0.5 font-mono text-[11px] font-semibold ${theme.badgeBg}`}
+                              >
+                                {project.role}
+                              </span>
+                              <span className="font-mono text-xs text-zinc-400">
+                                • {project.period}
+                              </span>
+                            </div>
+
+                            <h3 className="text-xl font-extrabold tracking-tight text-white xl:text-2xl">
+                              {project.title}
+                            </h3>
+
+                            <p className="text-xs leading-relaxed text-zinc-300">
+                              {project.summary}
+                            </p>
+
+                            {/* Highlights list */}
+                            <ul className="space-y-1.5 pt-1">
+                              {project.highlights.slice(0, 3).map((h, i) => (
+                                <li
+                                  key={i}
+                                  className="flex items-start gap-2 text-xs leading-relaxed text-zinc-300/90"
+                                >
+                                  <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-white/10 text-white">
+                                    <Check className="h-2.5 w-2.5" />
+                                  </span>
+                                  <span className="line-clamp-2">{h}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+
+                          {/* Bottom Tech Stack & GitHub Button */}
+                          <div
+                            onClick={(e) => e.stopPropagation()}
+                            className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-3.5"
+                          >
+                            <div className="flex flex-wrap gap-1.5">
+                              {project.techStack.map((tech) => (
+                                <span
+                                  key={tech}
+                                  className="rounded-full border border-white/10 bg-black/35 px-2.5 py-1 text-[10px] font-medium text-zinc-200"
+                                >
+                                  {tech}
+                                </span>
+                              ))}
+                            </div>
+
+                            <div className="flex items-center gap-2">
+                              {project.links?.github && (
+                                <a
+                                  href={project.links.github}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-bold text-zinc-950 shadow-lg transition-transform hover:scale-105 active:scale-95"
+                                >
+                                  <Github className="h-3.5 w-3.5" />
+                                  <span>Github</span>
+                                </a>
+                              )}
+
+                              {project.links?.drive && (
+                                <a
+                                  href={project.links.drive}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-bold text-zinc-950 shadow-lg transition-transform hover:scale-105 active:scale-95"
+                                >
+                                  <Video className="h-3.5 w-3.5" />
+                                  <span>Google Drive</span>
+                                </a>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </div>
             );
           })}
         </div>
 
-        {/* MAIN INTERACTIVE SHOWCASE DECK: Left Selector Rail (Desktop) + Right 3D Perspective Stage */}
-        <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-12 lg:gap-8">
-          {/* LEFT COLUMN (Desktop): Kinetic Numbered Project Rail */}
-          <div className="hidden space-y-2 lg:col-span-5 lg:block">
-            <div className="mb-3 flex items-center justify-between px-2 text-xs text-[var(--text-muted)]">
-              <span className="flex items-center gap-1.5 font-mono uppercase tracking-wider">
-                <Layers className="h-3.5 w-3.5" />
-                Project Index ({safeIndex + 1}/{filteredProjects.length})
-              </span>
-              <span className="font-mono text-[11px]">Click to switch</span>
-            </div>
+        {/* =====================================================================
+            MOBILE & SMALL TABLET (< lg): STACKED FOLDER NOTCH CARDS (Responsive di HP!)
+           ===================================================================== */}
+        <div className="space-y-3.5 lg:hidden">
+          {visibleProjects.map((project, idx) => {
+            const globalIndex =
+              hasTwoDecks && deckPage === 1 ? idx + 6 : idx + 1;
+            const numStr = String(globalIndex).padStart(2, "0");
+            const isExpanded = project.id === activeId;
+            const theme =
+              FOLDER_THEMES[project.id] || FOLDER_THEMES["sifest-2026"];
 
-            <div className="max-h-[560px] space-y-2 overflow-y-auto pr-1">
-              {filteredProjects.map((proj, idx) => {
-                const isSelected = idx === safeIndex;
-                const num = String(idx + 1).padStart(2, "0");
-
-                return (
+            return (
+              <div key={project.id} className="flex flex-col">
+                {/* Mobile Folder Notch Header */}
+                <div className="flex items-end">
                   <button
-                    key={proj.id}
-                    onClick={() => setActiveIndex(idx)}
-                    className={`group relative flex w-full items-center justify-between gap-3 overflow-hidden rounded-2xl border p-4 text-left transition-all duration-300 ${
-                      isSelected
-                        ? "border-[var(--border-strong)] bg-[var(--bg-card-hover)] shadow-xl"
-                        : "border-[var(--border-subtle)] bg-[var(--bg-card)]/60 opacity-75 hover:border-white/15 hover:bg-[var(--bg-card)] hover:opacity-100"
+                    onClick={() => setActiveId(project.id)}
+                    className={`relative flex h-8 items-center gap-2 rounded-t-xl border-t border-l px-3.5 text-left transition-colors ${
+                      isExpanded
+                        ? `${theme.tabBorder} bg-[#1a1a20] text-white`
+                        : "border-[var(--border-subtle)] bg-[#141418] text-[var(--text-muted)]"
                     }`}
                   >
-                    {/* Active Left Indicator Bar */}
-                    {isSelected && (
-                      <motion.span
-                        layoutId="activeProjectRailBar"
-                        transition={{
-                          type: "spring",
-                          stiffness: 380,
-                          damping: 30,
-                        }}
-                        className="absolute top-3 bottom-3 left-0 w-1 rounded-r-full bg-white"
-                      />
-                    )}
+                    <span className={`h-2 w-2 rounded-full ${theme.dot}`} />
+                    <span className="font-mono text-xs font-extrabold">
+                      /{numStr}
+                    </span>
+                    <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-400">
+                      • {project.badge || project.period}
+                    </span>
 
-                    <div className="flex min-w-0 items-center gap-3.5 pl-1">
-                      <span
-                        className={`font-mono text-xs font-bold transition-colors ${
-                          isSelected
-                            ? "text-white"
-                            : "text-[var(--text-muted)] group-hover:text-[var(--text-secondary)]"
-                        }`}
-                      >
-                        {num}
-                      </span>
-                      <div className="min-w-0">
-                        <p
-                          className={`truncate text-sm font-bold transition-colors ${
-                            isSelected
-                              ? "text-[var(--text-primary)]"
-                              : "text-[var(--text-secondary)] group-hover:text-[var(--text-primary)]"
-                          }`}
-                        >
-                          {proj.title}
-                        </p>
-                        <p className="mt-0.5 truncate text-[11px] text-[var(--text-muted)]">
-                          {proj.role} • {proj.techStack.slice(0, 2).join(" · ")}
-                        </p>
-                      </div>
-                    </div>
-
-                    <span
-                      className={`shrink-0 rounded-full border px-2.5 py-0.5 font-mono text-[10px] transition-colors ${
-                        isSelected
-                          ? "border-white/25 bg-white/10 text-white"
-                          : "border-transparent bg-white/5 text-[var(--text-muted)]"
-                      }`}
+                    <svg
+                      viewBox="0 0 20 32"
+                      className="absolute -right-[19px] bottom-0 h-8 w-5"
+                      fill="none"
                     >
-                      {proj.period}
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* RIGHT COLUMN: 3D Perspective Interactive Showcase Stage (Works with Touch Swipe on HP & 3D Tilt on Desktop!) */}
-          <div
-            ref={stageRef}
-            onMouseMove={handleStageMouseMove}
-            onMouseLeave={handleStageMouseLeave}
-            style={{ perspective: 1200 }}
-            className="relative lg:col-span-7"
-          >
-            {/* Dynamic Ambient Color Aura that morphs per project */}
-            <div
-              className={`pointer-events-none absolute -inset-6 rounded-[36px] bg-gradient-to-br ${aura.glow} blur-2xl transition-all duration-700`}
-            />
-
-            <motion.div
-              style={{ rotateX, rotateY }}
-              className="bento-card relative overflow-hidden rounded-3xl border border-[var(--border-strong)] bg-[var(--bg-card)]/95 p-5 shadow-[0_28px_80px_rgba(0,0,0,0.85)] backdrop-blur-2xl sm:p-7"
-            >
-              {/* Top Stage Bar: Counter, Role Badge & Prev/Next Controls */}
-              <div className="mb-5 flex items-center justify-between gap-3">
-                <div className="flex flex-wrap items-center gap-2">
-                  <span className="rounded-full bg-white px-3 py-1 font-mono text-xs font-extrabold text-zinc-950">
-                    #{String(safeIndex + 1).padStart(2, "0")}
-                  </span>
-                  <span
-                    className={`rounded-full border px-3 py-1 font-mono text-xs font-semibold ${aura.pillBg}`}
-                  >
-                    {activeProject.role}
-                  </span>
-                  {activeProject.badge && (
-                    <span className="hidden rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] text-zinc-300 sm:inline-block">
-                      {activeProject.badge}
-                    </span>
-                  )}
-                </div>
-
-                {/* Prev / Next Navigation Buttons */}
-                <div className="flex items-center gap-1.5">
-                  <button
-                    onClick={goPrev}
-                    aria-label="Previous project"
-                    className="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--border-subtle)] bg-[var(--bg-secondary)] text-[var(--text-primary)] transition-all hover:border-[var(--border-strong)] hover:scale-105 active:scale-95"
-                  >
-                    <ChevronLeft className="h-4 w-4" />
-                  </button>
-                  <button
-                    onClick={goNext}
-                    aria-label="Next project"
-                    className="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--border-subtle)] bg-[var(--bg-secondary)] text-[var(--text-primary)] transition-all hover:border-[var(--border-strong)] hover:scale-105 active:scale-95"
-                  >
-                    <ChevronRight className="h-4 w-4" />
-                  </button>
-                </div>
-              </div>
-
-              {/* Animated Project Stage Body */}
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeProject.id}
-                  initial={{ opacity: 0, y: 18, scale: 0.98 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -14, scale: 0.98 }}
-                  transition={{ duration: 0.3, ease: "easeOut" }}
-                  drag="x"
-                  dragConstraints={{ left: 0, right: 0 }}
-                  dragElastic={0.18}
-                  onDragEnd={(_, info) => {
-                    if (info.offset.x < -60) goNext();
-                    else if (info.offset.x > 60) goPrev();
-                  }}
-                  className="space-y-6"
-                >
-                  {/* Visual Preview Window with Floating 3D Parallax Badges */}
-                  {activeProject.status === "Ongoing" ? (
-                    <div className="relative flex aspect-[16/9] w-full flex-col items-center justify-center overflow-hidden rounded-2xl border border-emerald-500/30 bg-gradient-to-b from-[#171b19] to-[#111315] p-6 text-center shadow-2xl">
-                      <span className="pointer-events-none absolute top-3 left-3 h-3.5 w-3.5 border-t-2 border-l-2 border-emerald-400/50" />
-                      <span className="pointer-events-none absolute top-3 right-3 h-3.5 w-3.5 border-t-2 border-r-2 border-emerald-400/50" />
-                      <span className="pointer-events-none absolute bottom-3 left-3 h-3.5 w-3.5 border-b-2 border-l-2 border-emerald-400/50" />
-                      <span className="pointer-events-none absolute right-3 bottom-3 h-3.5 w-3.5 border-r-2 border-b-2 border-emerald-400/50" />
-
-                      <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3.5 py-1 text-xs font-semibold text-emerald-400">
-                        <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
-                        <span>2026 - Ongoing Development</span>
-                        <Clock className="h-3.5 w-3.5" />
-                      </div>
-
-                      <p className="text-2xl font-black tracking-widest text-white sm:text-3xl">
-                        ON PROGRESS......
-                      </p>
-                      <p className="mt-2 max-w-md text-xs leading-relaxed text-zinc-400 sm:text-sm">
-                        Pengembangan sisi backend landing page dan admin panel
-                        pengajuan naskah buku Domus Fox sedang berjalan.
-                      </p>
-                    </div>
-                  ) : (
-                    <div className="group/preview relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-white/15 bg-[#0b0b0e] shadow-2xl">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={
-                          activeProject.image || "/projects/sifest-2026.svg"
-                        }
-                        alt={activeProject.title}
-                        className="h-full w-full object-cover object-center transition-transform duration-700 group-hover/preview:scale-105"
+                      <path
+                        d="M0 0 L20 32 L0 32 Z"
+                        fill={isExpanded ? "#1a1a20" : "#141418"}
                       />
+                      <path
+                        d="M0 0 L20 32"
+                        stroke={
+                          isExpanded
+                            ? theme.accent
+                            : "rgba(255, 255, 255, 0.08)"
+                        }
+                        strokeOpacity={isExpanded ? "0.45" : "1"}
+                        strokeWidth="1.2"
+                      />
+                    </svg>
+                  </button>
+                  <div
+                    className={`ml-[19px] h-[1px] flex-1 ${
+                      isExpanded ? "bg-white/20" : "bg-[var(--border-subtle)]"
+                    }`}
+                  />
+                </div>
 
-                      {/* Floating Bottom HUD Overlay inside Image */}
-                      <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-center justify-between bg-gradient-to-t from-black/90 via-black/50 to-transparent p-4 pt-10">
-                        <span className="inline-flex items-center gap-1.5 font-mono text-xs font-semibold text-zinc-200">
-                          <Terminal className="h-3.5 w-3.5 text-emerald-400" />
-                          {activeProject.subtitle}
-                        </span>
-                        <span className="rounded-full border border-white/15 bg-black/60 px-2.5 py-0.5 font-mono text-[10px] text-zinc-300 backdrop-blur-md">
-                          {activeProject.period}
-                        </span>
-                      </div>
-                    </div>
+                {/* Mobile Folder Body */}
+                <div
+                  onClick={() => setActiveId(project.id)}
+                  className={`relative overflow-hidden rounded-tr-2xl rounded-b-2xl border-r border-b border-l transition-all ${
+                    isExpanded
+                      ? `${theme.tabBorder} bg-[#18181d] p-5 shadow-2xl`
+                      : "border-[var(--border-subtle)] bg-[#131317] px-4 py-3.5"
+                  }`}
+                >
+                  {/* Ambient Glow */}
+                  {isExpanded && (
+                    <div
+                      className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${theme.glow}`}
+                    />
                   )}
 
-                  {/* Title & Summary */}
-                  <div className="space-y-2.5">
-                    <h3 className="text-xl font-extrabold tracking-tight text-[var(--text-primary)] sm:text-2xl">
-                      {activeProject.title}
-                    </h3>
-                    <p className="text-xs leading-relaxed text-[var(--text-secondary)] sm:text-sm">
-                      {activeProject.summary}
-                    </p>
-                  </div>
-
-                  {/* Interactive Key Highlights Bento Sub-Cards */}
-                  <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
-                    {activeProject.highlights.map((item, idx) => (
-                      <div
-                        key={idx}
-                        className={`flex items-start gap-2.5 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)]/75 p-3 text-xs leading-relaxed text-[var(--text-secondary)] ${
-                          idx === 0 && activeProject.highlights.length % 2 === 1
-                            ? "sm:col-span-2"
-                            : ""
-                        }`}
-                      >
-                        <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-white/10 text-[var(--text-primary)]">
-                          <Check className="h-2.5 w-2.5" />
-                        </span>
-                        <span>{item}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Bottom Footer: Tech Stack Pills + GitHub Button */}
-                  <div className="flex flex-wrap items-center justify-between gap-4 border-t border-[var(--border-subtle)] pt-4">
-                    <div className="flex flex-wrap gap-1.5">
-                      {activeProject.techStack.map((tech) => (
-                        <span
-                          key={tech}
-                          className="rounded-full border border-[var(--border-subtle)] bg-[var(--bg-secondary)] px-3 py-1 text-[11px] font-medium text-[var(--text-primary)]"
-                        >
-                          {tech}
-                        </span>
-                      ))}
+                  {/* Always-visible Folder Title Bar on Mobile */}
+                  <div className="relative z-10 flex items-center justify-between gap-3">
+                    <div>
+                      <h3 className="text-sm font-bold text-white sm:text-base">
+                        {project.title}
+                      </h3>
+                      <p className="text-[11px] text-zinc-400">
+                        {project.role} • {project.period}
+                      </p>
                     </div>
-
-                    <div className="flex items-center gap-2">
-                      {activeProject.links?.github && (
-                        <a
-                          href={activeProject.links.github}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="inline-flex items-center gap-2 rounded-full bg-[var(--text-primary)] px-5 py-2.5 text-xs font-bold text-[var(--bg-primary)] shadow-lg transition-all hover:scale-105 active:scale-95"
-                        >
-                          <Github className="h-4 w-4" />
-                          <span>Github</span>
-                        </a>
-                      )}
-
-                      {activeProject.links?.drive && (
-                        <a
-                          href={activeProject.links.drive}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="inline-flex items-center gap-2 rounded-full bg-[var(--text-primary)] px-5 py-2.5 text-xs font-bold text-[var(--bg-primary)] shadow-lg transition-all hover:scale-105 active:scale-95"
-                        >
-                          <Video className="h-4 w-4" />
-                          <span>Google Drive</span>
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                </motion.div>
-              </AnimatePresence>
-
-              {/* Progress Dot Bar at the very bottom of the 3D Stage */}
-              <div className="mt-6 flex items-center justify-between border-t border-[var(--border-subtle)] pt-3.5 text-[11px] text-[var(--text-muted)]">
-                <div className="flex items-center gap-1.5">
-                  {filteredProjects.map((p, i) => (
-                    <button
-                      key={p.id}
-                      onClick={() => setActiveIndex(i)}
-                      aria-label={`Select project ${i + 1}`}
-                      className={`h-1.5 rounded-full transition-all duration-300 ${
-                        i === safeIndex
-                          ? "w-7 bg-[var(--text-primary)]"
-                          : "w-1.5 bg-zinc-600/60 hover:bg-zinc-400"
+                    <ChevronRight
+                      className={`h-4 w-4 shrink-0 text-zinc-400 transition-transform duration-300 ${
+                        isExpanded ? "rotate-90 text-white" : ""
                       }`}
                     />
-                  ))}
+                  </div>
+
+                  {/* Expanded Content on Mobile */}
+                  <AnimatePresence initial={false}>
+                    {isExpanded && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.28 }}
+                        className="relative z-10 overflow-hidden"
+                      >
+                        <div className="mt-4 space-y-4 border-t border-white/10 pt-4">
+                          {project.status === "Ongoing" ? (
+                            <div className="rounded-xl border border-emerald-500/30 bg-[#111513] p-4 text-center">
+                              <p className="text-base font-black tracking-widest text-white">
+                                ON PROGRESS......
+                              </p>
+                              <p className="mt-1 text-xs text-zinc-400">
+                                Backend &amp; Admin Panel Domus Fox sedang
+                                dikembangkan.
+                              </p>
+                            </div>
+                          ) : (
+                            <div className="aspect-[16/10] w-full overflow-hidden rounded-xl border border-white/10 bg-zinc-950">
+                              {/* eslint-disable-next-line @next/next/no-img-element */}
+                              <img
+                                src={
+                                  project.image || "/projects/sifest-2026.svg"
+                                }
+                                alt={project.title}
+                                className="h-full w-full object-cover"
+                              />
+                            </div>
+                          )}
+
+                          <p className="text-xs leading-relaxed text-zinc-300">
+                            {project.summary}
+                          </p>
+
+                          <ul className="space-y-1.5">
+                            {project.highlights.slice(0, 3).map((h, i) => (
+                              <li
+                                key={i}
+                                className="flex items-start gap-2 text-xs text-zinc-300"
+                              >
+                                <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-400" />
+                                <span>{h}</span>
+                              </li>
+                            ))}
+                          </ul>
+
+                          <div
+                            onClick={(e) => e.stopPropagation()}
+                            className="flex flex-wrap items-center justify-between gap-3 pt-2"
+                          >
+                            <div className="flex flex-wrap gap-1.5">
+                              {project.techStack.map((tech) => (
+                                <span
+                                  key={tech}
+                                  className="rounded-full border border-white/10 bg-black/40 px-2.5 py-0.5 text-[10px] text-zinc-200"
+                                >
+                                  {tech}
+                                </span>
+                              ))}
+                            </div>
+
+                            {project.links?.github && (
+                              <a
+                                href={project.links.github}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="inline-flex items-center gap-1.5 rounded-full bg-white px-4 py-2 text-xs font-bold text-zinc-950"
+                              >
+                                <Github className="h-3.5 w-3.5" />
+                                <span>Github</span>
+                              </a>
+                            )}
+
+                            {project.links?.drive && (
+                              <a
+                                href={project.links.drive}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="inline-flex items-center gap-1.5 rounded-full bg-white px-4 py-2 text-xs font-bold text-zinc-950"
+                              >
+                                <Video className="h-3.5 w-3.5" />
+                                <span>Google Drive</span>
+                              </a>
+                            )}
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
-                <span className="flex items-center gap-1 font-mono text-[10px]">
-                  <Sparkles className="h-3 w-3" />
-                  Swipe or click arrows to switch
-                </span>
               </div>
-            </motion.div>
-          </div>
+            );
+          })}
+        </div>
+
+        {/* Bottom Hint Bar */}
+        <div className="mt-6 flex items-center justify-center gap-2 text-center font-mono text-[11px] text-[var(--text-muted)]">
+          <Sparkles className="h-3.5 w-3.5" />
+          <span>
+            Hover atau klik tab folder (/01 – /10) untuk membuka arsip proyek
+          </span>
         </div>
       </div>
     </section>
