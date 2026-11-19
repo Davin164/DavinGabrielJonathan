@@ -71,8 +71,7 @@ export default function HeroSection() {
           >
             <div className="space-y-2">
               <p className="text-xs font-medium tracking-wide text-[var(--text-muted)] sm:text-sm">
-                I am {PORTFOLIO_DATA.personal.name} • 4 Years in Web Dev
-                (2022–2026)
+                I am {PORTFOLIO_DATA.personal.name} • Full-Stack Web Dev
               </p>
 
               {/* Two-Tone Large Name (Inspired by ello-rabyndra.vercel.app) */}

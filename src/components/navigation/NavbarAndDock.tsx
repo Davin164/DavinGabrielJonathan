@@ -57,7 +57,7 @@ export default function NavbarAndDock({
               &gt;_
             </div>
             <span className="text-sm font-bold tracking-tight text-[var(--text-primary)] sm:text-base">
-              davingabriel.
+              Davin
             </span>
           </button>
 
