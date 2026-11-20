@@ -6,7 +6,6 @@ import {
   Video,
   Github,
   Clock,
-  Check,
   Terminal,
   ChevronRight,
   FolderGit2,
@@ -444,7 +443,7 @@ export default function ProjectsSection() {
           )}
         </div>
 
-        <div className="hidden h-[580px] w-full items-stretch gap-3 lg:flex">
+        <div className="hidden h-[460px] w-full items-stretch gap-3 lg:flex">
           {visibleProjects.map((project, idx) => {
             const globalIndex =
               hasTwoDecks && deckPage === 1 ? idx + 6 : idx + 1;
@@ -588,23 +587,9 @@ export default function ProjectsSection() {
                             {project.title}
                           </h3>
 
-                          <p className="text-xs leading-relaxed text-zinc-300">
+                          <p className="text-xs leading-relaxed text-zinc-300 sm:text-sm">
                             {project.summary}
                           </p>
-
-                          <ul className="space-y-1.5 pt-1">
-                            {project.highlights.slice(0, 3).map((h, i) => (
-                              <li
-                                key={i}
-                                className="flex items-start gap-2 text-xs leading-relaxed text-zinc-300/90"
-                              >
-                                <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-white/10 text-white">
-                                  <Check className="h-2.5 w-2.5" />
-                                </span>
-                                <span className="line-clamp-2">{h}</span>
-                              </li>
-                            ))}
-                          </ul>
                         </div>
                       </div>
 
@@ -771,18 +756,6 @@ export default function ProjectsSection() {
                           <p className="text-xs leading-relaxed text-zinc-300">
                             {project.summary}
                           </p>
-
-                          <ul className="space-y-1.5">
-                            {project.highlights.slice(0, 3).map((h, i) => (
-                              <li
-                                key={i}
-                                className="flex items-start gap-2 text-xs text-zinc-300"
-                              >
-                                <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-400" />
-                                <span>{h}</span>
-                              </li>
-                            ))}
-                          </ul>
 
                           <div
                             onClick={(e) => e.stopPropagation()}
