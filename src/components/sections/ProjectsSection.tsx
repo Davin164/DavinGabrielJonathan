@@ -22,87 +22,73 @@ const CATEGORIES = [
   { id: "education", label: "Education" },
 ] as const;
 
-const FOLDER_THEMES: Record<
-  string,
+const ITEMS_PER_DECK = 5;
+
+const THEME_PALETTE = [
   {
-    accent: string;
-    tabBorder: string;
-    glow: string;
-    dot: string;
-    badgeBg: string;
-  }
-> = {
-  "sifest-2026": {
     accent: "#38bdf8",
     tabBorder: "border-sky-500/40",
     glow: "from-sky-500/20 via-indigo-500/10 to-transparent",
     dot: "bg-sky-400 shadow-[0_0_10px_#38bdf8]",
     badgeBg: "border-sky-500/30 bg-sky-500/10 text-sky-300",
   },
-  "domus-fox": {
+  {
     accent: "#10b981",
     tabBorder: "border-emerald-500/40",
     glow: "from-emerald-500/20 via-teal-500/10 to-transparent",
     dot: "bg-emerald-400 shadow-[0_0_10px_#10b981]",
     badgeBg: "border-emerald-500/30 bg-emerald-500/10 text-emerald-300",
   },
-  "gatekeeper-logic": {
+  {
     accent: "#2dd4bf",
     tabBorder: "border-teal-500/40",
     glow: "from-teal-500/20 via-emerald-500/10 to-transparent",
     dot: "bg-teal-400 shadow-[0_0_10px_#2dd4bf]",
     badgeBg: "border-teal-500/30 bg-teal-500/10 text-teal-300",
   },
-  "docker-crud-api": {
+  {
     accent: "#60a5fa",
     tabBorder: "border-blue-500/40",
     glow: "from-blue-500/20 via-sky-500/10 to-transparent",
     dot: "bg-blue-400 shadow-[0_0_10px_#60a5fa]",
     badgeBg: "border-blue-500/30 bg-blue-500/10 text-blue-300",
   },
-  "wazuh-siem-nac": {
+  {
     accent: "#fbbf24",
     tabBorder: "border-amber-500/40",
     glow: "from-amber-500/20 via-orange-500/10 to-transparent",
     dot: "bg-amber-400 shadow-[0_0_10px_#fbbf24]",
     badgeBg: "border-amber-500/30 bg-amber-500/10 text-amber-300",
   },
-  "school-cms-api": {
+  {
     accent: "#c084fc",
     tabBorder: "border-purple-500/40",
     glow: "from-purple-500/20 via-fuchsia-500/10 to-transparent",
     dot: "bg-purple-400 shadow-[0_0_10px_#c084fc]",
     badgeBg: "border-purple-500/30 bg-purple-500/10 text-purple-300",
   },
-  "bookshelf-api": {
+  {
     accent: "#22d3ee",
     tabBorder: "border-cyan-500/40",
     glow: "from-cyan-500/20 via-sky-500/10 to-transparent",
     dot: "bg-cyan-400 shadow-[0_0_10px_#22d3ee]",
     badgeBg: "border-cyan-500/30 bg-cyan-500/10 text-cyan-300",
   },
-  "simak-himsi": {
+  {
     accent: "#818cf8",
     tabBorder: "border-indigo-500/40",
     glow: "from-indigo-500/20 via-blue-500/10 to-transparent",
     dot: "bg-indigo-400 shadow-[0_0_10px_#818cf8]",
     badgeBg: "border-indigo-500/30 bg-indigo-500/10 text-indigo-300",
   },
-  "laravel-library-finance": {
+  {
     accent: "#fb7185",
     tabBorder: "border-rose-500/40",
     glow: "from-rose-500/20 via-pink-500/10 to-transparent",
     dot: "bg-rose-400 shadow-[0_0_10px_#fb7185]",
     badgeBg: "border-rose-500/30 bg-rose-500/10 text-rose-300",
   },
-  "education-mentorship": {
-    accent: "#e4e4e7",
-    tabBorder: "border-zinc-400/40",
-    glow: "from-zinc-400/20 via-zinc-500/10 to-transparent",
-    dot: "bg-zinc-200 shadow-[0_0_10px_#ffffff]",
-    badgeBg: "border-white/25 bg-white/10 text-zinc-200",
-  },
-};
+];
 
 function ProjectVisualGraphic({
   project,
@@ -340,7 +326,7 @@ function ProjectVisualGraphic({
 
 export default function ProjectsSection() {
   const [activeCategory, setActiveCategory] = useState<string>("all");
-  const [deckPage, setDeckPage] = useState<0 | 1>(0);
+  const [deckPage, setDeckPage] = useState<number>(0);
   const [activeId, setActiveId] = useState<string>(
     PORTFOLIO_DATA.projects[0].id
   );
@@ -350,12 +336,12 @@ export default function ProjectsSection() {
       ? PORTFOLIO_DATA.projects
       : PORTFOLIO_DATA.projects.filter((p) => p.category === activeCategory);
 
-  const hasTwoDecks = activeCategory === "all" && filteredProjects.length > 5;
-  const visibleProjects = hasTwoDecks
-    ? deckPage === 0
-      ? filteredProjects.slice(0, 5)
-      : filteredProjects.slice(5, 10)
-    : filteredProjects;
+  const totalDecks = Math.ceil(filteredProjects.length / ITEMS_PER_DECK);
+  const safeDeckPage = deckPage >= totalDecks ? 0 : deckPage;
+  const visibleProjects = filteredProjects.slice(
+    safeDeckPage * ITEMS_PER_DECK,
+    (safeDeckPage + 1) * ITEMS_PER_DECK
+  );
 
   useEffect(() => {
     if (
@@ -364,7 +350,7 @@ export default function ProjectsSection() {
     ) {
       setActiveId(visibleProjects[0].id);
     }
-  }, [activeCategory, deckPage, visibleProjects, activeId]);
+  }, [activeCategory, safeDeckPage, visibleProjects, activeId]);
 
   return (
     <section id="projects" className="relative overflow-hidden py-20 sm:py-28">
@@ -407,50 +393,55 @@ export default function ProjectsSection() {
             })}
           </div>
 
-          {hasTwoDecks && (
-            <div className="mt-4 inline-flex items-center gap-1 rounded-full border border-[var(--border-subtle)] bg-[var(--bg-card)] p-1">
-              <button
-                onClick={() => {
-                  setDeckPage(0);
-                  setActiveId(filteredProjects[0].id);
-                }}
-                className={`flex items-center gap-1.5 rounded-full px-4 py-1.5 font-mono text-xs font-semibold transition-all ${
-                  deckPage === 0
-                    ? "bg-white text-zinc-950 shadow"
-                    : "text-[var(--text-muted)] hover:text-[var(--text-primary)]"
-                }`}
-              >
-                <FolderGit2 className="h-3.5 w-3.5" />
-                <span>Deck 01 to 05</span>
-              </button>
-              <button
-                onClick={() => {
-                  setDeckPage(1);
-                  if (filteredProjects[5]) {
-                    setActiveId(filteredProjects[5].id);
-                  }
-                }}
-                className={`flex items-center gap-1.5 rounded-full px-4 py-1.5 font-mono text-xs font-semibold transition-all ${
-                  deckPage === 1
-                    ? "bg-white text-zinc-950 shadow"
-                    : "text-[var(--text-muted)] hover:text-[var(--text-primary)]"
-                }`}
-              >
-                <FolderGit2 className="h-3.5 w-3.5" />
-                <span>Deck 06 to 10</span>
-              </button>
+          {totalDecks > 1 && (
+            <div className="mt-4 flex flex-wrap items-center justify-center gap-1.5 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] p-1.5">
+              {Array.from({ length: totalDecks }, (_, dIdx) => {
+                const startNum = String(dIdx * ITEMS_PER_DECK + 1).padStart(
+                  2,
+                  "0"
+                );
+                const endNum = String(
+                  Math.min(
+                    (dIdx + 1) * ITEMS_PER_DECK,
+                    filteredProjects.length
+                  )
+                ).padStart(2, "0");
+
+                return (
+                  <button
+                    key={dIdx}
+                    onClick={() => {
+                      setDeckPage(dIdx);
+                      const firstInDeck =
+                        filteredProjects[dIdx * ITEMS_PER_DECK];
+                      if (firstInDeck) {
+                        setActiveId(firstInDeck.id);
+                      }
+                    }}
+                    className={`flex items-center gap-1.5 rounded-xl px-3.5 py-1.5 font-mono text-xs font-semibold transition-all ${
+                      safeDeckPage === dIdx
+                        ? "bg-white text-zinc-950 shadow"
+                        : "text-[var(--text-muted)] hover:text-[var(--text-primary)]"
+                    }`}
+                  >
+                    <FolderGit2 className="h-3.5 w-3.5" />
+                    <span>
+                      Deck {startNum} to {endNum}
+                    </span>
+                  </button>
+                );
+              })}
             </div>
           )}
         </div>
 
         <div className="hidden h-[460px] w-full items-stretch gap-3 lg:flex">
           {visibleProjects.map((project, idx) => {
-            const globalIndex =
-              hasTwoDecks && deckPage === 1 ? idx + 6 : idx + 1;
+            const globalIndex = safeDeckPage * ITEMS_PER_DECK + idx + 1;
             const numStr = String(globalIndex).padStart(2, "0");
             const isExpanded = project.id === activeId;
             const theme =
-              FOLDER_THEMES[project.id] || FOLDER_THEMES["sifest-2026"];
+              THEME_PALETTE[(globalIndex - 1) % THEME_PALETTE.length];
 
             return (
               <div
@@ -644,12 +635,11 @@ export default function ProjectsSection() {
 
         <div className="space-y-3.5 lg:hidden">
           {visibleProjects.map((project, idx) => {
-            const globalIndex =
-              hasTwoDecks && deckPage === 1 ? idx + 6 : idx + 1;
+            const globalIndex = safeDeckPage * ITEMS_PER_DECK + idx + 1;
             const numStr = String(globalIndex).padStart(2, "0");
             const isExpanded = project.id === activeId;
             const theme =
-              FOLDER_THEMES[project.id] || FOLDER_THEMES["sifest-2026"];
+              THEME_PALETTE[(globalIndex - 1) % THEME_PALETTE.length];
 
             return (
               <div key={project.id} className="flex flex-col">

@@ -24,7 +24,7 @@ const APPROACH_STEPS = [
 
 const BIG_STATS = [
   { value: "04+", label: "Years In Web Dev" },
-  { value: "10+", label: "Projects Completed" },
+  { value: "20+", label: "Projects Completed" },
   { value: "02x", label: "Best Project Awards" },
 ];
 
