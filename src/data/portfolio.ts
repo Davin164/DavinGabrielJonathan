@@ -51,7 +51,7 @@ export const PORTFOLIO_DATA = {
     {
       id: "sifest-2026",
       title: "Website SI FEST 2026: Main Web, Admin Panel & Ticket Scanner",
-      subtitle: "End-to-End Event Ticketing, Competition Platform & Real-Time QR Validation",
+      subtitle: "End-to-End Event Ticketing, 2FA Admin Dashboard, AI Chatbot & 3D GSAP Web",
       role: "Tech Lead & Backend Developer",
       period: "2026",
       category: "featured",
@@ -59,14 +59,16 @@ export const PORTFOLIO_DATA = {
       badge: "Private Repo",
       image: "/projects/sifest-2026.jpg",
       summary:
-        "Platform ekosistem acara tahunan SI FEST 2026 yang dikembangkan secara end-to-end mulai dari perancangan UI/UX, frontend interaktif, arsitektur backend, integrasi payment gateway, admin panel, hingga ticket scanner dan deployment ke VPS.",
+        "Platform ekosistem acara tahunan SI FEST 2026 yang dikembangkan end-to-end meliputi frontend interaktif dengan animasi 3D GSAP, asisten AI Chatbot, sistem ticketing otomatis via email, integrasi payment gateway, dashboard admin dengan verifikasi keamanan login 2FA, hingga ticket scanner dan deployment VPS.",
       highlights: [],
       techStack: [
         "Node.js / Backend API",
         "Payment Gateway",
-        "Auth Middleware",
+        "2FA Admin Auth",
+        "Email Ticketing",
+        "AI Chatbot",
+        "3D GSAP Animation",
         "Tailwind CSS",
-        "GSAP",
         "MySQL / PostgreSQL",
         "VPS Deployment",
       ],
