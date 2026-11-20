@@ -69,7 +69,7 @@ export default function ContactFooterSection() {
                 <a
                   href={PORTFOLIO_DATA.personal.whatsappUrl}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 rounded-full border border-[var(--border-subtle)] bg-[var(--bg-secondary)] px-5 py-3 text-xs font-semibold text-[var(--text-primary)] transition-colors hover:border-[var(--border-strong)] sm:text-sm"
                 >
                   <MessageSquare className="h-4 w-4 text-emerald-400" />
@@ -102,7 +102,7 @@ export default function ContactFooterSection() {
               <a
                 href={PORTFOLIO_DATA.personal.githubUrl}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="flex items-center justify-between rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)] p-4 transition-colors hover:border-[var(--border-strong)]"
               >
                 <div className="flex items-center gap-3">
@@ -124,7 +124,7 @@ export default function ContactFooterSection() {
               <a
                 href={PORTFOLIO_DATA.personal.linkedinUrl}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="flex items-center justify-between rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)] p-4 transition-colors hover:border-[var(--border-strong)]"
               >
                 <div className="flex items-center gap-3">

@@ -101,7 +101,7 @@ export default function HeroSection() {
               <a
                 href={PORTFOLIO_DATA.personal.linkedinUrl}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 aria-label="LinkedIn"
                 title="LinkedIn"
                 className="flex h-12 w-12 items-center justify-center rounded-full border border-[var(--border-subtle)] bg-[var(--bg-card)] text-[var(--text-secondary)] transition-all hover:scale-105 hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
@@ -112,7 +112,7 @@ export default function HeroSection() {
               <a
                 href={PORTFOLIO_DATA.personal.githubUrl}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 aria-label="GitHub"
                 title="GitHub (@Davin164)"
                 className="flex h-12 w-12 items-center justify-center rounded-full border border-[var(--border-subtle)] bg-[var(--bg-card)] text-[var(--text-secondary)] transition-all hover:scale-105 hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
@@ -123,7 +123,7 @@ export default function HeroSection() {
               <a
                 href={PORTFOLIO_DATA.personal.whatsappUrl}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 aria-label="WhatsApp"
                 title="WhatsApp Direct"
                 className="flex h-12 w-12 items-center justify-center rounded-full border border-[var(--border-subtle)] bg-[var(--bg-card)] text-[var(--text-secondary)] transition-all hover:scale-105 hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"

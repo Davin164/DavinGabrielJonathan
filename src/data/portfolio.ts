@@ -63,6 +63,7 @@ export const PORTFOLIO_DATA = {
       highlights: [],
       techStack: [
         "Next.js / TypeScript",
+        "Turborepo",
         "Node.js",
         "Prisma ORM",
         "Payment Gateway",

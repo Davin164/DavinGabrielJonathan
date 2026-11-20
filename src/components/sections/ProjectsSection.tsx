@@ -616,7 +616,7 @@ export default function ProjectsSection() {
                             <a
                               href={project.links.github}
                               target="_blank"
-                              rel="noreferrer"
+                              rel="noopener noreferrer"
                               className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-bold text-zinc-950 shadow-lg transition-transform hover:scale-105 active:scale-95"
                             >
                               <Github className="h-3.5 w-3.5" />
@@ -628,7 +628,7 @@ export default function ProjectsSection() {
                             <a
                               href={project.links.drive}
                               target="_blank"
-                              rel="noreferrer"
+                              rel="noopener noreferrer"
                               className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-bold text-zinc-950 shadow-lg transition-transform hover:scale-105 active:scale-95"
                             >
                               <Video className="h-3.5 w-3.5" />
@@ -778,7 +778,7 @@ export default function ProjectsSection() {
                               <a
                                 href={project.links.github}
                                 target="_blank"
-                                rel="noreferrer"
+                                rel="noopener noreferrer"
                                 className="inline-flex items-center gap-1.5 rounded-full bg-white px-4 py-2 text-xs font-bold text-zinc-950"
                               >
                                 <Github className="h-3.5 w-3.5" />
@@ -790,7 +790,7 @@ export default function ProjectsSection() {
                               <a
                                 href={project.links.drive}
                                 target="_blank"
-                                rel="noreferrer"
+                                rel="noopener noreferrer"
                                 className="inline-flex items-center gap-1.5 rounded-full bg-white px-4 py-2 text-xs font-bold text-zinc-950"
                               >
                                 <Video className="h-3.5 w-3.5" />

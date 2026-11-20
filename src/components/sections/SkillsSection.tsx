@@ -127,6 +127,21 @@ function TechIcon({ name, color }: { name: string; color: string }) {
           />
         </svg>
       );
+    case "Turborepo":
+      return (
+        <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0" fill="none">
+          <circle
+            cx="12"
+            cy="12"
+            r="8.5"
+            stroke={color}
+            strokeWidth="1.8"
+            strokeDasharray="16 6"
+          />
+          <circle cx="12" cy="12" r="4" stroke="#38BDF8" strokeWidth="1.8" />
+          <circle cx="12" cy="12" r="1.5" fill={color} />
+        </svg>
+      );
     case "Supabase":
     case "Vite":
     case "3D GSAP Animation":
@@ -350,6 +365,7 @@ const SKILL_PILL_COLUMNS: {
       { name: "Node.js", color: "#5FA04E" },
       { name: "Express.js", color: "#E4E4E7" },
       { name: "Next.js / TS Backend", color: "#38BDF8" },
+      { name: "Turborepo", color: "#FF1E56" },
       { name: "Laravel", color: "#FF2D20" },
       { name: "Prisma ORM", color: "#2DD4BF" },
       { name: "REST API & OpenAPI", color: "#38BDF8" },
@@ -373,6 +389,7 @@ const SKILL_PILL_COLUMNS: {
   {
     title: "DevOps, Security & Tools",
     items: [
+      { name: "Turborepo", color: "#FF1E56" },
       { name: "Git & GitHub", color: "#F05032" },
       { name: "Docker", color: "#2496ED" },
       { name: "Docker Compose", color: "#2496ED" },
@@ -386,7 +403,11 @@ const SKILL_PILL_COLUMNS: {
   },
 ];
 
-const ALL_SKILLS = SKILL_PILL_COLUMNS.flatMap((c) => c.items);
+const ALL_SKILLS = Array.from(
+  new Map(
+    SKILL_PILL_COLUMNS.flatMap((c) => c.items).map((item) => [item.name, item])
+  ).values()
+);
 
 export default function SkillsSection() {
   return (
