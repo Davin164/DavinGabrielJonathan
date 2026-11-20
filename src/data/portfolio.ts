@@ -121,7 +121,7 @@ export const PORTFOLIO_DATA = {
       ],
       techStack: ["Java Native", "MySQL", "Pessimistic Locking", "ACID Transactions", "Concurrency Control"],
       links: {
-        github: "https://github.com/Davin164",
+        github: "https://github.com/Davin164/BE_Submission_The-Gatekeeper-Logic",
       },
     },
     {
@@ -143,7 +143,7 @@ export const PORTFOLIO_DATA = {
       ],
       techStack: ["Node.js", "Express.js", "PostgreSQL", "Docker", "Docker Compose", "Postman"],
       links: {
-        github: "https://github.com/Davin164",
+        github: "https://github.com/Davin164/rest-api-docker",
       },
     },
     {
@@ -165,7 +165,7 @@ export const PORTFOLIO_DATA = {
       ],
       techStack: ["Wazuh SIEM", "Blue Team Defense", "Red Team Simulation", "Linux Server", "Log Analysis"],
       links: {
-        github: "https://github.com/Davin164",
+        github: "https://github.com/Davin164/Security-Information-and-Event-Management-SIEM-Azure-Aegis",
       },
     },
     {
@@ -209,7 +209,7 @@ export const PORTFOLIO_DATA = {
       ],
       techStack: ["Node.js", "Express.js", "Nanoid", "ESLint (Airbnb)", "REST API"],
       links: {
-        github: "https://github.com/Davin164",
+        github: "https://github.com/Davin164/bookshelf-api",
       },
     },
     {
@@ -230,7 +230,7 @@ export const PORTFOLIO_DATA = {
       ],
       techStack: ["Full-Stack Web", "HTML/CSS", "JavaScript", "Backend Integration"],
       links: {
-        github: "https://github.com/Davin164",
+        github: "https://github.com/Davin164/simak-app",
       },
     },
     {
@@ -252,7 +252,7 @@ export const PORTFOLIO_DATA = {
       ],
       techStack: ["Laravel", "PHP", "MySQL", "Bootstrap", "JavaScript", "LocalStorage"],
       links: {
-        github: "https://github.com/Davin164",
+        github: "https://github.com/Davin164/Project-WebPerpustakaan-Laravel",
       },
     },
     {
