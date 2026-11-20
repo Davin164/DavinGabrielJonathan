@@ -15,6 +15,7 @@ export interface ProjectItem {
   status: "Production" | "Ongoing" | "Completed" | "Award Winner";
   badge?: string;
   image?: string;
+  images?: { label: string; src: string }[];
   summary: string;
   highlights: string[];
   techStack: string[];

@@ -5,7 +5,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import {
   Video,
   Github,
-  Clock,
   Terminal,
   ChevronRight,
   FolderGit2,
@@ -98,38 +97,51 @@ function ProjectVisualGraphic({
   accent: string;
 }) {
   const [imgFailed, setImgFailed] = useState(false);
-  const hasCustomPhoto =
-    project.image && !project.image.endsWith(".svg") && !imgFailed;
+  const [slideIdx, setSlideIdx] = useState(0);
 
-  if (project.status === "Ongoing") {
-    return (
-      <div className="relative flex aspect-[16/10] w-full flex-col items-center justify-center overflow-hidden rounded-2xl border border-emerald-500/30 bg-[#111513] p-5 text-center shadow-2xl">
-        <div className="mb-2 inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-[10px] font-semibold text-emerald-400">
-          <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
-          <span>2026 | Ongoing</span>
-          <Clock className="h-3 w-3" />
-        </div>
-        <p className="mt-1 text-xl font-black tracking-widest text-white">
-          ON PROGRESS...
-        </p>
-        <p className="mt-1.5 text-[11px] leading-relaxed text-zinc-400">
-          Pengembangan backend landing page &amp; admin panel penerbitan buku
-          Domus Fox sedang berjalan.
-        </p>
-      </div>
-    );
-  }
+  const slides = project.images && project.images.length > 0
+    ? project.images
+    : project.image && !project.image.endsWith(".svg")
+    ? [{ label: "Preview", src: project.image }]
+    : [];
+
+  const activeSlide = slides[slideIdx] || slides[0];
+  const hasCustomPhoto = Boolean(activeSlide && !imgFailed);
 
   return (
     <div className="relative overflow-hidden rounded-2xl border border-white/15 bg-[#0c0c10] p-2.5 shadow-2xl">
+      {slides.length > 1 && (
+        <div
+          onClick={(e) => e.stopPropagation()}
+          className="mb-2 flex items-center justify-between gap-1 rounded-xl border border-white/10 bg-[#14161d] p-1"
+        >
+          {slides.map((s, idx) => (
+            <button
+              key={s.label}
+              onClick={() => {
+                setImgFailed(false);
+                setSlideIdx(idx);
+              }}
+              className={`flex-1 rounded-lg px-2.5 py-1 font-mono text-[10px] font-semibold transition-all ${
+                slideIdx === idx
+                  ? "bg-white text-zinc-950 shadow"
+                  : "text-zinc-400 hover:text-white"
+              }`}
+            >
+              {s.label}
+            </button>
+          ))}
+        </div>
+      )}
+
       <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl bg-[#111318]">
-        {hasCustomPhoto ? (
+        {hasCustomPhoto && activeSlide ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
-            src={project.image}
+            src={activeSlide.src}
             alt={project.title}
             onError={() => setImgFailed(true)}
-            className="h-full w-full object-cover object-center transition-transform duration-700 hover:scale-105"
+            className="h-full w-full object-cover object-top transition-transform duration-700 hover:scale-105"
           />
         ) : (
           <svg
