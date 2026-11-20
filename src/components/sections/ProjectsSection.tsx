@@ -114,9 +114,7 @@ function ProjectVisualGraphic({
 }) {
   const [imgFailed, setImgFailed] = useState(false);
   const hasCustomPhoto =
-    project.image &&
-    !project.image.endsWith(".svg") &&
-    !imgFailed;
+    project.image && !project.image.endsWith(".svg") && !imgFailed;
 
   if (project.status === "Ongoing") {
     return (
@@ -330,7 +328,7 @@ function ProjectVisualGraphic({
         )}
       </div>
 
-      <div className="mt-2.5 flex items-center justify-between gap-2 px-1 font-mono text-[11px] text-zinc-400">
+      <div className="mt-2 flex items-center justify-between gap-2 px-1 font-mono text-[11px] text-zinc-400">
         <span className="flex items-center gap-1.5 truncate">
           <Terminal className="h-3.5 w-3.5 shrink-0 text-emerald-400" />
           <span className="truncate">{project.role}</span>
@@ -446,7 +444,7 @@ export default function ProjectsSection() {
           )}
         </div>
 
-        <div className="hidden min-h-[560px] w-full items-stretch gap-3 lg:flex">
+        <div className="hidden h-[580px] w-full items-stretch gap-3 lg:flex">
           {visibleProjects.map((project, idx) => {
             const globalIndex =
               hasTwoDecks && deckPage === 1 ? idx + 6 : idx + 1;
@@ -456,24 +454,15 @@ export default function ProjectsSection() {
               FOLDER_THEMES[project.id] || FOLDER_THEMES["sifest-2026"];
 
             return (
-              <motion.div
-                layout
+              <div
                 key={project.id}
                 onClick={() => setActiveId(project.id)}
-                initial={false}
-                animate={{
-                  flexGrow: isExpanded ? 5.4 : 0.85,
+                style={{
+                  flex: isExpanded ? "5.6 1 0%" : "0.85 1 0%",
                 }}
-                transition={{
-                  type: "spring",
-                  stiffness: 240,
-                  damping: 28,
-                  mass: 0.9,
-                }}
-                style={{ flexBasis: "0%" }}
-                className="group relative flex min-w-[74px] cursor-pointer flex-col"
+                className="group relative flex h-full min-w-[74px] cursor-pointer flex-col transition-[flex] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-[flex]"
               >
-                <div className="flex items-end">
+                <div className="flex h-9 shrink-0 items-end">
                   <div
                     className={`relative flex h-9 items-center gap-2 rounded-t-2xl border-t border-l px-4 transition-colors duration-300 ${
                       isExpanded
@@ -547,12 +536,7 @@ export default function ProjectsSection() {
                   )}
 
                   {!isExpanded ? (
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 0.2 }}
-                      className="relative z-10 flex h-full w-full flex-col items-center justify-between py-5"
-                    >
+                    <div className="relative z-10 flex h-full w-full flex-col items-center justify-between py-5">
                       <span className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 font-mono text-[10px] text-zinc-400">
                         {project.period}
                       </span>
@@ -563,7 +547,7 @@ export default function ProjectsSection() {
                             writingMode: "vertical-rl",
                             transform: "rotate(180deg)",
                           }}
-                          className="max-h-[300px] truncate text-sm font-bold tracking-wide text-zinc-300 transition-colors group-hover:text-white"
+                          className="max-h-[320px] truncate text-sm font-bold tracking-wide text-zinc-300 transition-colors group-hover:text-white"
                         >
                           {project.title}
                         </p>
@@ -577,15 +561,9 @@ export default function ProjectsSection() {
                           <ChevronRight className="h-4 w-4" />
                         </div>
                       </div>
-                    </motion.div>
+                    </div>
                   ) : (
-                    <motion.div
-                      key={`expanded-${project.id}`}
-                      initial={{ opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.28, delay: 0.08 }}
-                      className="relative z-10 flex h-full w-full flex-col justify-between gap-6 p-6 xl:p-7"
-                    >
+                    <div className="relative z-10 flex h-full w-full min-w-[580px] flex-col justify-between p-6 xl:min-w-[660px] xl:p-7">
                       <div className="grid grid-cols-12 items-center gap-6">
                         <div className="col-span-5">
                           <ProjectVisualGraphic
@@ -594,7 +572,7 @@ export default function ProjectsSection() {
                           />
                         </div>
 
-                        <div className="col-span-7 space-y-3">
+                        <div className="col-span-7 space-y-2.5">
                           <div className="flex flex-wrap items-center gap-2">
                             <span
                               className={`rounded-full border px-3 py-0.5 font-mono text-[11px] font-semibold ${theme.badgeBg}`}
@@ -623,7 +601,7 @@ export default function ProjectsSection() {
                                 <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-white/10 text-white">
                                   <Check className="h-2.5 w-2.5" />
                                 </span>
-                                <span>{h}</span>
+                                <span className="line-clamp-2">{h}</span>
                               </li>
                             ))}
                           </ul>
@@ -632,13 +610,13 @@ export default function ProjectsSection() {
 
                       <div
                         onClick={(e) => e.stopPropagation()}
-                        className="flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-4"
+                        className="flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-3.5"
                       >
                         <div className="flex flex-wrap items-center gap-1.5">
                           {project.techStack.map((tech) => (
                             <span
                               key={tech}
-                              className="rounded-full border border-white/10 bg-black/40 px-3 py-1 text-[11px] font-medium text-zinc-200"
+                              className="rounded-full border border-white/10 bg-black/40 px-2.5 py-1 text-[10px] font-medium text-zinc-200"
                             >
                               {tech}
                             </span>
@@ -671,10 +649,10 @@ export default function ProjectsSection() {
                           )}
                         </div>
                       </div>
-                    </motion.div>
+                    </div>
                   )}
                 </div>
-              </motion.div>
+              </div>
             );
           })}
         </div>
@@ -779,9 +757,8 @@ export default function ProjectsSection() {
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
                         transition={{
-                          type: "spring",
-                          stiffness: 260,
-                          damping: 28,
+                          duration: 0.3,
+                          ease: [0.22, 1, 0.36, 1],
                         }}
                         className="relative z-10 overflow-hidden"
                       >
