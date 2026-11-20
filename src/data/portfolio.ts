@@ -62,7 +62,9 @@ export const PORTFOLIO_DATA = {
         "Platform ekosistem acara tahunan SI FEST 2026 yang dikembangkan end-to-end meliputi frontend interaktif dengan animasi 3D GSAP, asisten AI Chatbot, sistem ticketing otomatis via email, integrasi payment gateway, dashboard admin dengan verifikasi keamanan login 2FA, hingga ticket scanner dan deployment VPS.",
       highlights: [],
       techStack: [
-        "Node.js / Backend API",
+        "Next.js / TypeScript",
+        "Node.js",
+        "Prisma ORM",
         "Payment Gateway",
         "2FA Admin Auth",
         "Email Ticketing",
@@ -191,7 +193,7 @@ export const PORTFOLIO_DATA = {
       summary:
         "Aplikasi web hasil desain ulang Indonesia Game Rating System (IGRS) berdasarkan Peraturan Menteri Kominfo No. 2/2024 untuk mengklasifikasikan gim berdasarkan kategori konten dan batas usia.",
       highlights: [],
-      techStack: ["Web Application", "Tailwind CSS", "JavaScript", "UI/UX Redesign"],
+      techStack: ["React", "Tailwind CSS", "Prisma ORM", "MySQL", "UI/UX Redesign"],
       links: {
         github: "https://github.com/Davin164/Indonesia-Game-Rating-System",
       },

@@ -64,7 +64,7 @@ function TechIcon({ name, color }: { name: string; color: string }) {
         </svg>
       );
     case "React":
-    case "Next.js":
+    case "TanStack Query":
       return (
         <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0" fill="none">
           <circle cx="12" cy="12" r="2.2" fill={color} />
@@ -96,6 +96,62 @@ function TechIcon({ name, color }: { name: string; color: string }) {
           />
         </svg>
       );
+    case "Next.js":
+    case "Next.js / TS Backend":
+      return (
+        <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0" fill="none">
+          <circle cx="12" cy="12" r="10" fill="#18181b" stroke="#fff" strokeWidth="1.5" />
+          <path
+            d="M8.5 16V8L16.5 18.5M15.5 8V13"
+            stroke="#fff"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      );
+    case "Prisma ORM":
+      return (
+        <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0" fill="none">
+          <path
+            d="M12.8 3L4.5 16.5L10.8 21L19.5 17.2L12.8 3Z"
+            stroke={color}
+            strokeWidth="1.8"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M12.8 3L10.8 21"
+            stroke={color}
+            strokeWidth="1.5"
+            strokeLinecap="round"
+          />
+        </svg>
+      );
+    case "Supabase":
+    case "Vite":
+    case "3D GSAP Animation":
+      return (
+        <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0" fill="none">
+          <path
+            d="M13 2L4.5 13.5H12L11 22L19.5 10.5H12L13 2Z"
+            stroke={color}
+            strokeWidth="1.8"
+            strokeLinejoin="round"
+          />
+        </svg>
+      );
+    case "AI Chatbot & Gemini AI":
+    case "Antigravity":
+      return (
+        <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0" fill="none">
+          <path
+            d="M12 3C12.8 8.2 15.8 11.2 21 12C15.8 12.8 12.8 15.8 12 21C11.2 15.8 8.2 12.8 3 12C8.2 11.2 11.2 8.2 12 3Z"
+            stroke={color}
+            strokeWidth="1.8"
+            strokeLinejoin="round"
+          />
+        </svg>
+      );
     case "Tailwind CSS":
       return (
         <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0" fill="none">
@@ -106,16 +162,17 @@ function TechIcon({ name, color }: { name: string; color: string }) {
         </svg>
       );
     case "Node.js":
+    case "Express.js":
       return (
         <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0" fill="none">
           <path
             d="M12 2L20.5 6.9V17.1L12 22L3.5 17.1V6.9L12 2Z"
-            stroke="#5FA04E"
+            stroke={color}
             strokeWidth="1.8"
           />
           <path
             d="M9 9.5V14.5L13 17L15.5 15.5V9.5"
-            stroke="#5FA04E"
+            stroke={color}
             strokeWidth="1.6"
             strokeLinecap="round"
           />
@@ -174,6 +231,83 @@ function TechIcon({ name, color }: { name: string; color: string }) {
           />
         </svg>
       );
+    case "2FA & Middleware Auth":
+    case "Wazuh SIEM":
+    case "Pessimistic Locking & ACID":
+      return (
+        <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0" fill="none">
+          <path
+            d="M12 3L19 6V11.5C19 16.2 15.9 20.3 12 21.5C8.1 20.3 5 16.2 5 11.5V6L12 3Z"
+            stroke={color}
+            strokeWidth="1.8"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M9.5 12L11.2 13.8L15 10"
+            stroke={color}
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      );
+    case "Payment Gateway":
+      return (
+        <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0" fill="none">
+          <rect
+            x="3"
+            y="5"
+            width="18"
+            height="14"
+            rx="3"
+            stroke={color}
+            strokeWidth="1.8"
+          />
+          <path d="M3 10H21" stroke={color} strokeWidth="1.8" />
+          <path
+            d="M7 15H11"
+            stroke={color}
+            strokeWidth="1.8"
+            strokeLinecap="round"
+          />
+        </svg>
+      );
+    case "Git & GitHub":
+    case "REST API & OpenAPI":
+      return (
+        <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0" fill="none">
+          <circle cx="7" cy="6" r="2.5" stroke={color} strokeWidth="1.7" />
+          <circle cx="7" cy="18" r="2.5" stroke={color} strokeWidth="1.7" />
+          <circle cx="17" cy="12" r="2.5" stroke={color} strokeWidth="1.7" />
+          <path
+            d="M7 8.5V15.5M14.5 12H11C8.8 12 7 10.2 7 8.5"
+            stroke={color}
+            strokeWidth="1.7"
+            strokeLinecap="round"
+          />
+        </svg>
+      );
+    case "Figma":
+      return (
+        <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0" fill="none">
+          <circle cx="14.5" cy="12" r="2.5" stroke={color} strokeWidth="1.7" />
+          <path
+            d="M9.5 4.5H14.5C15.9 4.5 17 5.6 17 7C17 8.4 15.9 9.5 14.5 9.5H9.5C8.1 9.5 7 8.4 7 7C7 5.6 8.1 4.5 9.5 4.5Z"
+            stroke={color}
+            strokeWidth="1.7"
+          />
+          <path
+            d="M9.5 9.5H12V14.5H9.5C8.1 14.5 7 13.4 7 12C7 10.6 8.1 9.5 9.5 9.5Z"
+            stroke={color}
+            strokeWidth="1.7"
+          />
+          <path
+            d="M9.5 14.5H12V17C12 18.4 10.9 19.5 9.5 19.5C8.1 19.5 7 18.4 7 17C7 15.6 8.1 14.5 9.5 14.5Z"
+            stroke={color}
+            strokeWidth="1.7"
+          />
+        </svg>
+      );
     default:
       return (
         <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0" fill="none">
@@ -202,10 +336,12 @@ const SKILL_PILL_COLUMNS: {
       { name: "Java", color: "#F89820" },
       { name: "React", color: "#61DAFB" },
       { name: "Next.js", color: "#FFFFFF" },
+      { name: "Vite", color: "#A855F7" },
       { name: "Tailwind CSS", color: "#38BDF8" },
+      { name: "TanStack Query", color: "#FF4154" },
+      { name: "3D GSAP Animation", color: "#88CE02" },
       { name: "Bootstrap", color: "#7952B3" },
       { name: "HTML5 & CSS3", color: "#E34F26" },
-      { name: "GSAP", color: "#88CE02" },
     ],
   },
   {
@@ -213,20 +349,24 @@ const SKILL_PILL_COLUMNS: {
     items: [
       { name: "Node.js", color: "#5FA04E" },
       { name: "Express.js", color: "#E4E4E7" },
+      { name: "Next.js / TS Backend", color: "#38BDF8" },
       { name: "Laravel", color: "#FF2D20" },
-      { name: "REST API", color: "#38BDF8" },
+      { name: "Prisma ORM", color: "#2DD4BF" },
+      { name: "REST API & OpenAPI", color: "#38BDF8" },
       { name: "Payment Gateway", color: "#10B981" },
-      { name: "Middleware Auth", color: "#A855F7" },
-      { name: "Pessimistic Locking", color: "#F59E0B" },
-      { name: "ACID Transaction", color: "#34D399" },
+      { name: "2FA & Middleware Auth", color: "#A855F7" },
+      { name: "AI Chatbot & Gemini AI", color: "#60A5FA" },
+      { name: "Pessimistic Locking & ACID", color: "#F59E0B" },
     ],
   },
   {
     title: "Data & Databases",
     items: [
-      { name: "MySQL", color: "#4479A1" },
       { name: "PostgreSQL", color: "#336791" },
+      { name: "MySQL", color: "#4479A1" },
       { name: "MongoDB", color: "#47A248" },
+      { name: "Supabase", color: "#3ECF8E" },
+      { name: "Prisma ORM", color: "#2DD4BF" },
       { name: "SQLite", color: "#38BDF8" },
     ],
   },
