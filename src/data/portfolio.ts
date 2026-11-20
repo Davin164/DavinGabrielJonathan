@@ -441,9 +441,27 @@ export const PORTFOLIO_DATA = {
       },
     },
     {
-      id: "pti-dev-camp",
-      title: "PTI Dev Camp Series (#1 & #4 HIMSI)",
-      subtitle: "Rangkaian Proyek Web & Kolaborasi Git Staff PTI HIMSI UNSRI",
+      id: "pti-dev-camp-4",
+      title: "PTI Dev Camp #4 (TID HIMSI)",
+      subtitle: "Proyek Pengembangan Web PHP Divisi TID HIMSI Fasilkom UNSRI",
+      role: "Staff PTI HIMSI",
+      period: "2026",
+      category: "fullstack",
+      status: "Completed",
+      badge: "Website",
+      image: "/projects/bookshelf-api.svg",
+      summary:
+        "Proyek pengembangan aplikasi web berbasis PHP yang dikerjakan dalam rangkaian program kerja TID dan PTI Dev Camp #4 HIMSI Fasilkom Universitas Sriwijaya.",
+      highlights: [],
+      techStack: ["PHP", "HTML5", "CSS3", "Git", "GitHub"],
+      links: {
+        github: "https://github.com/Davin164/PTI-DEV-CAMP4",
+      },
+    },
+    {
+      id: "pti-dev-camp-1",
+      title: "PTI Dev Camp #1 (Git & Software Workflow)",
+      subtitle: "Fundamental Version Control & Kolaborasi Tim PTI HIMSI UNSRI",
       role: "Staff PTI HIMSI",
       period: "2026",
       category: "education",
@@ -451,11 +469,11 @@ export const PORTFOLIO_DATA = {
       badge: "Education",
       image: "/projects/bookshelf-api.svg",
       summary:
-        "Repositori penugasan dan latihan pengembangan web menggunakan PHP, HTML/CSS, serta alur kerja kolaborasi Git dan GitHub pada kegiatan PTI Dev Camp HIMSI Fasilkom UNSRI.",
+        "Repositori penugasan kegiatan PTI Dev Camp #1 yang berfokus pada penguasaan alur kerja Git, manajemen branch, dan kolaborasi pengembangan perangkat lunak di GitHub.",
       highlights: [],
-      techStack: ["PHP", "Git", "GitHub", "Web Development"],
+      techStack: ["Git", "GitHub", "Version Control", "Team Workflow"],
       links: {
-        github: "https://github.com/Davin164/PTI-DEV-CAMP4",
+        github: "https://github.com/Davin164/PTI-Dev-Camp",
       },
     },
     {
