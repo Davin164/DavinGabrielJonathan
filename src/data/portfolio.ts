@@ -26,7 +26,7 @@ export const PORTFOLIO_DATA = {
     githubUsername: "Davin164",
     linkedinUrl: "https://linkedin.com/in/davin-gabriel-jonathan",
     linkedinHandle: "davin-gabriel-jonathan",
-    bio: "Mahasiswa S1 Sistem Informasi Universitas Sriwijaya dan lulusan SMK Rekayasa Perangkat Lunak (2022 sampai 2025) dengan 4 tahun jam terbang di pengembangan web. Berpengalaman memimpin pengembangan end-to-end (UI/UX, Frontend, Backend, hingga VPS Deployment) sebagai Tech Lead Web Development SI FEST 2026 serta mengerjakan 98% arsitektur backend secara langsung. Aktif sebagai anggota Backend GDGoC 2026 dengan fokus pada sistem ticketing, integrasi payment gateway, concurrency control, dan keamanan sistem.",
+    bio: "Mahasiswa S1 Sistem Informasi Universitas Sriwijaya dan lulusan SMK Rekayasa Perangkat Lunak (2022 sampai 2025) dengan 4 tahun jam terbang di pengembangan web. Saat ini menjabat sebagai Core Team Web Development di GDGoC Universitas Sriwijaya serta berpengalaman memimpin pengembangan end-to-end sebagai Tech Lead Web Development SI FEST 2026.",
   },
 
   metrics: [
@@ -510,6 +510,26 @@ export const PORTFOLIO_DATA = {
 
   experiences: [
     {
+      id: "gdgoc-core-team-webdev",
+      role: "Core Team, Web Development",
+      organization: "Google Developer Group on Campus (GDGoC) Universitas Sriwijaya",
+      period: "2026 sampai Sekarang",
+      type: "Leadership & Tech",
+      badge: "Core Team Web Dev",
+      location: "Universitas Sriwijaya",
+      highlights: [
+        "Memimpin dan mengarahkan divisi Web Development GDGoC Universitas Sriwijaya dalam pengembangan kurikulum serta proyek teknologi komunitas.",
+        "Mengajar dan membimbing member GDGoC secara menyeluruh mulai dari pengembangan Frontend modern hingga arsitektur Backend dan integrasi sistem.",
+      ],
+      skills: [
+        "Technical Leadership",
+        "Frontend Architecture",
+        "Backend Engineering",
+        "Curriculum & Teaching",
+        "Code Review & Mentoring",
+      ],
+    },
+    {
       id: "tech-lead-sifest-2026",
       role: "Tech Lead, Divisi Technology & Information Development",
       organization: "OC TID SI FEST 2026 (Fasilkom UNSRI)",
@@ -542,7 +562,7 @@ export const PORTFOLIO_DATA = {
       id: "nac-security-multimedia",
       role: "Staff Medinfo Multimedia & Blue/Red Team Member",
       organization: "Network Administrator Club (NAC)",
-      period: "2025 sampai Sekarang",
+      period: "2026",
       type: "Cyber Security & IT",
       badge: "Best Project Q1 (Wazuh SIEM)",
       location: "Fasilkom UNSRI",
@@ -556,7 +576,7 @@ export const PORTFOLIO_DATA = {
       id: "himsi-pti",
       role: "Staff Pengembangan Teknologi dan Informasi (PTI)",
       organization: "HIMSI Fasilkom UNSRI",
-      period: "2025 sampai Sekarang",
+      period: "2026",
       type: "Engineering & Community",
       badge: "Best Team Project PTI #1",
       location: "Fasilkom UNSRI",
@@ -569,7 +589,7 @@ export const PORTFOLIO_DATA = {
       id: "intel-arrait-po",
       role: "PIC Backend ARRAIT, Project Officer & Vice PO",
       organization: "INTEL (English Club FASILKOM UNSRI)",
-      period: "2025 sampai 2026",
+      period: "2026",
       type: "Leadership & Tech",
       badge: "PIC Backend & Project Officer",
       location: "Indralaya & Palembang",
@@ -602,7 +622,7 @@ export const PORTFOLIO_DATA = {
       institution: "Universitas Sriwijaya (UNSRI)",
       degree: "S1 Sistem Informasi, Fakultas Ilmu Komputer",
       period: "2025 sampai Sekarang",
-      highlights: "Tech Lead SI FEST 2026, Member Backend GDGoC 2026, Best Project NAC Q1, Best Team Project PTI #1 HIMSI, PIC Backend INTEL.",
+      highlights: "Core Team Web Development GDGoC UNSRI, Tech Lead SI FEST 2026, Best Project NAC Q1, Best Team Project PTI #1 HIMSI, PIC Backend INTEL.",
     },
     {
       institution: "SMK Bukit Asam",

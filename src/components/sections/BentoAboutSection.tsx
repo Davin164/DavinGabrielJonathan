@@ -108,18 +108,18 @@ export default function BentoAboutSection() {
                     hands-on web development experience.
                   </p>
                   <p>
-                    Experienced in leading end-to-end web development (UI/UX,
-                    frontend, backend, VPS deployment) as{" "}
+                    Currently serving as{" "}
+                    <strong className="text-[var(--text-primary)]">
+                      Core Team Web Development at GDGoC Universitas Sriwijaya
+                    </strong>{" "}
+                    (leading and teaching Frontend &amp; Backend web development)
+                    and experienced in leading end-to-end engineering as{" "}
                     <strong className="text-[var(--text-primary)]">
                       Tech Lead of SI FEST 2026
                     </strong>{" "}
                     (building 98% of the backend solo, including ticketing,
-                    payment gateway integration, admin panel, and QR ticket
-                    scanner) and contributing as a{" "}
-                    <strong className="text-[var(--text-primary)]">
-                      Backend Developer at GDGoC 2026
-                    </strong>
-                    .
+                    payment gateway integration, 2FA admin panel, and QR ticket
+                    scanner).
                   </p>
                   <p>
                     Passionate about backend architecture, network &amp;
