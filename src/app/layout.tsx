@@ -27,10 +27,12 @@ export const metadata: Metadata = {
   authors: [{ name: "Davin Gabriel Jonathan", url: "https://github.com/Davin164" }],
   icons: {
     icon: [
-      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/icon-64.png?v=4", type: "image/png", sizes: "64x64" },
+      { url: "/favicon.svg?v=4", type: "image/svg+xml" },
+      { url: "/favicon.ico?v=4", sizes: "any" },
     ],
-    shortcut: ["/favicon.svg"],
-    apple: ["/favicon.svg"],
+    shortcut: ["/icon-64.png?v=4"],
+    apple: [{ url: "/icon-64.png?v=4", sizes: "64x64", type: "image/png" }],
   },
   openGraph: {
     title: "Davin Gabriel Jonathan | Full-Stack Web Developer",
