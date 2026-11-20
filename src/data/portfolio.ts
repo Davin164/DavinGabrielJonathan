@@ -79,7 +79,7 @@ export const PORTFOLIO_DATA = {
     {
       id: "sifest-freelance-2026",
       title: "Website Freelance SI FEST 2026",
-      subtitle: "Official Freelance & Digital Agency Web Platform by OC TID SI FEST 2026",
+      subtitle: "Freelance Recruitment Portal, Task Submission Dashboard & Announcement System",
       role: "Tech Lead & Web Developer",
       period: "2026",
       category: "featured",
@@ -87,10 +87,12 @@ export const PORTFOLIO_DATA = {
       badge: "Private Repo",
       image: "/projects/sifest-freelance.jpg",
       summary:
-        "Website layanan pembuatan web dan agensi digital resmi dari divisi Technology & Information Development (TID) SI FEST 2026 yang dibangun bersama tim staff dan freelancer.",
+        "Platform rekrutmen dan pendaftaran terbuka untuk calon freelancer SI FEST 2026 yang dilengkapi sistem autentikasi peserta, dashboard pengumpulan tugas seleksi (submission dashboard), manajemen penilaian admin, hingga halaman pengumuman kelulusan terintegrasi.",
       highlights: [],
       techStack: [
         "Full-Stack Web",
+        "Submission Dashboard",
+        "Announcement System",
         "Tailwind CSS",
         "GSAP",
         "JavaScript",
