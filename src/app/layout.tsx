@@ -25,6 +25,13 @@ export const metadata: Metadata = {
     "Next.js",
   ],
   authors: [{ name: "Davin Gabriel Jonathan", url: "https://github.com/Davin164" }],
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+    shortcut: ["/favicon.svg"],
+    apple: ["/favicon.svg"],
+  },
   openGraph: {
     title: "Davin Gabriel Jonathan | Full-Stack Web Developer",
     description:

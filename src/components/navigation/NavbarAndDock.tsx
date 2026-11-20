@@ -51,8 +51,29 @@ export default function NavbarAndDock({
             onClick={() => scrollToSection("hero")}
             className="group flex items-center gap-2.5 text-left focus:outline-none"
           >
-            <div className="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--border-subtle)] bg-[var(--bg-card)] font-mono text-xs font-bold text-[var(--text-primary)] shadow-sm transition-transform group-hover:scale-105">
-              &gt;_
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] shadow-sm transition-transform group-hover:scale-105">
+              <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none">
+                <path
+                  d="M8.5 8L4 12L8.5 16"
+                  stroke="#38bdf8"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M15.5 8L20 12L15.5 16"
+                  stroke="currentColor"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M13.5 6.5L10.5 17.5"
+                  stroke="#10b981"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+              </svg>
             </div>
             <span className="text-sm font-bold tracking-tight text-[var(--text-primary)] sm:text-base">
               Davin
