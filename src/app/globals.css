@@ -50,7 +50,6 @@ body {
   transition: background-color 0.25s ease, color 0.25s ease;
 }
 
-/* Subtle dot/grid texture */
 .bg-architectural-grid {
   background-size: 36px 36px;
   background-image:
@@ -58,7 +57,6 @@ body {
     linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
 }
 
-/* Diagonal spotlight beam inspired by khalifaalhasan.my.id */
 .hero-spotlight-beam {
   background: radial-gradient(
     ellipse 70% 55% at 25% 15%,
@@ -67,7 +65,6 @@ body {
   );
 }
 
-/* Gradient heading text inspired by ello-rabyndra.vercel.app */
 .heading-gradient {
   background: linear-gradient(90deg, #71717a 0%, #f4f4f5 45%, #ffffff 100%);
   -webkit-background-clip: text;
@@ -80,7 +77,6 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
-/* Glowing wireframe neon shapes inspired by atalaa-df.vercel.app */
 .neon-shape-glow {
   filter: drop-shadow(0 0 14px rgba(255, 255, 255, 0.55))
     drop-shadow(0 0 32px rgba(255, 255, 255, 0.22));
@@ -90,7 +86,6 @@ body {
   filter: drop-shadow(0 0 10px rgba(24, 24, 27, 0.25));
 }
 
-/* Matte dark card surface */
 .bento-card {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
@@ -109,7 +104,6 @@ body {
   }
 }
 
-/* Infinite marquee animation */
 @keyframes marquee-left {
   0% {
     transform: translateX(0%);
@@ -129,7 +123,6 @@ body {
   animation-play-state: paused;
 }
 
-/* Custom sleek scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;

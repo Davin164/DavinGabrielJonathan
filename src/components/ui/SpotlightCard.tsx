@@ -36,7 +36,6 @@ export default function SpotlightCard({
         onClick ? "cursor-pointer active:scale-[0.99]" : ""
       } ${className}`}
     >
-      {/* Desktop-only pointer spotlight */}
       <div
         className="pointer-events-none absolute -inset-px hidden transition-opacity duration-300 md:block"
         style={{

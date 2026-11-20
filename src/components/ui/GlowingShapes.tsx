@@ -10,14 +10,6 @@ interface GlowingShapeProps {
   delay?: number;
 }
 
-/**
- * Glowing Coding & Engineering Icons (Replacing abstract shapes with coding logos:
- * - "cross" -> </> Code Brackets
- * - "square" -> >_ Terminal Window
- * - "star" -> { } JSON / Curly Braces
- * - "circle" -> Database Stack
- * - "triangle" -> Git Branch / Node Graph
- */
 export function GlowingShape({
   variant,
   size = 84,
@@ -48,7 +40,6 @@ export function GlowingShape({
         xmlns="http://www.w3.org/2000/svg"
         className="h-full w-full stroke-zinc-100/90"
       >
-        {/* </> Code Tag Logo */}
         {variant === "cross" && (
           <g strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M34 32L14 50L34 68" />
@@ -57,7 +48,6 @@ export function GlowingShape({
           </g>
         )}
 
-        {/* >_ Terminal Console Logo */}
         {variant === "square" && (
           <g strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round">
             <rect x="14" y="18" width="72" height="64" rx="12" />
@@ -66,7 +56,6 @@ export function GlowingShape({
           </g>
         )}
 
-        {/* { } Curly Braces Logo */}
         {variant === "star" && (
           <g strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M38 22C28 22 28 30 28 38C28 45 22 50 18 50C22 50 28 55 28 62C28 70 28 78 38 78" />
@@ -74,7 +63,6 @@ export function GlowingShape({
           </g>
         )}
 
-        {/* Database Cylinder Logo */}
         {variant === "circle" && (
           <g strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round">
             <ellipse cx="50" cy="26" rx="28" ry="11" />
@@ -83,7 +71,6 @@ export function GlowingShape({
           </g>
         )}
 
-        {/* Git Branch / API Node Logo */}
         {variant === "triangle" && (
           <g strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round">
             <circle cx="30" cy="26" r="8" />

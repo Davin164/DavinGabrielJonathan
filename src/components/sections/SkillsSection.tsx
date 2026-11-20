@@ -4,12 +4,6 @@ import React from "react";
 import { motion } from "framer-motion";
 import SpotlightCard from "@/components/ui/SpotlightCard";
 
-interface SkillItem {
-  name: string;
-  color: string;
-  icon: React.ReactNode;
-}
-
 function TechIcon({ name, color }: { name: string; color: string }) {
   switch (name) {
     case "JavaScript":
@@ -258,7 +252,6 @@ export default function SkillsSection() {
   return (
     <section id="skills" className="py-20 sm:py-28">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        {/* Centered Heading */}
         <div className="mb-12 text-center">
           <motion.h2
             initial={{ opacity: 0, y: 16 }}
@@ -274,7 +267,6 @@ export default function SkillsSection() {
           </p>
         </div>
 
-        {/* 4 Dark Pillar Cards with Tech Logos inside Pills */}
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {SKILL_PILL_COLUMNS.map((col, idx) => (
             <motion.div
@@ -305,7 +297,6 @@ export default function SkillsSection() {
           ))}
         </div>
 
-        {/* Infinite Tech Stack Marquee Ticker with Logos */}
         <div className="relative mt-10 overflow-hidden rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] py-4">
           <div className="animate-marquee flex items-center gap-4">
             {[...ALL_SKILLS, ...ALL_SKILLS].map((item, i) => (

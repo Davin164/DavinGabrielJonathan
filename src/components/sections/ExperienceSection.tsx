@@ -14,7 +14,6 @@ export default function ExperienceSection() {
   return (
     <section id="experience" className="py-20 sm:py-28">
       <div className="mx-auto max-w-5xl px-4 sm:px-6">
-        {/* Centered Gradient Heading (Exact match to ello-rabyndra Screenshot 3: "Experience I have") */}
         <div className="mb-12 flex flex-col items-center text-center">
           <motion.h2
             initial={{ opacity: 0, y: 16 }}
@@ -26,13 +25,12 @@ export default function ExperienceSection() {
             Experience I have
           </motion.h2>
 
-          {/* View Switcher: Timeline Cards (ello-rabyndra) vs Minimalist Editorial List (khalifaalhasan) */}
           <div className="mt-5 inline-flex items-center gap-1 rounded-full border border-[var(--border-subtle)] bg-[var(--bg-card)] p-1">
             <button
               onClick={() => setViewMode("timeline")}
               className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-medium transition-colors ${
                 viewMode === "timeline"
-                  ? "bg-[var(--text-primary)] text-[var(--bg-primary)] font-semibold"
+                  ? "bg-[var(--text-primary)] font-semibold text-[var(--bg-primary)]"
                   : "text-[var(--text-muted)] hover:text-[var(--text-primary)]"
               }`}
             >
@@ -43,7 +41,7 @@ export default function ExperienceSection() {
               onClick={() => setViewMode("editorial")}
               className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-medium transition-colors ${
                 viewMode === "editorial"
-                  ? "bg-[var(--text-primary)] text-[var(--bg-primary)] font-semibold"
+                  ? "bg-[var(--text-primary)] font-semibold text-[var(--bg-primary)]"
                   : "text-[var(--text-muted)] hover:text-[var(--text-primary)]"
               }`}
             >
@@ -54,7 +52,6 @@ export default function ExperienceSection() {
         </div>
 
         {viewMode === "timeline" ? (
-          /* Timeline Cards View (Inspired by ello-rabyndra.vercel.app Screenshot 3) */
           <div className="relative space-y-6 before:absolute before:top-6 before:bottom-6 before:left-3 before:w-[1px] before:bg-zinc-700/70 sm:before:left-6">
             {PORTFOLIO_DATA.experiences.map((exp, idx) => (
               <motion.div
@@ -65,11 +62,9 @@ export default function ExperienceSection() {
                 transition={{ duration: 0.4, delay: idx * 0.05 }}
                 className="relative pl-10 sm:pl-16"
               >
-                {/* Hollow Circular Timeline Node (Exact match to ello-rabyndra Screenshot 3) */}
                 <div className="absolute top-8 left-[6px] h-3.5 w-3.5 rounded-full border-2 border-zinc-400 bg-[var(--bg-primary)] sm:left-[18px]" />
 
                 <SpotlightCard className="p-6 sm:p-7">
-                  {/* Top Row: Organization, Role & Right-Aligned Date Pill */}
                   <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-start">
                     <div>
                       <h3 className="text-base font-bold text-[var(--text-primary)] sm:text-lg">
@@ -86,14 +81,12 @@ export default function ExperienceSection() {
                     </span>
                   </div>
 
-                  {/* Description Paragraph / Bullet Summary */}
                   <div className="mt-4 space-y-2 text-xs leading-relaxed text-[var(--text-secondary)] sm:text-sm">
                     {exp.highlights.map((item, i) => (
                       <p key={i}>{item}</p>
                     ))}
                   </div>
 
-                  {/* Bottom Divider + TECHNOLOGIES Section (Exact match to ello-rabyndra Screenshot 3) */}
                   <div className="mt-5 border-t border-[var(--border-subtle)] pt-4">
                     <p className="mb-2.5 flex items-center gap-1.5 font-mono text-[10px] font-semibold uppercase tracking-wider text-[var(--text-muted)]">
                       <Settings className="h-3 w-3" />
@@ -115,7 +108,6 @@ export default function ExperienceSection() {
             ))}
           </div>
         ) : (
-          /* Minimalist Editorial Index View (Inspired by khalifaalhasan.my.id Screenshot 6) */
           <div className="space-y-12">
             <div>
               <h3 className="mb-6 border-b border-[var(--border-subtle)] pb-3 text-lg font-extrabold uppercase tracking-wider text-[var(--text-primary)]">

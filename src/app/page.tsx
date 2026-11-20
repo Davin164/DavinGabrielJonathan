@@ -2,70 +2,61 @@
 
 import React, { useEffect, useState } from "react";
 import NavbarAndDock from "@/components/navigation/NavbarAndDock";
-import CommandPalette from "@/components/navigation/CommandPalette";
 import HeroSection from "@/components/sections/HeroSection";
 import BentoAboutSection from "@/components/sections/BentoAboutSection";
 import ProjectsSection from "@/components/sections/ProjectsSection";
 import ExperienceSection from "@/components/sections/ExperienceSection";
 import SkillsSection from "@/components/sections/SkillsSection";
 import ContactFooterSection from "@/components/sections/ContactFooterSection";
-import { ProjectItem } from "@/types/portfolio";
+
+const SECTION_IDS = [
+  "hero",
+  "about",
+  "projects",
+  "experience",
+  "skills",
+  "contact",
+];
 
 export default function HomePage() {
   const [theme, setTheme] = useState<"dark" | "light">("dark");
-  const [isCommandOpen, setIsCommandOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
-  const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(
-    null
-  );
 
-  // Sync theme attribute on html element
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
   }, [theme]);
 
-  // Global keyboard shortcut Ctrl+K / Cmd+K to toggle Command Palette
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
-        e.preventDefault();
-        setIsCommandOpen((prev) => !prev);
+    const updateActiveSection = () => {
+      const triggerLine = window.innerHeight * 0.38;
+      let current = SECTION_IDS[0];
+
+      for (const id of SECTION_IDS) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+        const rect = el.getBoundingClientRect();
+        if (rect.top <= triggerLine) {
+          current = id;
+        }
       }
+
+      const nearBottom =
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 80;
+      if (nearBottom) {
+        current = "contact";
+      }
+
+      setActiveSection(current);
     };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
 
-  // Track active section while scrolling
-  useEffect(() => {
-    const sectionIds = [
-      "hero",
-      "about",
-      "projects",
-      "experience",
-      "skills",
-      "contact",
-    ];
-    const observers: IntersectionObserver[] = [];
-
-    sectionIds.forEach((id) => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              setActiveSection(id);
-            }
-          });
-        },
-        { rootMargin: "-35% 0px -50% 0px", threshold: 0.05 }
-      );
-      observer.observe(el);
-      observers.push(observer);
-    });
-
-    return () => observers.forEach((o) => o.disconnect());
+    updateActiveSection();
+    window.addEventListener("scroll", updateActiveSection, { passive: true });
+    window.addEventListener("resize", updateActiveSection);
+    return () => {
+      window.removeEventListener("scroll", updateActiveSection);
+      window.removeEventListener("resize", updateActiveSection);
+    };
   }, []);
 
   const toggleTheme = () => {
@@ -74,36 +65,21 @@ export default function HomePage() {
 
   return (
     <div className="relative min-h-screen">
-      {/* Top Navbar & Mobile Floating Bottom Dock */}
       <NavbarAndDock
         theme={theme}
         onToggleTheme={toggleTheme}
-        onOpenCommandPalette={() => setIsCommandOpen(true)}
         activeSection={activeSection}
+        onSelectSection={setActiveSection}
       />
 
-      {/* Interactive Command Palette (Ctrl+K) */}
-      <CommandPalette
-        isOpen={isCommandOpen}
-        onClose={() => setIsCommandOpen(false)}
-        theme={theme}
-        onToggleTheme={toggleTheme}
-        onSelectProject={(project) => setSelectedProject(project)}
-      />
-
-      {/* Main Content Sections */}
       <main>
         <HeroSection />
         <BentoAboutSection />
-        <ProjectsSection
-          selectedProject={selectedProject}
-          onSelectProject={setSelectedProject}
-        />
+        <ProjectsSection />
         <ExperienceSection />
         <SkillsSection />
       </main>
 
-      {/* Contact & Footer */}
       <ContactFooterSection />
     </div>
   );

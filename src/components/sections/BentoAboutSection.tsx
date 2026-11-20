@@ -25,7 +25,7 @@ const APPROACH_STEPS = [
 const BIG_STATS = [
   { value: "04+", label: "Years In Web Dev" },
   { value: "10+", label: "Projects Completed" },
-  { value: "02×", label: "Best Project Awards" },
+  { value: "02x", label: "Best Project Awards" },
 ];
 
 export default function BentoAboutSection() {
@@ -40,7 +40,6 @@ export default function BentoAboutSection() {
   return (
     <section id="about" className="relative overflow-hidden py-20 sm:py-28">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        {/* Interactive Coding Icons Header ("wanna know about me?") */}
         <div className="relative mb-20 flex flex-col items-center justify-center py-8 text-center">
           <div className="mb-8 flex flex-wrap items-center justify-center gap-8 sm:gap-14">
             <GlowingShape variant="cross" size={64} delay={0.1} />
@@ -61,9 +60,7 @@ export default function BentoAboutSection() {
           </motion.h2>
         </div>
 
-        {/* Side-by-Side Glowing Coding Logos Cluster + Clean Double-Framed "About Me" Card */}
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12">
-          {/* Left Glowing Coding Icons Cluster */}
           <motion.div
             initial={{ opacity: 0, scale: 0.92 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -85,7 +82,6 @@ export default function BentoAboutSection() {
             </div>
           </motion.div>
 
-          {/* Right: Clean Double-Bordered "About Me" Card (Bio Only) */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -95,7 +91,6 @@ export default function BentoAboutSection() {
           >
             <div className="relative rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)]/75 p-2.5 shadow-[0_24px_60px_rgba(0,0,0,0.65)] backdrop-blur-xl sm:p-3.5">
               <div className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] p-6 sm:p-8">
-                {/* Header */}
                 <div className="flex items-center gap-2.5 pb-4">
                   <span className="h-4 w-1.5 rounded-full bg-zinc-400" />
                   <h3 className="text-lg font-bold text-[var(--text-primary)] sm:text-xl">
@@ -103,14 +98,13 @@ export default function BentoAboutSection() {
                   </h3>
                 </div>
 
-                {/* Bio Content */}
                 <div className="space-y-3.5 text-xs leading-relaxed text-[var(--text-secondary)] sm:text-sm">
                   <p>
                     I&apos;m an{" "}
                     <strong className="text-[var(--text-primary)]">
                       Information Systems student at Universitas Sriwijaya
                     </strong>{" "}
-                    and a Software Engineering (RPL) student at Bukit Asam Vocational High School. Graduate with 4 years of
+                    and a Software Engineering (RPL) graduate with 4 years of
                     hands-on web development experience.
                   </p>
                   <p>
@@ -120,24 +114,23 @@ export default function BentoAboutSection() {
                       Tech Lead of SI FEST 2026
                     </strong>{" "}
                     (building 98% of the backend solo, including ticketing,
-                    payment gateway integration, admin panel, email ticket and QR ticket
+                    payment gateway integration, admin panel, and QR ticket
                     scanner) and contributing as a{" "}
                     <strong className="text-[var(--text-primary)]">
-                      Member Backend Developer at GDGoC 2026
+                      Backend Developer at GDGoC 2026
                     </strong>
                     .
                   </p>
                   <p>
                     Passionate about backend architecture, network &amp;
-                    cybersecurity (Blue/Red Team SIEM with Wazuh {" "}
+                    cybersecurity (Blue/Red Team SIEM with Wazuh,{" "}
                     <strong className="text-[var(--text-primary)]">
-                      Best Project Q1 at NAC
+                      Best Project Q1 NAC
                     </strong>
                     ), and mentoring fellow developers.
                   </p>
                 </div>
 
-                {/* Bottom Email & Action Bar */}
                 <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-[var(--border-subtle)] pt-4">
                   <button
                     onClick={handleCopyEmail}
@@ -163,7 +156,6 @@ export default function BentoAboutSection() {
           </motion.div>
         </div>
 
-        {/* "My Approach" (01, 02, 03) + Big Stats Counter Row */}
         <div className="mt-24 space-y-12">
           <div className="text-center">
             <h3 className="text-lg font-bold text-[var(--text-primary)] sm:text-xl">
@@ -194,7 +186,6 @@ export default function BentoAboutSection() {
             ))}
           </div>
 
-          {/* Big Numbers Row */}
           <div className="grid grid-cols-3 gap-6 pt-4 text-center">
             {BIG_STATS.map((stat, idx) => (
               <motion.div

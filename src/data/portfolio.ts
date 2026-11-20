@@ -12,7 +12,7 @@ export const PORTFOLIO_DATA = {
     shortName: "Davin",
     handle: "@Davin164",
     role: "Full-Stack Web Developer",
-    focus: "Backend Architecture • Tech Lead • Full-Stack Engineering",
+    focus: "Backend Architecture, Tech Lead, Full-Stack Engineering",
     educationHeadline: "S1 Sistem Informasi Universitas Sriwijaya & Alumni SMK RPL",
     yearsOfCoding: 4,
     codingSince: 2022,
@@ -26,7 +26,7 @@ export const PORTFOLIO_DATA = {
     githubUsername: "Davin164",
     linkedinUrl: "https://linkedin.com/in/davin-gabriel-jonathan",
     linkedinHandle: "davin-gabriel-jonathan",
-    bio: "Mahasiswa S1 Sistem Informasi Universitas Sriwijaya dan lulusan SMK Rekayasa Perangkat Lunak (2022–2025) dengan 4 tahun jam terbang di pengembangan web. Berpengalaman memimpin pengembangan end-to-end (UI/UX, Frontend, Backend, hingga VPS Deployment) sebagai Tech Lead Web Development SI FEST 2026 serta mengerjakan 98% arsitektur backend secara langsung. Aktif sebagai anggota Backend GDGoC 2026 dengan fokus pada sistem ticketing, integrasi payment gateway, concurrency control, dan keamanan sistem.",
+    bio: "Mahasiswa S1 Sistem Informasi Universitas Sriwijaya dan lulusan SMK Rekayasa Perangkat Lunak (2022 sampai 2025) dengan 4 tahun jam terbang di pengembangan web. Berpengalaman memimpin pengembangan end-to-end (UI/UX, Frontend, Backend, hingga VPS Deployment) sebagai Tech Lead Web Development SI FEST 2026 serta mengerjakan 98% arsitektur backend secara langsung. Aktif sebagai anggota Backend GDGoC 2026 dengan fokus pada sistem ticketing, integrasi payment gateway, concurrency control, dan keamanan sistem.",
   },
 
   metrics: [
@@ -36,13 +36,8 @@ export const PORTFOLIO_DATA = {
       detail: "Sejak SMK RPL (2022) hingga S1 Sistem Informasi UNSRI (2026)",
     },
     {
-      label: "SI FEST 2026 Backend",
-      value: "98%",
-      detail: "Arsitektur backend, payment gateway & scanner dibangun mandiri + Tech Lead",
-    },
-    {
       label: "Penghargaan Proyek",
-      value: "2× Best Project",
+      value: "2x Best Project",
       detail: "Best Project Q1 NAC (Wazuh SIEM) & Best Team Project PTI #1 HIMSI",
     },
     {
@@ -81,44 +76,6 @@ export const PORTFOLIO_DATA = {
         "MySQL / PostgreSQL",
         "VPS Deployment",
       ],
-      architecture: {
-        overview:
-          "Arsitektur terpusat yang menghubungkan 3 antarmuka (Main Web Peserta, Admin Panel Panitia, dan Ticket Scanner Gate) ke satu Core Backend dengan validasi webhook Payment Gateway.",
-        nodes: [
-          {
-            id: "client",
-            label: "Main Web & Scanner UI",
-            sublabel: "Peserta, Kompetisi & QR Gate Scanner",
-            type: "client",
-          },
-          {
-            id: "auth",
-            label: "Auth & RBAC Middleware",
-            sublabel: "Session, Role Guard & Webhook Verifier",
-            type: "security",
-          },
-          {
-            id: "core",
-            label: "SI FEST Core Backend (98% Solo)",
-            sublabel: "Ticketing Engine, Scoring Transparency & Admin API",
-            type: "service",
-          },
-          {
-            id: "payment",
-            label: "Payment Gateway",
-            sublabel: "Automated Checkout & Callback Sync",
-            type: "gateway",
-          },
-          {
-            id: "db",
-            label: "Relational Database (VPS)",
-            sublabel: "Peserta, Transaksi, Tiket & Nilai Kompetisi",
-            type: "database",
-          },
-        ],
-        keyEngineeringDecision:
-          "Memisahkan modul validasi Ticket Scanner dan callback Payment Gateway dengan middleware berlapis agar proses check-in peserta di hari-H tetap cepat dan bebas duplikasi tiket.",
-      },
       links: {
         github: "https://github.com/Davin164",
       },
@@ -131,7 +88,7 @@ export const PORTFOLIO_DATA = {
       period: "2026",
       category: "featured",
       status: "Ongoing",
-      badge: "2026 - Ongoing",
+      badge: "Ongoing",
       image: "/projects/domus-fox.svg",
       summary:
         "Platform digital untuk penerbit buku Domus Fox yang memfasilitasi penulis dalam mengajukan naskah buku secara online sekaligus menyediakan Admin Panel bagi tim redaksi untuk mengelola alur penerbitan.",
@@ -141,38 +98,6 @@ export const PORTFOLIO_DATA = {
         "Menerapkan autentikasi berbasis middleware untuk melindungi akses dashboard manajemen penerbit.",
       ],
       techStack: ["Node.js / Express.js", "REST API", "Middleware Auth", "Relational DB", "Admin Panel"],
-      architecture: {
-        overview:
-          "Sistem backend terstruktur yang menjembatani portal pengajuan naskah penulis dengan dashboard manajemen redaksi Domus Fox.",
-        nodes: [
-          {
-            id: "portal",
-            label: "Landing Page & Form Naskah",
-            sublabel: "Portal Publik Penulis Domus Fox",
-            type: "client",
-          },
-          {
-            id: "middleware",
-            label: "Auth & Input Sanitizer",
-            sublabel: "Middleware Login & Validasi File/Naskah",
-            type: "security",
-          },
-          {
-            id: "api",
-            label: "Domus Fox Backend API",
-            sublabel: "Submission Workflow & Catalog Service",
-            type: "service",
-          },
-          {
-            id: "db",
-            label: "Publishing Database",
-            sublabel: "Data Penulis, Naskah & Status Terbit",
-            type: "database",
-          },
-        ],
-        keyEngineeringDecision:
-          "Menyusun skema status pengajuan berjenjang sehingga admin penerbit dapat memantau antrean naskah masuk hingga proses terbit tanpa tumpang tindih data.",
-      },
       links: {
         github: "https://github.com/Davin164",
       },
@@ -190,43 +115,11 @@ export const PORTFOLIO_DATA = {
       summary:
         "Platform pemesanan tiket event online yang dirancang khusus untuk menangani lonjakan permintaan bersamaan (concurrent requests / flash sale) tanpa risiko overselling kuota tiket.",
       highlights: [
-        "Mengimplementasikan Pessimistic Locking (`SELECT ... FOR UPDATE`) di level database untuk mengunci baris stok tiket saat transaksi berlangsung.",
+        "Mengimplementasikan Pessimistic Locking (SELECT FOR UPDATE) di level database untuk mengunci baris stok tiket saat transaksi berlangsung.",
         "Menjamin integritas data penuh menggunakan ACID Transaction (rollback otomatis apabila pembayaran atau validasi stok gagal di tengah jalan).",
         "Menguji skenario race condition saat banyak request masuk di milidetik yang sama untuk memastikan stok tidak pernah minus.",
       ],
       techStack: ["Java Native", "MySQL", "Pessimistic Locking", "ACID Transactions", "Concurrency Control"],
-      architecture: {
-        overview:
-          "Alur penguncian baris transaksi (Row-Level Locking) pada database untuk mencegah race condition saat ratusan user membeli tiket di detik yang sama.",
-        nodes: [
-          {
-            id: "req",
-            label: "Concurrent Buyers",
-            sublabel: "Simulasi Ratusan Request Bersamaan",
-            type: "client",
-          },
-          {
-            id: "engine",
-            label: "Gatekeeper Java Service",
-            sublabel: "Transaction Boundary (BEGIN / COMMIT / ROLLBACK)",
-            type: "service",
-          },
-          {
-            id: "lock",
-            label: "SELECT ... FOR UPDATE",
-            sublabel: "Pessimistic Row-Level Lock pada Stok Tiket",
-            type: "security",
-          },
-          {
-            id: "mysql",
-            label: "MySQL InnoDB Engine",
-            sublabel: "Zero Overselling • ACID Compliant",
-            type: "database",
-          },
-        ],
-        keyEngineeringDecision:
-          "Memilih Pessimistic Locking (`SELECT FOR UPDATE`) dibanding pengecekan stok biasa di aplikasi agar antrean request dieksekusi secara atomik oleh engine InnoDB.",
-      },
       links: {
         github: "https://github.com/Davin164",
       },
@@ -242,39 +135,13 @@ export const PORTFOLIO_DATA = {
       badge: "Backend",
       image: "/projects/docker-crud-api.svg",
       summary:
-        "Layanan REST API manajemen produk berarsitektur MVC yang di-containerize sepenuhnya menggunakan Docker dan Docker Compose untuk menjamin konsistensi environment.",
+        "Layanan REST API manajemen produk berarsitektur MVC yang dijalankan sepenuhnya di dalam container menggunakan Docker dan Docker Compose untuk menjamin konsistensi environment.",
       highlights: [
         "Membangun arsitektur Model-View-Controller (MVC) yang bersih dengan kontrak respons JSON yang terstandarisasi.",
         "Mengorkestrasi service API (Node.js/Express) dan database (PostgreSQL) menggunakan Docker & Docker Compose.",
         "Melakukan pengujian menyeluruh untuk seluruh endpoint CRUD dan edge-case validasi menggunakan Postman.",
       ],
       techStack: ["Node.js", "Express.js", "PostgreSQL", "Docker", "Docker Compose", "Postman"],
-      architecture: {
-        overview:
-          "Isolasi layanan aplikasi dan penyimpanan data di dalam jaringan virtual Docker Compose yang siap dijalankan di server mana pun dengan satu perintah.",
-        nodes: [
-          {
-            id: "postman",
-            label: "API Consumer / Postman",
-            sublabel: "REST HTTP Requests (GET/POST/PUT/DELETE)",
-            type: "client",
-          },
-          {
-            id: "express",
-            label: "App Container (Express MVC)",
-            sublabel: "Router → Controller → Service Layer",
-            type: "service",
-          },
-          {
-            id: "postgres",
-            label: "DB Container (PostgreSQL)",
-            sublabel: "Persistent Volume & Internal Docker Network",
-            type: "database",
-          },
-        ],
-        keyEngineeringDecision:
-          "Menggunakan Docker Compose dengan network terisolasi dan persistent volume agar database PostgreSQL tetap aman saat container aplikasi di-rebuild.",
-      },
       links: {
         github: "https://github.com/Davin164",
       },
@@ -348,7 +215,7 @@ export const PORTFOLIO_DATA = {
     {
       id: "simak-himsi",
       title: "Website SIMAK Universitas",
-      subtitle: "Prototipe Portal Akademik — Project PTI #1 HIMSI",
+      subtitle: "Prototipe Portal Akademik Project PTI #1 HIMSI",
       role: "Web Developer",
       period: "2025",
       category: "fullstack",
@@ -414,11 +281,11 @@ export const PORTFOLIO_DATA = {
   experiences: [
     {
       id: "tech-lead-sifest-2026",
-      role: "Tech Lead — Divisi Technology & Information Development",
+      role: "Tech Lead, Divisi Technology & Information Development",
       organization: "OC TID SI FEST 2026 (Fasilkom UNSRI)",
       period: "2026",
       type: "Leadership & Tech",
-      badge: "Tech Lead • 98% Backend Solo",
+      badge: "Tech Lead",
       location: "Palembang, Indonesia",
       highlights: [
         "Memimpin tim pengembangan web secara end-to-end sebagai generalis (UI/UX, Frontend, Backend, Deployment) dan mengerjakan 98% arsitektur backend sendiri.",
@@ -429,7 +296,7 @@ export const PORTFOLIO_DATA = {
     },
     {
       id: "gdgoc-backend-2026",
-      role: "Member — Backend Development",
+      role: "Member, Backend Development",
       organization: "Google Developer Group on Campus (GDGoC)",
       period: "2026",
       type: "Engineering & Community",
@@ -443,14 +310,14 @@ export const PORTFOLIO_DATA = {
     },
     {
       id: "nac-security-multimedia",
-      role: "Staff Medinfo-Multimedia & Blue/Red Team Member",
+      role: "Staff Medinfo Multimedia & Blue/Red Team Member",
       organization: "Network Administrator Club (NAC)",
-      period: "2025 – Sekarang",
+      period: "2025 sampai Sekarang",
       type: "Cyber Security & IT",
       badge: "Best Project Q1 (Wazuh SIEM)",
       location: "Fasilkom UNSRI",
       highlights: [
-        "Berperan di divisi Medinfo–Multimedia sekaligus terjun di tim teknis keamanan siber selama 2 kuarter: Q1 sebagai Blue Team dan Q2 sebagai Red Team.",
+        "Berperan di divisi Medinfo Multimedia sekaligus terjun di tim teknis keamanan siber selama 2 kuarter: Q1 sebagai Blue Team dan Q2 sebagai Red Team.",
         "Meraih penghargaan Best Project pada Quarter 1 dengan membangun sistem SIEM menggunakan Wazuh untuk memonitor serangan Red Team secara real-time.",
       ],
       skills: ["Wazuh SIEM", "Blue Team Defense", "Red Team Simulation", "Network Security"],
@@ -459,7 +326,7 @@ export const PORTFOLIO_DATA = {
       id: "himsi-pti",
       role: "Staff Pengembangan Teknologi dan Informasi (PTI)",
       organization: "HIMSI Fasilkom UNSRI",
-      period: "2025 – Sekarang",
+      period: "2025 sampai Sekarang",
       type: "Engineering & Community",
       badge: "Best Team Project PTI #1",
       location: "Fasilkom UNSRI",
@@ -472,14 +339,14 @@ export const PORTFOLIO_DATA = {
       id: "intel-arrait-po",
       role: "PIC Backend ARRAIT, Project Officer & Vice PO",
       organization: "INTEL (English Club FASILKOM UNSRI)",
-      period: "2025 – 2026",
+      period: "2025 sampai 2026",
       type: "Leadership & Tech",
       badge: "PIC Backend & Project Officer",
       location: "Indralaya & Palembang",
       highlights: [
         "PIC Backend untuk pengembangan Website Company Profile INTEL FASILKOM UNSRI serta Staff IT Protein 2026.",
-        "Project Officer 'Intel Goes to School' (2026): Memimpin program kerja pengabdian mengajar Bahasa Inggris dan IT di SMPN 1 Indralaya.",
-        "Vice Project Officer 'General Assembly / Mubes' (2026): Mendampingi perencanaan dan pelaksanaan musyawarah besar organisasi.",
+        "Project Officer Intel Goes to School (2026): Memimpin program kerja pengabdian mengajar Bahasa Inggris dan IT di SMPN 1 Indralaya.",
+        "Vice Project Officer General Assembly / Mubes (2026): Mendampingi perencanaan dan pelaksanaan musyawarah besar organisasi.",
       ],
       skills: ["Backend Development", "Project Management", "Public Leadership", "IT Education"],
     },
@@ -487,72 +354,32 @@ export const PORTFOLIO_DATA = {
       id: "gamelab-intern-bughunter",
       role: "Web Backend Intern & Bug Hunter PPDB",
       organization: "PT Gamelab Indonesia & SMK Bukit Asam",
-      period: "2024 (SMK RPL 2022–2025)",
+      period: "2024 (SMK RPL 2022 sampai 2025)",
       type: "Industry & Security",
-      badge: "Industry Internship & Security Audit",
+      badge: "Internship & Security Audit",
       location: "Indonesia",
       highlights: [
-        "Magang PT Gamelab Indonesia (Apr–Jun 2024): Lulus 4 kelas intensif Web Backend & membangun proyek REST API CMS Sekolah dengan Node.js dan MongoDB.",
+        "Magang PT Gamelab Indonesia (April sampai Juni 2024): Lulus 4 kelas intensif Web Backend & membangun proyek REST API CMS Sekolah dengan Node.js dan MongoDB.",
         "Bug Hunter Website PPDB SMK Bukit Asam (2024): Dipercaya mengaudit celah keamanan dan bug pada portal Penerimaan Peserta Didik Baru milik Yayasan Bukit Asam Foundation serta menyusun laporan teknis perbaikannya.",
       ],
       skills: ["Node.js", "MongoDB", "REST API", "Bug Hunting", "Security Reporting"],
     },
   ] as ExperienceItem[],
 
-  skillCategories: [
-    {
-      id: "backend",
-      title: "Backend & System Architecture",
-      subtitle: "Fokus utama dalam merancang logika bisnis, API aman, dan transaksi anti-race condition",
-      skills: [
-        { name: "Node.js & Express.js", level: "Core Stack", highlight: true, usedIn: "SI FEST, GDGoC, Gamelab, Dicoding" },
-        { name: "REST API Design (MVC)", level: "Core Stack", highlight: true, usedIn: "Semua Proyek Backend" },
-        { name: "Laravel & PHP", level: "Production", highlight: true, usedIn: "Web Perpustakaan, Keuangan & To-Do" },
-        { name: "Payment Gateway Integration", level: "Production", highlight: true, usedIn: "SI FEST 2026 Ticketing" },
-        { name: "Auth & Middleware Security", level: "Production", highlight: true, usedIn: "SI FEST 2026 & Domus Fox" },
-        { name: "Java & Concurrency Control", level: "Pessimistic Lock / ACID", highlight: false, usedIn: "The Gatekeeper Logic & Video Edukasi" },
-      ],
-    },
-    {
-      id: "frontend",
-      title: "Frontend, UI & Web Animation",
-      subtitle: "Antarmuka responsif, modern, dan interaktif di perangkat mobile maupun desktop",
-      skills: [
-        { name: "JavaScript (ES6+) & TypeScript", level: "Core Stack", highlight: true, usedIn: "Full-Stack Web Apps" },
-        { name: "Tailwind CSS", level: "Core Stack", highlight: true, usedIn: "SI FEST 2026 & Modern Web UI" },
-        { name: "GSAP (Web Animation)", level: "Interactive Motion", highlight: true, usedIn: "Animasi Interaktif Frontend" },
-        { name: "React & Next.js", level: "Modern Web", highlight: true, usedIn: "Interactive Web & Portfolio Ecosystem" },
-        { name: "HTML5, CSS3 & Bootstrap", level: "Fundamental", highlight: false, usedIn: "Landing Page & Dashboard" },
-        { name: "Figma (UI/UX Prototyping)", level: "Design-to-Code", highlight: false, usedIn: "Perancangan End-to-End & Mentorship" },
-      ],
-    },
-    {
-      id: "database-devops",
-      title: "Database, DevOps & Cyber Security",
-      subtitle: "Manajemen penyimpanan relasional/NoSQL, containerization, dan monitoring keamanan",
-      skills: [
-        { name: "MySQL & PostgreSQL", level: "Relational & ACID", highlight: true, usedIn: "SI FEST, GDGoC Docker API, Gatekeeper" },
-        { name: "MongoDB & SQLite", level: "NoSQL & Lightweight", highlight: false, usedIn: "REST API CMS Sekolah Gamelab" },
-        { name: "Docker & Docker Compose", level: "Containerization", highlight: true, usedIn: "GDGoC Product CRUD API" },
-        { name: "Linux VPS & Web Deployment", level: "Production Host", highlight: true, usedIn: "Deployment Ekosistem SI FEST 2026" },
-        { name: "Wazuh SIEM & Bug Hunting", level: "Blue/Red Team", highlight: true, usedIn: "Best Project NAC Q1 & Audit PPDB" },
-        { name: "Git, GitHub & Postman", level: "Engineering Workflow", highlight: false, usedIn: "Version Control & API Testing" },
-      ],
-    },
-  ] as SkillCategory[],
+  skillCategories: [] as SkillCategory[],
 
   education: [
     {
       institution: "Universitas Sriwijaya (UNSRI)",
-      degree: "S1 Sistem Informasi — Fakultas Ilmu Komputer",
-      period: "2025 – Sekarang",
+      degree: "S1 Sistem Informasi, Fakultas Ilmu Komputer",
+      period: "2025 sampai Sekarang",
       highlights: "Tech Lead SI FEST 2026, Member Backend GDGoC 2026, Best Project NAC Q1, Best Team Project PTI #1 HIMSI, PIC Backend INTEL.",
     },
     {
       institution: "SMK Bukit Asam",
       degree: "Rekayasa Perangkat Lunak (Software Engineering)",
-      period: "2022 – 2025",
-      highlights: "Bug Hunter Website PPDB Yayasan Bukit Asam (2024) & Magang Web Backend di PT Gamelab Indonesia (Apr–Jun 2024).",
+      period: "2022 sampai 2025",
+      highlights: "Bug Hunter Website PPDB Yayasan Bukit Asam (2024) & Magang Web Backend di PT Gamelab Indonesia (2024).",
     },
   ] as EducationItem[],
 };

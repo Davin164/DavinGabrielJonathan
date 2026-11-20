@@ -8,20 +8,13 @@ import {
   Clock,
   Check,
   Terminal,
-  Sparkles,
   ChevronRight,
   FolderGit2,
 } from "lucide-react";
 import { PORTFOLIO_DATA } from "@/data/portfolio";
-import { ProjectItem } from "@/types/portfolio";
-
-interface ProjectsSectionProps {
-  selectedProject?: ProjectItem | null;
-  onSelectProject?: (project: ProjectItem | null) => void;
-}
 
 const CATEGORIES = [
-  { id: "all", label: "All Projects (10)" },
+  { id: "all", label: "All Projects" },
   { id: "featured", label: "Featured" },
   { id: "backend", label: "Backend & API" },
   { id: "fullstack", label: "Full-Stack" },
@@ -110,9 +103,7 @@ const FOLDER_THEMES: Record<
   },
 };
 
-export default function ProjectsSection({
-  selectedProject,
-}: ProjectsSectionProps) {
+export default function ProjectsSection() {
   const [activeCategory, setActiveCategory] = useState<string>("all");
   const [deckPage, setDeckPage] = useState<0 | 1>(0);
   const [activeId, setActiveId] = useState<string>("sifest-2026");
@@ -122,7 +113,6 @@ export default function ProjectsSection({
       ? PORTFOLIO_DATA.projects
       : PORTFOLIO_DATA.projects.filter((p) => p.category === activeCategory);
 
-  // When viewing "all" (10 projects), split into two 5-card Expanding Folder Decks so the panels expand super wide!
   const hasTwoDecks = activeCategory === "all" && filteredProjects.length > 5;
   const visibleProjects = hasTwoDecks
     ? deckPage === 0
@@ -130,7 +120,6 @@ export default function ProjectsSection({
       : filteredProjects.slice(5, 10)
     : filteredProjects;
 
-  // Ensure activeId is always one of the currently visible projects
   useEffect(() => {
     if (
       visibleProjects.length > 0 &&
@@ -140,26 +129,9 @@ export default function ProjectsSection({
     }
   }, [activeCategory, deckPage, visibleProjects, activeId]);
 
-  // Sync if selected via Ctrl+K Command Palette
-  useEffect(() => {
-    if (!selectedProject) return;
-    setActiveCategory("all");
-    const idx = PORTFOLIO_DATA.projects.findIndex(
-      (p) => p.id === selectedProject.id
-    );
-    if (idx !== -1) {
-      setDeckPage(idx >= 5 ? 1 : 0);
-      setActiveId(selectedProject.id);
-      document
-        .getElementById("projects")
-        ?.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [selectedProject]);
-
   return (
     <section id="projects" className="relative overflow-hidden py-20 sm:py-28">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        {/* Section Heading & Filters */}
         <div className="mb-10 flex flex-col items-center text-center">
           <motion.h2
             initial={{ opacity: 0, y: 16 }}
@@ -171,11 +143,9 @@ export default function ProjectsSection({
             Projects I worked on
           </motion.h2>
           <p className="mt-2.5 max-w-lg text-xs text-[var(--text-muted)] sm:text-sm">
-            Arahkan kursor atau klik tab folder untuk membuka detail proyek
-            secara interaktif.
+            Arahkan kursor atau klik tab folder untuk membuka detail proyek.
           </p>
 
-          {/* Category Filter Tabs */}
           <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
             {CATEGORIES.map((cat) => {
               const active = activeCategory === cat.id;
@@ -198,7 +168,6 @@ export default function ProjectsSection({
             })}
           </div>
 
-          {/* Deck Switcher when viewing All Projects (Deck 01-05 vs Deck 06-10) */}
           {hasTwoDecks && (
             <div className="mt-4 inline-flex items-center gap-1 rounded-full border border-[var(--border-subtle)] bg-[var(--bg-card)] p-1">
               <button
@@ -210,7 +179,7 @@ export default function ProjectsSection({
                 }`}
               >
                 <FolderGit2 className="h-3.5 w-3.5" />
-                <span>Folder Deck 01 – 05 (Flagship &amp; Core)</span>
+                <span>Deck 01 to 05</span>
               </button>
               <button
                 onClick={() => setDeckPage(1)}
@@ -221,15 +190,12 @@ export default function ProjectsSection({
                 }`}
               >
                 <FolderGit2 className="h-3.5 w-3.5" />
-                <span>Folder Deck 06 – 10 (API &amp; Web Suite)</span>
+                <span>Deck 06 to 10</span>
               </button>
             </div>
           )}
         </div>
 
-        {/* =====================================================================
-            DESKTOP & TABLET (lg+): EXPANDING GALLERY PANELS WITH FOLDER NOTCH SHAPE
-           ===================================================================== */}
         <div className="hidden h-[540px] w-full items-stretch gap-3 lg:flex">
           {visibleProjects.map((project, idx) => {
             const globalIndex =
@@ -249,7 +215,6 @@ export default function ProjectsSection({
                 }}
                 className="group relative flex h-full cursor-pointer flex-col transition-[flex] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
               >
-                {/* 1. TOP FOLDER NOTCH TAB (Signature Folder / HUD Silhouette!) */}
                 <div className="flex items-end">
                   <div
                     className={`relative flex h-9 items-center gap-2 rounded-t-2xl border-t border-l px-4 transition-colors duration-300 ${
@@ -260,15 +225,14 @@ export default function ProjectsSection({
                   >
                     <span className={`h-2 w-2 rounded-full ${theme.dot}`} />
                     <span className="font-mono text-xs font-extrabold tracking-wider">
-                      /{numStr}
+                      {numStr}
                     </span>
                     {isExpanded && (
                       <span className="ml-1 truncate font-mono text-[11px] uppercase tracking-widest text-zinc-400">
-                        • {project.badge || project.category}
+                        | {project.badge || project.category}
                       </span>
                     )}
 
-                    {/* Angled 45-degree Chamfered Folder Tab Slant on the Right of the Notch */}
                     <svg
                       viewBox="0 0 24 36"
                       className="absolute -right-[23px] bottom-0 h-9 w-6 overflow-visible"
@@ -291,7 +255,6 @@ export default function ProjectsSection({
                     </svg>
                   </div>
 
-                  {/* Top Shoulder Line extending from the Folder Notch */}
                   <div
                     className={`ml-[23px] h-[1px] flex-1 transition-colors duration-300 ${
                       isExpanded ? "bg-white/20" : "bg-[var(--border-subtle)]"
@@ -299,7 +262,6 @@ export default function ProjectsSection({
                   />
                 </div>
 
-                {/* 2. FOLDER BODY CONTAINER (With Chamfered Bottom-Right HUD Corner) */}
                 <div
                   className={`relative flex flex-1 overflow-hidden rounded-tr-2xl rounded-b-2xl border-r border-b border-l transition-all duration-500 ${
                     isExpanded
@@ -307,14 +269,12 @@ export default function ProjectsSection({
                       : "border-[var(--border-subtle)] bg-[#131317]/90 hover:bg-[#17171c]"
                   }`}
                 >
-                  {/* Ambient Color Glow inside Expanded Folder */}
                   <div
                     className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${theme.glow} transition-opacity duration-500 ${
                       isExpanded ? "opacity-100" : "opacity-0"
                     }`}
                   />
 
-                  {/* Futuristic HUD Corner Brackets */}
                   {isExpanded && (
                     <>
                       <span
@@ -328,14 +288,12 @@ export default function ProjectsSection({
                     </>
                   )}
 
-                  {/* COLLAPSED VERTICAL BLADE VIEW */}
                   {!isExpanded && (
                     <div className="relative z-10 flex h-full w-full flex-col items-center justify-between py-6">
                       <span className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 font-mono text-[10px] text-zinc-400">
                         {project.period}
                       </span>
 
-                      {/* Vertical Rotated Dossier Title */}
                       <div className="flex flex-1 items-center justify-center overflow-hidden py-4">
                         <p
                           style={{
@@ -354,7 +312,6 @@ export default function ProjectsSection({
                     </div>
                   )}
 
-                  {/* EXPANDED DOSSIER SHOWCASE VIEW */}
                   <AnimatePresence mode="wait">
                     {isExpanded && (
                       <motion.div
@@ -365,17 +322,16 @@ export default function ProjectsSection({
                         transition={{ duration: 0.32, delay: 0.08 }}
                         className="relative z-10 grid h-full w-full grid-cols-12 items-center gap-6 p-6 xl:p-7"
                       >
-                        {/* Left Visual Mockup Window (5 cols) */}
                         <div className="col-span-5 flex flex-col justify-center">
                           {project.status === "Ongoing" ? (
                             <div className="relative flex aspect-[4/3] w-full flex-col items-center justify-center overflow-hidden rounded-2xl border border-emerald-500/30 bg-[#111513] p-5 text-center shadow-2xl">
                               <div className="mb-2 inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-[10px] font-semibold text-emerald-400">
                                 <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
-                                <span>2026 - Ongoing</span>
+                                <span>2026 | Ongoing</span>
                                 <Clock className="h-3 w-3" />
                               </div>
                               <p className="mt-1 text-xl font-black tracking-widest text-white">
-                                ON PROGRESS......
+                                ON PROGRESS...
                               </p>
                               <p className="mt-1.5 text-[11px] leading-relaxed text-zinc-400">
                                 Pengembangan backend landing page &amp; admin
@@ -405,7 +361,6 @@ export default function ProjectsSection({
                           )}
                         </div>
 
-                        {/* Right Dossier Details (7 cols) */}
                         <div className="col-span-7 flex h-full flex-col justify-between py-1">
                           <div className="space-y-3">
                             <div className="flex flex-wrap items-center gap-2">
@@ -415,7 +370,7 @@ export default function ProjectsSection({
                                 {project.role}
                               </span>
                               <span className="font-mono text-xs text-zinc-400">
-                                • {project.period}
+                                | {project.period}
                               </span>
                             </div>
 
@@ -427,7 +382,6 @@ export default function ProjectsSection({
                               {project.summary}
                             </p>
 
-                            {/* Highlights list */}
                             <ul className="space-y-1.5 pt-1">
                               {project.highlights.slice(0, 3).map((h, i) => (
                                 <li
@@ -443,7 +397,6 @@ export default function ProjectsSection({
                             </ul>
                           </div>
 
-                          {/* Bottom Tech Stack & GitHub Button */}
                           <div
                             onClick={(e) => e.stopPropagation()}
                             className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-3.5"
@@ -495,9 +448,6 @@ export default function ProjectsSection({
           })}
         </div>
 
-        {/* =====================================================================
-            MOBILE & SMALL TABLET (< lg): STACKED FOLDER NOTCH CARDS (Responsive di HP!)
-           ===================================================================== */}
         <div className="space-y-3.5 lg:hidden">
           {visibleProjects.map((project, idx) => {
             const globalIndex =
@@ -509,7 +459,6 @@ export default function ProjectsSection({
 
             return (
               <div key={project.id} className="flex flex-col">
-                {/* Mobile Folder Notch Header */}
                 <div className="flex items-end">
                   <button
                     onClick={() => setActiveId(project.id)}
@@ -521,10 +470,10 @@ export default function ProjectsSection({
                   >
                     <span className={`h-2 w-2 rounded-full ${theme.dot}`} />
                     <span className="font-mono text-xs font-extrabold">
-                      /{numStr}
+                      {numStr}
                     </span>
                     <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-400">
-                      • {project.badge || project.period}
+                      | {project.badge || project.period}
                     </span>
 
                     <svg
@@ -555,7 +504,6 @@ export default function ProjectsSection({
                   />
                 </div>
 
-                {/* Mobile Folder Body */}
                 <div
                   onClick={() => setActiveId(project.id)}
                   className={`relative overflow-hidden rounded-tr-2xl rounded-b-2xl border-r border-b border-l transition-all ${
@@ -564,21 +512,19 @@ export default function ProjectsSection({
                       : "border-[var(--border-subtle)] bg-[#131317] px-4 py-3.5"
                   }`}
                 >
-                  {/* Ambient Glow */}
                   {isExpanded && (
                     <div
                       className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${theme.glow}`}
                     />
                   )}
 
-                  {/* Always-visible Folder Title Bar on Mobile */}
                   <div className="relative z-10 flex items-center justify-between gap-3">
                     <div>
                       <h3 className="text-sm font-bold text-white sm:text-base">
                         {project.title}
                       </h3>
                       <p className="text-[11px] text-zinc-400">
-                        {project.role} • {project.period}
+                        {project.role} | {project.period}
                       </p>
                     </div>
                     <ChevronRight
@@ -588,7 +534,6 @@ export default function ProjectsSection({
                     />
                   </div>
 
-                  {/* Expanded Content on Mobile */}
                   <AnimatePresence initial={false}>
                     {isExpanded && (
                       <motion.div
@@ -602,7 +547,7 @@ export default function ProjectsSection({
                           {project.status === "Ongoing" ? (
                             <div className="rounded-xl border border-emerald-500/30 bg-[#111513] p-4 text-center">
                               <p className="text-base font-black tracking-widest text-white">
-                                ON PROGRESS......
+                                ON PROGRESS...
                               </p>
                               <p className="mt-1 text-xs text-zinc-400">
                                 Backend &amp; Admin Panel Domus Fox sedang
@@ -685,14 +630,6 @@ export default function ProjectsSection({
               </div>
             );
           })}
-        </div>
-
-        {/* Bottom Hint Bar */}
-        <div className="mt-6 flex items-center justify-center gap-2 text-center font-mono text-[11px] text-[var(--text-muted)]">
-          <Sparkles className="h-3.5 w-3.5" />
-          <span>
-            Hover atau klik tab folder (/01 – /10) untuk membuka arsip proyek
-          </span>
         </div>
       </div>
     </section>

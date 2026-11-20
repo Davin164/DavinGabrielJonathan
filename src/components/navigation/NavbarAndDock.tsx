@@ -9,7 +9,6 @@ import {
   Briefcase,
   Cpu,
   Phone,
-  Search,
   Sun,
   Moon,
 } from "lucide-react";
@@ -17,8 +16,8 @@ import {
 interface NavbarAndDockProps {
   theme: "dark" | "light";
   onToggleTheme: () => void;
-  onOpenCommandPalette: () => void;
   activeSection: string;
+  onSelectSection?: (id: string) => void;
 }
 
 const NAV_ITEMS = [
@@ -33,10 +32,11 @@ const NAV_ITEMS = [
 export default function NavbarAndDock({
   theme,
   onToggleTheme,
-  onOpenCommandPalette,
   activeSection,
+  onSelectSection,
 }: NavbarAndDockProps) {
   const scrollToSection = (id: string) => {
+    onSelectSection?.(id);
     const el = document.getElementById(id);
     if (el) {
       el.scrollIntoView({ behavior: "smooth" });
@@ -45,10 +45,8 @@ export default function NavbarAndDock({
 
   return (
     <>
-      {/* Top Floating Header (Inspired by ello-rabyndra, khalifaalhasan & atalaa-df) */}
       <header className="sticky top-0 z-40 w-full pt-4 pb-2">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 sm:px-6">
-          {/* Left Terminal Brand (Inspired by khalifaalhasan.my.id) */}
           <button
             onClick={() => scrollToSection("hero")}
             className="group flex items-center gap-2.5 text-left focus:outline-none"
@@ -61,7 +59,6 @@ export default function NavbarAndDock({
             </span>
           </button>
 
-          {/* Center Floating Pill Navbar (Signature of all 3 reference sites) */}
           <nav
             aria-label="Primary Navigation"
             className="hidden items-center gap-1 rounded-full border border-[var(--border-subtle)] bg-[var(--bg-card)]/85 px-4 py-2 shadow-[0_12px_40px_rgba(0,0,0,0.55)] backdrop-blur-xl lg:flex"
@@ -75,7 +72,7 @@ export default function NavbarAndDock({
                   onClick={() => scrollToSection(item.id)}
                   className={`relative flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-medium transition-colors ${
                     isActive
-                      ? "text-[var(--text-primary)] font-semibold"
+                      ? "font-semibold text-[var(--text-primary)]"
                       : "text-[var(--text-muted)] hover:text-[var(--text-secondary)]"
                   }`}
                 >
@@ -93,20 +90,7 @@ export default function NavbarAndDock({
             })}
           </nav>
 
-          {/* Right Controls: Search (Ctrl+K), Theme Toggle & "Let's Talk" Pill */}
           <div className="flex items-center gap-2">
-            <button
-              onClick={onOpenCommandPalette}
-              aria-label="Open Command Palette"
-              title="Command Palette (Ctrl + K)"
-              className="flex h-9 items-center gap-1.5 rounded-full border border-[var(--border-subtle)] bg-[var(--bg-card)] px-3 text-xs text-[var(--text-secondary)] transition-colors hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
-            >
-              <Search className="h-3.5 w-3.5" />
-              <kbd className="hidden font-mono text-[10px] text-[var(--text-muted)] sm:inline">
-                ⌘K
-              </kbd>
-            </button>
-
             <button
               onClick={onToggleTheme}
               aria-label="Toggle color theme"
@@ -129,13 +113,12 @@ export default function NavbarAndDock({
         </div>
       </header>
 
-      {/* Mobile & Tablet Floating Pill Dock */}
       <div className="fixed bottom-4 left-1/2 z-40 -translate-x-1/2 px-3 lg:hidden">
         <nav
           aria-label="Mobile Bottom Pill Navigation"
           className="flex items-center gap-1 rounded-full border border-[var(--border-subtle)] bg-[var(--bg-elevated)]/95 px-3 py-2 shadow-2xl shadow-black/70 backdrop-blur-xl"
         >
-          {NAV_ITEMS.filter((i) => i.id !== "services").map((item) => {
+          {NAV_ITEMS.map((item) => {
             const Icon = item.icon;
             const isActive = activeSection === item.id;
             return (
@@ -144,7 +127,7 @@ export default function NavbarAndDock({
                 onClick={() => scrollToSection(item.id)}
                 className={`relative flex flex-col items-center justify-center px-2.5 py-1 transition-all ${
                   isActive
-                    ? "text-[var(--text-primary)] font-semibold"
+                    ? "font-semibold text-[var(--text-primary)]"
                     : "text-[var(--text-muted)] active:scale-95"
                 }`}
               >

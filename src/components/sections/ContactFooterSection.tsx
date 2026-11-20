@@ -31,13 +31,11 @@ export default function ContactFooterSection() {
     >
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SpotlightCard className="relative p-7 sm:p-12">
-          {/* Decorative glowing neon shapes inside footer */}
           <div className="pointer-events-none absolute -top-6 right-8 hidden opacity-60 lg:block">
             <GlowingShape variant="star" size={76} delay={0.4} />
           </div>
 
           <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-12">
-            {/* Left CTA Text */}
             <div className="space-y-4 lg:col-span-7">
               <p className="font-mono text-xs uppercase tracking-widest text-[var(--text-muted)]">
                 LET&apos;S BUILD SOMETHING GREAT
@@ -80,7 +78,6 @@ export default function ContactFooterSection() {
               </div>
             </div>
 
-            {/* Right Quick Links Card */}
             <div className="space-y-3 lg:col-span-5">
               <a
                 href={`mailto:${PORTFOLIO_DATA.personal.email}`}
@@ -149,7 +146,6 @@ export default function ContactFooterSection() {
           </div>
         </SpotlightCard>
 
-        {/* Bottom Copyright Bar */}
         <div className="mt-8 flex flex-col items-center justify-between gap-3 border-t border-[var(--border-subtle)] pt-6 text-center text-xs text-[var(--text-muted)] sm:flex-row sm:text-left">
           <p>
             © {new Date().getFullYear()}{" "}
@@ -159,7 +155,7 @@ export default function ContactFooterSection() {
             . Crafted with Next.js, TypeScript, Tailwind CSS &amp; Framer Motion.
           </p>
           <p className="font-mono text-[11px]">
-            Palembang, Sumatera Selatan • Hosted on Vercel
+            Palembang, Sumatera Selatan | Hosted on Vercel
           </p>
         </div>
       </div>
