@@ -593,19 +593,6 @@ export const PORTFOLIO_DATA = {
       ],
       skills: ["Node.js", "Express.js", "MongoDB", "REST API", "Backend JavaScript"],
     },
-    {
-      id: "smk-bukit-asam-bughunter",
-      role: "Bug Hunter, Website PPDB",
-      organization: "SMK Bukit Asam (Yayasan Bukit Asam Foundation)",
-      period: "2024",
-      type: "Industry & Security",
-      badge: "Security Audit",
-      location: "Tanjung Enim, Sumatera Selatan",
-      highlights: [
-        "Dipercaya untuk mencari bug dan mengaudit celah keamanan pada website Penerimaan Peserta Didik Baru (PPDB) SMK Bukit Asam dari Yayasan Bukit Asam Foundation serta menyusun laporan teknis perbaikannya.",
-      ],
-      skills: ["Bug Hunting", "Vulnerability Assessment", "Web Security", "Security Reporting"],
-    },
   ] as ExperienceItem[],
 
   skillCategories: [] as SkillCategory[],
