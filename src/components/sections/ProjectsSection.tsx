@@ -10,8 +10,10 @@ import {
   Terminal,
   ChevronRight,
   FolderGit2,
+  MousePointerClick,
 } from "lucide-react";
 import { PORTFOLIO_DATA } from "@/data/portfolio";
+import { ProjectItem } from "@/types/portfolio";
 
 const CATEGORIES = [
   { id: "all", label: "All Projects" },
@@ -103,10 +105,248 @@ const FOLDER_THEMES: Record<
   },
 };
 
+function ProjectVisualGraphic({
+  project,
+  accent,
+}: {
+  project: ProjectItem;
+  accent: string;
+}) {
+  const [imgFailed, setImgFailed] = useState(false);
+  const hasCustomPhoto =
+    project.image &&
+    !project.image.endsWith(".svg") &&
+    !imgFailed;
+
+  if (project.status === "Ongoing") {
+    return (
+      <div className="relative flex aspect-[16/10] w-full flex-col items-center justify-center overflow-hidden rounded-2xl border border-emerald-500/30 bg-[#111513] p-5 text-center shadow-2xl">
+        <div className="mb-2 inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-[10px] font-semibold text-emerald-400">
+          <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
+          <span>2026 | Ongoing</span>
+          <Clock className="h-3 w-3" />
+        </div>
+        <p className="mt-1 text-xl font-black tracking-widest text-white">
+          ON PROGRESS...
+        </p>
+        <p className="mt-1.5 text-[11px] leading-relaxed text-zinc-400">
+          Pengembangan backend landing page &amp; admin panel penerbitan buku
+          Domus Fox sedang berjalan.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="relative overflow-hidden rounded-2xl border border-white/15 bg-[#0c0c10] p-2.5 shadow-2xl">
+      <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl bg-[#111318]">
+        {hasCustomPhoto ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={project.image}
+            alt={project.title}
+            onError={() => setImgFailed(true)}
+            className="h-full w-full object-cover object-center transition-transform duration-700 hover:scale-105"
+          />
+        ) : (
+          <svg
+            viewBox="0 0 640 400"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-full w-full"
+          >
+            <rect width="640" height="400" fill="#0d1016" />
+            <circle
+              cx="520"
+              cy="70"
+              r="180"
+              fill={accent}
+              fillOpacity="0.12"
+            />
+            <circle
+              cx="110"
+              cy="340"
+              r="160"
+              fill={accent}
+              fillOpacity="0.08"
+            />
+            <rect
+              x="36"
+              y="32"
+              width="568"
+              height="336"
+              rx="14"
+              fill="#141821"
+              stroke="rgba(255,255,255,0.1)"
+              strokeWidth="1.5"
+            />
+            <rect
+              x="36"
+              y="32"
+              width="568"
+              height="36"
+              rx="14"
+              fill="#1b202c"
+            />
+            <circle cx="58" cy="50" r="5" fill="#3f3f46" />
+            <circle cx="74" cy="50" r="5" fill="#3f3f46" />
+            <circle cx="90" cy="50" r="5" fill="#3f3f46" />
+            <rect
+              x="116"
+              y="42"
+              width="210"
+              height="16"
+              rx="8"
+              fill="#0d1016"
+            />
+
+            <rect
+              x="64"
+              y="96"
+              width="240"
+              height="22"
+              rx="6"
+              fill="#f4f4f5"
+            />
+            <rect
+              x="64"
+              y="130"
+              width="190"
+              height="12"
+              rx="4"
+              fill="#71717a"
+            />
+            <rect
+              x="64"
+              y="150"
+              width="155"
+              height="12"
+              rx="4"
+              fill="#52525b"
+            />
+
+            <rect
+              x="64"
+              y="186"
+              width="115"
+              height="34"
+              rx="8"
+              fill={accent}
+              fillOpacity="0.85"
+            />
+            <rect
+              x="190"
+              y="186"
+              width="95"
+              height="34"
+              rx="8"
+              fill="#27272a"
+            />
+
+            <rect
+              x="64"
+              y="246"
+              width="240"
+              height="92"
+              rx="10"
+              fill="#0d1016"
+              stroke="rgba(255,255,255,0.07)"
+            />
+            <rect
+              x="82"
+              y="266"
+              width="110"
+              height="12"
+              rx="4"
+              fill={accent}
+            />
+            <rect
+              x="82"
+              y="288"
+              width="180"
+              height="10"
+              rx="3"
+              fill="#52525b"
+            />
+            <rect
+              x="82"
+              y="306"
+              width="145"
+              height="10"
+              rx="3"
+              fill="#3f3f46"
+            />
+
+            <rect
+              x="334"
+              y="96"
+              width="242"
+              height="242"
+              rx="12"
+              fill="#0d1016"
+              stroke="rgba(255,255,255,0.08)"
+            />
+            <rect
+              x="354"
+              y="116"
+              width="202"
+              height="105"
+              rx="8"
+              fill="#181d27"
+            />
+            <path
+              d="M374 195 L415 162 L455 176 L500 138 L536 152"
+              stroke={accent}
+              strokeWidth="3.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <rect
+              x="354"
+              y="238"
+              width="135"
+              height="14"
+              rx="4"
+              fill="#e4e4e7"
+            />
+            <rect
+              x="354"
+              y="260"
+              width="95"
+              height="10"
+              rx="3"
+              fill="#71717a"
+            />
+            <rect
+              x="354"
+              y="288"
+              width="202"
+              height="30"
+              rx="6"
+              fill={accent}
+              fillOpacity="0.22"
+            />
+          </svg>
+        )}
+      </div>
+
+      <div className="mt-2.5 flex items-center justify-between gap-2 px-1 font-mono text-[11px] text-zinc-400">
+        <span className="flex items-center gap-1.5 truncate">
+          <Terminal className="h-3.5 w-3.5 shrink-0 text-emerald-400" />
+          <span className="truncate">{project.role}</span>
+        </span>
+        <span className="shrink-0">{project.period}</span>
+      </div>
+    </div>
+  );
+}
+
 export default function ProjectsSection() {
   const [activeCategory, setActiveCategory] = useState<string>("all");
   const [deckPage, setDeckPage] = useState<0 | 1>(0);
-  const [activeId, setActiveId] = useState<string>("sifest-2026");
+  const [activeId, setActiveId] = useState<string>(
+    PORTFOLIO_DATA.projects[0].id
+  );
 
   const filteredProjects =
     activeCategory === "all"
@@ -142,11 +382,13 @@ export default function ProjectsSection() {
           >
             Projects I worked on
           </motion.h2>
-          <p className="mt-2.5 max-w-lg text-xs text-[var(--text-muted)] sm:text-sm">
-            Arahkan kursor atau klik tab folder untuk membuka detail proyek.
+
+          <p className="mt-2.5 inline-flex items-center gap-1.5 rounded-full border border-[var(--border-subtle)] bg-[var(--bg-card)] px-3.5 py-1 text-xs text-[var(--text-secondary)]">
+            <MousePointerClick className="h-3.5 w-3.5 text-emerald-400" />
+            <span>Klik atau tekan tab folder untuk membuka detail proyek</span>
           </p>
 
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
+          <div className="mt-5 flex flex-wrap items-center justify-center gap-2">
             {CATEGORIES.map((cat) => {
               const active = activeCategory === cat.id;
               return (
@@ -171,7 +413,10 @@ export default function ProjectsSection() {
           {hasTwoDecks && (
             <div className="mt-4 inline-flex items-center gap-1 rounded-full border border-[var(--border-subtle)] bg-[var(--bg-card)] p-1">
               <button
-                onClick={() => setDeckPage(0)}
+                onClick={() => {
+                  setDeckPage(0);
+                  setActiveId(filteredProjects[0].id);
+                }}
                 className={`flex items-center gap-1.5 rounded-full px-4 py-1.5 font-mono text-xs font-semibold transition-all ${
                   deckPage === 0
                     ? "bg-white text-zinc-950 shadow"
@@ -182,7 +427,12 @@ export default function ProjectsSection() {
                 <span>Deck 01 to 05</span>
               </button>
               <button
-                onClick={() => setDeckPage(1)}
+                onClick={() => {
+                  setDeckPage(1);
+                  if (filteredProjects[5]) {
+                    setActiveId(filteredProjects[5].id);
+                  }
+                }}
                 className={`flex items-center gap-1.5 rounded-full px-4 py-1.5 font-mono text-xs font-semibold transition-all ${
                   deckPage === 1
                     ? "bg-white text-zinc-950 shadow"
@@ -196,7 +446,7 @@ export default function ProjectsSection() {
           )}
         </div>
 
-        <div className="hidden h-[540px] w-full items-stretch gap-3 lg:flex">
+        <div className="hidden min-h-[560px] w-full items-stretch gap-3 lg:flex">
           {visibleProjects.map((project, idx) => {
             const globalIndex =
               hasTwoDecks && deckPage === 1 ? idx + 6 : idx + 1;
@@ -206,21 +456,29 @@ export default function ProjectsSection() {
               FOLDER_THEMES[project.id] || FOLDER_THEMES["sifest-2026"];
 
             return (
-              <div
+              <motion.div
+                layout
                 key={project.id}
-                onMouseEnter={() => setActiveId(project.id)}
                 onClick={() => setActiveId(project.id)}
-                style={{
-                  flex: isExpanded ? "5.2 1 0%" : "0.85 1 0%",
+                initial={false}
+                animate={{
+                  flexGrow: isExpanded ? 5.4 : 0.85,
                 }}
-                className="group relative flex h-full cursor-pointer flex-col transition-[flex] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+                transition={{
+                  type: "spring",
+                  stiffness: 240,
+                  damping: 28,
+                  mass: 0.9,
+                }}
+                style={{ flexBasis: "0%" }}
+                className="group relative flex min-w-[74px] cursor-pointer flex-col"
               >
                 <div className="flex items-end">
                   <div
                     className={`relative flex h-9 items-center gap-2 rounded-t-2xl border-t border-l px-4 transition-colors duration-300 ${
                       isExpanded
                         ? `${theme.tabBorder} bg-[#1a1a20] text-white`
-                        : "border-[var(--border-subtle)] bg-[#141418] text-[var(--text-muted)] group-hover:text-[var(--text-secondary)]"
+                        : "border-[var(--border-subtle)] bg-[#141418] text-[var(--text-muted)] group-hover:text-[var(--text-primary)]"
                     }`}
                   >
                     <span className={`h-2 w-2 rounded-full ${theme.dot}`} />
@@ -263,10 +521,10 @@ export default function ProjectsSection() {
                 </div>
 
                 <div
-                  className={`relative flex flex-1 overflow-hidden rounded-tr-2xl rounded-b-2xl border-r border-b border-l transition-all duration-500 ${
+                  className={`relative flex flex-1 overflow-hidden rounded-tr-2xl rounded-b-2xl border-r border-b border-l transition-colors duration-300 ${
                     isExpanded
                       ? `${theme.tabBorder} bg-[#18181d] shadow-[0_25px_70px_rgba(0,0,0,0.85)]`
-                      : "border-[var(--border-subtle)] bg-[#131317]/90 hover:bg-[#17171c]"
+                      : "border-[var(--border-subtle)] bg-[#131317]/90 hover:border-white/20 hover:bg-[#17171c]"
                   }`}
                 >
                   <div
@@ -288,13 +546,18 @@ export default function ProjectsSection() {
                     </>
                   )}
 
-                  {!isExpanded && (
-                    <div className="relative z-10 flex h-full w-full flex-col items-center justify-between py-6">
+                  {!isExpanded ? (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.2 }}
+                      className="relative z-10 flex h-full w-full flex-col items-center justify-between py-5"
+                    >
                       <span className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 font-mono text-[10px] text-zinc-400">
                         {project.period}
                       </span>
 
-                      <div className="flex flex-1 items-center justify-center overflow-hidden py-4">
+                      <div className="flex flex-1 items-center justify-center overflow-hidden py-3">
                         <p
                           style={{
                             writingMode: "vertical-rl",
@@ -306,144 +569,112 @@ export default function ProjectsSection() {
                         </p>
                       </div>
 
-                      <div className="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/5 text-zinc-400 transition-transform group-hover:scale-110 group-hover:border-white/25 group-hover:text-white">
-                        <ChevronRight className="h-4 w-4" />
+                      <div className="flex flex-col items-center gap-1.5">
+                        <span className="font-mono text-[9px] font-semibold uppercase tracking-wider text-zinc-400 group-hover:text-white">
+                          Klik
+                        </span>
+                        <div className="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/5 text-zinc-400 transition-all group-hover:scale-110 group-hover:border-white/30 group-hover:bg-white group-hover:text-zinc-950">
+                          <ChevronRight className="h-4 w-4" />
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key={`expanded-${project.id}`}
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.28, delay: 0.08 }}
+                      className="relative z-10 flex h-full w-full flex-col justify-between gap-6 p-6 xl:p-7"
+                    >
+                      <div className="grid grid-cols-12 items-center gap-6">
+                        <div className="col-span-5">
+                          <ProjectVisualGraphic
+                            project={project}
+                            accent={theme.accent}
+                          />
+                        </div>
 
-                  <AnimatePresence mode="wait">
-                    {isExpanded && (
-                      <motion.div
-                        key={project.id}
-                        initial={{ opacity: 0, x: 14 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.32, delay: 0.08 }}
-                        className="relative z-10 grid h-full w-full grid-cols-12 items-center gap-6 p-6 xl:p-7"
-                      >
-                        <div className="col-span-5 flex flex-col justify-center">
-                          {project.status === "Ongoing" ? (
-                            <div className="relative flex aspect-[4/3] w-full flex-col items-center justify-center overflow-hidden rounded-2xl border border-emerald-500/30 bg-[#111513] p-5 text-center shadow-2xl">
-                              <div className="mb-2 inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-[10px] font-semibold text-emerald-400">
-                                <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
-                                <span>2026 | Ongoing</span>
-                                <Clock className="h-3 w-3" />
-                              </div>
-                              <p className="mt-1 text-xl font-black tracking-widest text-white">
-                                ON PROGRESS...
-                              </p>
-                              <p className="mt-1.5 text-[11px] leading-relaxed text-zinc-400">
-                                Pengembangan backend landing page &amp; admin
-                                panel penerbitan buku Domus Fox sedang berjalan.
-                              </p>
-                            </div>
-                          ) : (
-                            <div className="relative overflow-hidden rounded-2xl border border-white/15 bg-[#0c0c10] p-2 shadow-2xl">
-                              <div className="aspect-[16/11] w-full overflow-hidden rounded-xl bg-zinc-950">
-                                {/* eslint-disable-next-line @next/next/no-img-element */}
-                                <img
-                                  src={
-                                    project.image || "/projects/sifest-2026.svg"
-                                  }
-                                  alt={project.title}
-                                  className="h-full w-full object-cover object-center transition-transform duration-700 hover:scale-105"
-                                />
-                              </div>
-                              <div className="mt-2 flex items-center justify-between px-1.5 py-0.5 font-mono text-[10px] text-zinc-400">
-                                <span className="flex items-center gap-1.5 truncate">
-                                  <Terminal className="h-3 w-3 text-emerald-400" />
-                                  {project.role}
+                        <div className="col-span-7 space-y-3">
+                          <div className="flex flex-wrap items-center gap-2">
+                            <span
+                              className={`rounded-full border px-3 py-0.5 font-mono text-[11px] font-semibold ${theme.badgeBg}`}
+                            >
+                              {project.role}
+                            </span>
+                            <span className="font-mono text-xs text-zinc-400">
+                              | {project.period}
+                            </span>
+                          </div>
+
+                          <h3 className="text-xl font-extrabold tracking-tight text-white xl:text-2xl">
+                            {project.title}
+                          </h3>
+
+                          <p className="text-xs leading-relaxed text-zinc-300">
+                            {project.summary}
+                          </p>
+
+                          <ul className="space-y-1.5 pt-1">
+                            {project.highlights.slice(0, 3).map((h, i) => (
+                              <li
+                                key={i}
+                                className="flex items-start gap-2 text-xs leading-relaxed text-zinc-300/90"
+                              >
+                                <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-white/10 text-white">
+                                  <Check className="h-2.5 w-2.5" />
                                 </span>
-                                <span>{project.period}</span>
-                              </div>
-                            </div>
+                                <span>{h}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+
+                      <div
+                        onClick={(e) => e.stopPropagation()}
+                        className="flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-4"
+                      >
+                        <div className="flex flex-wrap items-center gap-1.5">
+                          {project.techStack.map((tech) => (
+                            <span
+                              key={tech}
+                              className="rounded-full border border-white/10 bg-black/40 px-3 py-1 text-[11px] font-medium text-zinc-200"
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+
+                        <div className="flex shrink-0 items-center gap-2">
+                          {project.links?.github && (
+                            <a
+                              href={project.links.github}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-bold text-zinc-950 shadow-lg transition-transform hover:scale-105 active:scale-95"
+                            >
+                              <Github className="h-3.5 w-3.5" />
+                              <span>Github</span>
+                            </a>
+                          )}
+
+                          {project.links?.drive && (
+                            <a
+                              href={project.links.drive}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-bold text-zinc-950 shadow-lg transition-transform hover:scale-105 active:scale-95"
+                            >
+                              <Video className="h-3.5 w-3.5" />
+                              <span>Google Drive</span>
+                            </a>
                           )}
                         </div>
-
-                        <div className="col-span-7 flex h-full flex-col justify-between py-1">
-                          <div className="space-y-3">
-                            <div className="flex flex-wrap items-center gap-2">
-                              <span
-                                className={`rounded-full border px-3 py-0.5 font-mono text-[11px] font-semibold ${theme.badgeBg}`}
-                              >
-                                {project.role}
-                              </span>
-                              <span className="font-mono text-xs text-zinc-400">
-                                | {project.period}
-                              </span>
-                            </div>
-
-                            <h3 className="text-xl font-extrabold tracking-tight text-white xl:text-2xl">
-                              {project.title}
-                            </h3>
-
-                            <p className="text-xs leading-relaxed text-zinc-300">
-                              {project.summary}
-                            </p>
-
-                            <ul className="space-y-1.5 pt-1">
-                              {project.highlights.slice(0, 3).map((h, i) => (
-                                <li
-                                  key={i}
-                                  className="flex items-start gap-2 text-xs leading-relaxed text-zinc-300/90"
-                                >
-                                  <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-white/10 text-white">
-                                    <Check className="h-2.5 w-2.5" />
-                                  </span>
-                                  <span className="line-clamp-2">{h}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-
-                          <div
-                            onClick={(e) => e.stopPropagation()}
-                            className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-3.5"
-                          >
-                            <div className="flex flex-wrap gap-1.5">
-                              {project.techStack.map((tech) => (
-                                <span
-                                  key={tech}
-                                  className="rounded-full border border-white/10 bg-black/35 px-2.5 py-1 text-[10px] font-medium text-zinc-200"
-                                >
-                                  {tech}
-                                </span>
-                              ))}
-                            </div>
-
-                            <div className="flex items-center gap-2">
-                              {project.links?.github && (
-                                <a
-                                  href={project.links.github}
-                                  target="_blank"
-                                  rel="noreferrer"
-                                  className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-bold text-zinc-950 shadow-lg transition-transform hover:scale-105 active:scale-95"
-                                >
-                                  <Github className="h-3.5 w-3.5" />
-                                  <span>Github</span>
-                                </a>
-                              )}
-
-                              {project.links?.drive && (
-                                <a
-                                  href={project.links.drive}
-                                  target="_blank"
-                                  rel="noreferrer"
-                                  className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-bold text-zinc-950 shadow-lg transition-transform hover:scale-105 active:scale-95"
-                                >
-                                  <Video className="h-3.5 w-3.5" />
-                                  <span>Google Drive</span>
-                                </a>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                      </div>
+                    </motion.div>
+                  )}
                 </div>
-              </div>
+              </motion.div>
             );
           })}
         </div>
@@ -527,11 +758,18 @@ export default function ProjectsSection() {
                         {project.role} | {project.period}
                       </p>
                     </div>
-                    <ChevronRight
-                      className={`h-4 w-4 shrink-0 text-zinc-400 transition-transform duration-300 ${
-                        isExpanded ? "rotate-90 text-white" : ""
-                      }`}
-                    />
+                    <div className="flex items-center gap-1.5">
+                      {!isExpanded && (
+                        <span className="font-mono text-[10px] text-zinc-400">
+                          Tekan
+                        </span>
+                      )}
+                      <ChevronRight
+                        className={`h-4 w-4 shrink-0 text-zinc-400 transition-transform duration-300 ${
+                          isExpanded ? "rotate-90 text-white" : ""
+                        }`}
+                      />
+                    </div>
                   </div>
 
                   <AnimatePresence initial={false}>
@@ -540,32 +778,18 @@ export default function ProjectsSection() {
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.28 }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 260,
+                          damping: 28,
+                        }}
                         className="relative z-10 overflow-hidden"
                       >
                         <div className="mt-4 space-y-4 border-t border-white/10 pt-4">
-                          {project.status === "Ongoing" ? (
-                            <div className="rounded-xl border border-emerald-500/30 bg-[#111513] p-4 text-center">
-                              <p className="text-base font-black tracking-widest text-white">
-                                ON PROGRESS...
-                              </p>
-                              <p className="mt-1 text-xs text-zinc-400">
-                                Backend &amp; Admin Panel Domus Fox sedang
-                                dikembangkan.
-                              </p>
-                            </div>
-                          ) : (
-                            <div className="aspect-[16/10] w-full overflow-hidden rounded-xl border border-white/10 bg-zinc-950">
-                              {/* eslint-disable-next-line @next/next/no-img-element */}
-                              <img
-                                src={
-                                  project.image || "/projects/sifest-2026.svg"
-                                }
-                                alt={project.title}
-                                className="h-full w-full object-cover"
-                              />
-                            </div>
-                          )}
+                          <ProjectVisualGraphic
+                            project={project}
+                            accent={theme.accent}
+                          />
 
                           <p className="text-xs leading-relaxed text-zinc-300">
                             {project.summary}
@@ -591,7 +815,7 @@ export default function ProjectsSection() {
                               {project.techStack.map((tech) => (
                                 <span
                                   key={tech}
-                                  className="rounded-full border border-white/10 bg-black/40 px-2.5 py-0.5 text-[10px] text-zinc-200"
+                                  className="rounded-full border border-white/10 bg-black/40 px-2.5 py-1 text-[10px] text-zinc-200"
                                 >
                                   {tech}
                                 </span>
